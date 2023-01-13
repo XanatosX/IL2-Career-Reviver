@@ -1,46 +1,59 @@
+using IL2CarrerReviverConsole.Commands.Cli;
+using IL2CarrerReviverConsole.DepedencyInjection;
+using IL2CarrerReviverModel.Data;
+using IL2CarrerReviverModel.Data.Gateways;
+using IL2CarrerReviverModel.DependencyInjection;
+using IL2CarrerReviverModel.Models;
+using IL2CarrerReviverModel.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using src.SqlLiteReaderModel.Model;
-using src.SqlLiteReaderModel.Services;
+using Spectre.Console.Cli;
+using Spectre.Console.Cli.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
-
 namespace src.SqlLiteReaderConsole
 {
     public class Program
     {
-        public static void Main(params string[] args)
+        public static int Main(params string[] args)
         {
-            ServiceProvider services = new ServiceCollection()
-                                            .AddSingleton<IDatabaseConnection, SqlLiteConnection>()
-                                            .AddSingleton<IDatabaseInformation, SqlLiteDatabaseInformation>()
-                                            .AddSingleton<ICareerInformation, SqlLiteCareerInformation>()
-                                            .BuildServiceProvider();
+            var collection = new ServiceCollection().AddModelDependencies()
+                                                    .AddDbGateways()
+                                                    .AddViews()
+                                                    .AddAdditionalServices();
+            var typeRegistrar = new DependencyInjectionRegistrar(collection);
+            var app = new CommandApp(typeRegistrar);
 
-
-            IDatabaseConnection connection = services.GetRequiredService<IDatabaseConnection>();
-            connection.SetConnectionString(@"E:\Downloads\20220421_Backup_cp.db");
-
-            IDatabaseInformation information = services.GetRequiredService<IDatabaseInformation>();
-            ICareerInformation career = services.GetRequiredService<ICareerInformation>();
-            Console.WriteLine(string.Concat("IL-2 Career Editor Tool V", ""));
-            Console.WriteLine(string.Concat("Database Version ", information.GetDatabaseVersion()));
-            Console.WriteLine(string.Empty);
-
-            foreach (Pilot pilot in career.GetPilots())
+            app.Configure(config =>
             {
-                Console.WriteLine(string.Format("=== Pilot entry for pilot number: {0} ===", pilot.PilotId));
-                Console.WriteLine(string.Format("Name:         {0}", pilot.FirstName));
-                Console.WriteLine(string.Format("Last name:    {0}", pilot.LastName));
-                Console.WriteLine(string.Format("State:        {0}", pilot.Alive ? "Alive" : "Missed or KIA"));
-                Console.WriteLine(string.Format("Airfield:     {0}", pilot.currentAirfield));
-                Console.WriteLine(string.Format("=== Pilot entry end ===", pilot.LastName, pilot.FirstName));
-                Console.WriteLine(string.Empty);
-            }
+                config.AddBranch("list", listConfig =>
+                {
+                    listConfig.AddCommand<GetPilotsCommand>("pilot");
+                });
+            });
+            return app.Run(args);
+            var services = new ServiceCollection().AddModelDependencies()
+                                                  .AddDbGateways()
+                                                  .AddAdditionalServices()
+                                                  .BuildServiceProvider();
+
+
+            var gateway = services.GetRequiredService<IPilotGateway>();
+            var dateTimeService = services.GetRequiredService<IByteArrayToDateTimeService>();
+
+
+
+            var results = gateway.GetAll().First();
+
+            var time = dateTimeService.GetDateTime(results.InsDate ?? Array.Empty<byte>());
+
+
+            //List<IL2CarrerReviverModel.Models.Pilot> playerPilots = careers.Select(career => career.Player).ToList();
+
         }
     }
 }
