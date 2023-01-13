@@ -4,12 +4,7 @@ using IL2CarrerReviverModel.Data.Gateways;
 using IL2CarrerReviverModel.Models;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverConsole.Commands.Cli;
 internal class GetPilotsCommand : Command<GetPilotSettings>

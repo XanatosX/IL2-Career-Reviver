@@ -1,4 +1,5 @@
 ﻿using IL2CarrerReviverModel.Models;
+using IL2CarrerReviverModel.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,7 @@ namespace IL2CarrerReviverModel.Data;
 
 public partial class IlTwoDatabaseContext : DbContext
 {
-    public IlTwoDatabaseContext()
-    {
-    }
+    private readonly string? databaseConnectionString;
 
     public IlTwoDatabaseContext(DbContextOptions<IlTwoDatabaseContext> options)
         : base(options)
@@ -40,8 +39,8 @@ public partial class IlTwoDatabaseContext : DbContext
 
     public virtual DbSet<Squadron> Squadrons { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlite("Data Source=E:\\Downloads\\20220421_Backup_cp.db");
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

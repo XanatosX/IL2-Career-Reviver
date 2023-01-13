@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Compile Remove="Services\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Services\**" />
+    <None Remove="Resources\AppName.txt" />
+    <None Remove="Resources\ReviveWarning.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\ReviveWarning.txt" />
+    <EmbeddedResource Include="Resources\AppName.txt" />
   </ItemGroup>
 
   <ItemGroup>
