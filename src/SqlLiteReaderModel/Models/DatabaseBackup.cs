@@ -17,5 +17,5 @@ public class DatabaseBackup
 
     public string? Checksum { get; set; }
 
-    public string DisplayName => BackupName ?? CreationDate.ToString();
+    public string DisplayName => BackupName ?? Guid.ToString();
 }
