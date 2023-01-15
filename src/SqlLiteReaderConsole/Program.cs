@@ -43,9 +43,14 @@ namespace src.SqlLiteReaderConsole
                     settingConfig.AddCommand<SetLogLevelCommand>("loglevel");
                 });
                 config.AddBranch("list", listConfig =>
-                 {
-                     listConfig.AddCommand<GetPilotsCommand>("pilot");
-                 });
+                {
+                    listConfig.AddCommand<GetPilotsCommand>("pilot");
+                });
+                config.AddBranch("database", databaseConfig =>
+                {
+                    databaseConfig.AddCommand<CreateBackupCommand>("backup");
+                    databaseConfig.AddCommand<DeleteBackupsCommand>("backup-delete");
+                });
             });
             int returnCode = app.Run(args);
             return returnCode;

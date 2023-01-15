@@ -11,5 +11,10 @@ public abstract class BaseDatabaseConnectionService : IDatabaseConnectionStringS
         return $"Data Source={GetRawConnectionString()}";
     }
 
+    public string? GetDatabasePath()
+    {
+        return GetRawConnectionString();
+    }
+
     protected abstract string? GetRawConnectionString();
 }

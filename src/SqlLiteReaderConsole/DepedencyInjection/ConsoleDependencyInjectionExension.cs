@@ -28,7 +28,8 @@ internal static class ConsoleDependencyInjectionExension
                          .AddLogging(config =>
                          {
                              config.AddSerilog(CreateLoggerConfig(collection));
-                         });
+                         })
+                         .AddSingleton<ISettingsFolderBridge, SettingsFolderBridge>();
     }
 
     private static Serilog.ILogger CreateLoggerConfig(IServiceCollection collection)
