@@ -31,7 +31,7 @@ namespace src.SqlLiteReaderConsole
             var typeRegistrar = new DependencyInjectionRegistrar(collection);
             var app = new CommandApp(typeRegistrar);
 
-            var resourceReader = new ResourceFileReader();
+            var resourceReader = collection.BuildServiceProvider().GetRequiredService<ResourceFileReader>();
             string name = resourceReader.GetResourceContent("AppName.txt");
             AnsiConsole.Write(new FigletText($"{name}").Centered().Color(Color.Green));
             app.Configure(config =>
@@ -40,13 +40,15 @@ namespace src.SqlLiteReaderConsole
                 {
                     settingConfig.AddCommand<AutomaticallyDetectDatabaseCommand>("auto");
                     settingConfig.AddCommand<ManuellDatabaseCommand>("manuell");
+                    settingConfig.AddCommand<SetLogLevelCommand>("loglevel");
                 });
                 config.AddBranch("list", listConfig =>
                  {
                      listConfig.AddCommand<GetPilotsCommand>("pilot");
                  });
             });
-            return app.Run(args);
+            int returnCode = app.Run(args);
+            return returnCode;
 
         }
     }
