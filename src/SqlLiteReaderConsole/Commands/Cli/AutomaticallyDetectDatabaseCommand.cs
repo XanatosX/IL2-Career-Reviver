@@ -2,22 +2,17 @@
 using IL2CarrerReviverModel.Services.SaveGame;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverConsole.Commands.Cli;
 
 [Description("Automaticly detect the game folder")]
-internal class AutomaticlyDetectDatabaseCommand : Command
+internal class AutomaticallyDetectDatabaseCommand : Command
 {
     private readonly ISettingsService settingsService;
     private readonly IEnumerable<ISavegameLocatorService> savegameLocatorServices;
 
-    public AutomaticlyDetectDatabaseCommand(ISettingsService settingsService, IEnumerable<ISavegameLocatorService> savegameLocatorServices)
+    public AutomaticallyDetectDatabaseCommand(ISettingsService settingsService, IEnumerable<ISavegameLocatorService> savegameLocatorServices)
     {
         this.settingsService = settingsService;
         this.savegameLocatorServices = savegameLocatorServices;
