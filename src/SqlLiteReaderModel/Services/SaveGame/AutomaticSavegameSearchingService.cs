@@ -1,10 +1,10 @@
-﻿namespace IL2CarrerReviverModel.Services.SaveGame;
+﻿using IL2CarrerReviverConsole.Services;
+
+namespace IL2CarrerReviverModel.Services.SaveGame;
 
 internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
 {
     private const string FOLDER_TO_SEARCH = @"steamapps\common";
-
-    private const string ROOT_FOLDER_SUB_PATH = @"data\Career\cp.db";
 
     private const string GAME_FOLDER_TO_SEARCH = @"il-2 sturmovik";
 
@@ -20,6 +20,12 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
         "onedrive",
         "downloads"
     };
+    private readonly IGamePathValidationService gamePathValidationService;
+
+    public AutomaticSteamSavegameSearchingService(IGamePathValidationService gamePathValidationService)
+    {
+        this.gamePathValidationService = gamePathValidationService;
+    }
 
     public string? GetSavegamePath()
     {
@@ -42,8 +48,7 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
                 break;
             }
         }
-        returnData = Path.Combine(returnData, ROOT_FOLDER_SUB_PATH);
-        return File.Exists(returnData) ? returnData : null;
+        return gamePathValidationService.GetPathToDatabase(returnData);
     }
 
     private async Task<string> ScanDiscForSteamApps(DriveInfo info, int depth)

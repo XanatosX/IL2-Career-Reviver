@@ -1,4 +1,5 @@
-﻿using IL2CarrerReviverModel.Data;
+﻿using IL2CarrerReviverConsole.Services;
+using IL2CarrerReviverModel.Data;
 using IL2CarrerReviverModel.Data.Gateways;
 using IL2CarrerReviverModel.Data.Repositories;
 using IL2CarrerReviverModel.Models;
@@ -39,7 +40,8 @@ public static class ModelDependenciesExtension
     {
         return collection.AddSingleton<IByteArrayToDateTimeService, DefaultByteArrayToDateTimeService>()
                          .AddSingleton<IPilotStateService, DefaultPilotStateService>()
-                         .AddSingleton<ISavegameLocatorService, AutomaticSteamSavegameSearchingService>();
+                         .AddSingleton<ISavegameLocatorService, AutomaticSteamSavegameSearchingService>()
+                         .AddSingleton<IGamePathValidationService, DefaultGamePathValidationService>();
     }
 
 

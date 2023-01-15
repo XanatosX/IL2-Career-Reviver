@@ -38,7 +38,8 @@ namespace src.SqlLiteReaderConsole
             {
                 config.AddBranch("settings", settingConfig =>
                 {
-                    settingConfig.AddCommand<AutomaticlyDetectDatabaseCommand>("auto");
+                    settingConfig.AddCommand<AutomaticallyDetectDatabaseCommand>("auto");
+                    settingConfig.AddCommand<ManuellDatabaseCommand>("manuell");
                 });
                 config.AddBranch("list", listConfig =>
                  {
