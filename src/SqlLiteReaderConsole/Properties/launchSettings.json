@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "IL2CarrerReviverConsole": {
-      "commandName": "Project",
-      "commandLineArgs": "list pilot"
-    }
-  }
-}
