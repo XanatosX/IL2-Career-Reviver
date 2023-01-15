@@ -25,6 +25,7 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
         "wpsystem"
     };
     private readonly IGamePathValidationService gamePathValidationService;
+
     private readonly ILogger<AutomaticSteamSavegameSearchingService> logger;
 
     public AutomaticSteamSavegameSearchingService(IGamePathValidationService gamePathValidationService, ILogger<AutomaticSteamSavegameSearchingService> logger)
@@ -81,8 +82,9 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
 
             logger.LogInformation($"Found {directories.Length} sub folders for {root} which are getting scanned next");
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            logger.LogError(e, $"Could not get directories for {root}");
             return string.Empty;
         }
 

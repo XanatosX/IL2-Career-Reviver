@@ -40,7 +40,6 @@ internal class AutomaticallyDetectDatabaseCommand : Command
                     settingsService.UpdateSettings(setting =>
                     {
                         setting.DatabasePath = path;
-                        return setting;
                     });
                     if (settingsService?.GetSettings()?.DatabasePath == path)
                     {

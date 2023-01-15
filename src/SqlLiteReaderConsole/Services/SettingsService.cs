@@ -30,10 +30,10 @@ internal class SettingsService : ISettingsService
     {
 
     }
-    public void UpdateSettings(Func<Setting, Setting> updateAction)
+    public void UpdateSettings(Action<Setting> updateAction)
     {
-        Setting? setting = GetSettings();
-        setting = updateAction(setting ?? new Setting());
+        Setting setting = GetSettings() ?? new Setting();
+        updateAction(setting);
         SaveSettings(setting);
     }
 
