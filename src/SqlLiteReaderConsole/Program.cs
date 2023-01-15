@@ -46,7 +46,8 @@ namespace src.SqlLiteReaderConsole
                      listConfig.AddCommand<GetPilotsCommand>("pilot");
                  });
             });
-            return app.Run(args);
+            int returnCode = app.Run(args);
+            return returnCode;
 
         }
     }

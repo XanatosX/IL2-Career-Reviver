@@ -1,5 +1,6 @@
 ﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
 using IL2CarrerReviverConsole.Services;
+using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
@@ -11,11 +12,13 @@ internal class ManuellDatabaseCommand : Command<ManuellDatabaseCommandSettings>
 {
     private readonly IGamePathValidationService pathValidationService;
     private readonly ISettingsService settingsService;
+    private readonly ILogger<ManuellDatabaseCommand> logger;
 
-    public ManuellDatabaseCommand(IGamePathValidationService pathValidationService, ISettingsService settingsService)
+    public ManuellDatabaseCommand(IGamePathValidationService pathValidationService, ISettingsService settingsService, ILogger<ManuellDatabaseCommand> logger)
     {
         this.pathValidationService = pathValidationService;
         this.settingsService = settingsService;
+        this.logger = logger;
     }
 
     public override int Execute([NotNull] CommandContext context, [NotNull] ManuellDatabaseCommandSettings settings)

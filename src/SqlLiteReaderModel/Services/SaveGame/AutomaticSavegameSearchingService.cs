@@ -1,4 +1,5 @@
 ﻿using IL2CarrerReviverConsole.Services;
+using Microsoft.Extensions.Logging;
 
 namespace IL2CarrerReviverModel.Services.SaveGame;
 
@@ -18,32 +19,41 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
         "windows",
         "temp",
         "onedrive",
-        "downloads"
+        "downloads",
+        "$recycle.bin",
+        "wudownloadcache",
+        "wpsystem"
     };
     private readonly IGamePathValidationService gamePathValidationService;
+    private readonly ILogger<AutomaticSteamSavegameSearchingService> logger;
 
-    public AutomaticSteamSavegameSearchingService(IGamePathValidationService gamePathValidationService)
+    public AutomaticSteamSavegameSearchingService(IGamePathValidationService gamePathValidationService, ILogger<AutomaticSteamSavegameSearchingService> logger)
     {
         this.gamePathValidationService = gamePathValidationService;
+        this.logger = logger;
     }
 
     public string? GetSavegamePath()
     {
         DriveInfo[] drives = DriveInfo.GetDrives();
         List<Task<string>> awaitedTasks = new List<Task<string>>();
+        logger.LogInformation($"Start scan");
         foreach (DriveInfo drive in drives)
         {
             awaitedTasks.Add(ScanDiscForSteamApps(drive, 5));
         }
+        logger.LogInformation($"Waiting for scan to complete");
         Task.WaitAll(awaitedTasks.ToArray());
         string[] folders = awaitedTasks.Select(t => t.Result).ToArray();
         string returnData = string.Empty;
+        logger.LogInformation($"Check {folders.Length} folders if a IL-2 installation can be found");
         foreach (string folder in folders)
         {
             string[] games = Directory.GetDirectories(folder).Select(game => new DirectoryInfo(game).Name).ToArray();
             string gameFolder = games.FirstOrDefault(game => game.ToLower().StartsWith(GAME_FOLDER_TO_SEARCH), string.Empty);
             if (!string.IsNullOrEmpty(gameFolder))
             {
+                logger.LogInformation($"Found game folder on {gameFolder}");
                 returnData = Path.Combine(folder, gameFolder);
                 break;
             }
@@ -55,6 +65,7 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
     {
         return await Task.Run(() =>
         {
+            logger.LogInformation($"Scanning disc {info.Name}");
             return ScanForSteamFolder(info.Name, 0, depth);
         });
     }
@@ -63,13 +74,16 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
     {
         currentDepth++;
         string[] directories = new string[0];
+        logger.LogInformation($"Scan folder {root}");
         try
         {
-            directories = Directory.GetDirectories(root).Where(dir => !ignoredFolders.Contains(dir.ToLower())).ToArray();
+            directories = Directory.GetDirectories(root).Where(dir => !ignoredFolders.Any(ignored => dir.Contains(ignored, StringComparison.OrdinalIgnoreCase))).ToArray();
+
+            logger.LogInformation($"Found {directories.Length} sub folders for {root} which are getting scanned next");
         }
         catch (Exception)
         {
-            return string.Empty; ;
+            return string.Empty;
         }
 
         string? returnDirectory = directories?.FirstOrDefault(dir => dir != null && dir.Contains(FOLDER_TO_SEARCH));
