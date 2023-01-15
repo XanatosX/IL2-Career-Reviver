@@ -42,7 +42,7 @@ internal class DeleteBackupsCommand : Command<DeleteBackupsCommandSettings>
             return 0;
         }
 
-        var selection = AnsiConsole.Prompt(new SelectionPrompt<DatabaseBackup>().UseConverter(s => s.DisplayName)
+        var selection = AnsiConsole.Prompt(new SelectionPrompt<DatabaseBackup>().UseConverter(s => $"{s.DisplayName} - {s.CreationDate.ToString()}")
                                                                                 .Title("Select backup to delete")
                                                                                 .AddChoices(backups));
 
