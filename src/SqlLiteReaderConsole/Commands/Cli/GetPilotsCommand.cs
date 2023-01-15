@@ -1,9 +1,9 @@
 ﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
+using IL2CarrerReviverConsole.Services;
 using IL2CarrerReviverConsole.Views;
 using IL2CarrerReviverModel.Data.Gateways;
 using IL2CarrerReviverModel.Models;
 using Microsoft.Extensions.Logging;
-using Serilog.Core;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.Diagnostics.CodeAnalysis;

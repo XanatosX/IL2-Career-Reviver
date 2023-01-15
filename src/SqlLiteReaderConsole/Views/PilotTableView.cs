@@ -2,20 +2,17 @@
 using IL2CarrerReviverModel.Services;
 using Spectre.Console;
 using Spectre.Console.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverConsole.Views;
 internal class PilotTableView : IView<IEnumerable<Pilot>>
 {
     private readonly IPilotStateService pilotStateService;
+    private readonly IByteArrayToDateTimeService byteArrayToDateTime;
 
-    public PilotTableView(IPilotStateService pilotStateService)
+    public PilotTableView(IPilotStateService pilotStateService, IByteArrayToDateTimeService byteArrayToDateTime)
     {
         this.pilotStateService = pilotStateService;
+        this.byteArrayToDateTime = byteArrayToDateTime;
     }
 
     public IRenderable GetView(IEnumerable<Pilot> entity)
@@ -24,12 +21,15 @@ internal class PilotTableView : IView<IEnumerable<Pilot>>
         table.AddColumn("Database ID");
         table.AddColumn("First Name");
         table.AddColumn("Last Name");
+        table.AddColumn("Birth Date (dd.mm.yyyy");
         table.AddColumn("Alive");
         table.AddColumn("Airfield");
 
-        foreach (Pilot pilot in entity)
+
+        foreach (Pilot pilot in entity.OrderBy(p => p.Id))
         {
-            table.AddRow(pilot.Id.ToString(), pilot.Name, pilot.LastName, pilotStateService.PilotIsAlive(pilot.State).ToString(), pilot.Squadron.Airfield);
+            string birthday = byteArrayToDateTime.GetDateTime(pilot.BirthDay ?? Array.Empty<byte>())?.ToString("dd.MM.yyyy") ?? "Unknown";
+            table.AddRow(pilot.Id.ToString(), pilot.Name, pilot.LastName, birthday, pilotStateService.PilotIsAlive(pilot.State).ToString(), pilot.Squadron.Airfield);
         }
         return table;
     }
