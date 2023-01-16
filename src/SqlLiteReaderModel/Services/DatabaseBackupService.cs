@@ -36,6 +36,11 @@ internal class DatabaseBackupService : IDatabaseBackupService
         sourceDatabaseFile = databaseConnectionString.GetDatabasePath() ?? string.Empty;
     }
 
+    public string GetBackupFolder()
+    {
+        return backupTargetFolder;
+    }
+
     public DatabaseBackup? CreateBackup() => CreateBackup(null);
 
     public DatabaseBackup? CreateBackup(string? name)

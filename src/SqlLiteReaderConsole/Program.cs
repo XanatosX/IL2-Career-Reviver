@@ -46,10 +46,17 @@ namespace src.SqlLiteReaderConsole
                 {
                     listConfig.AddCommand<GetPilotsCommand>("pilot");
                 });
-                config.AddBranch("database", databaseConfig =>
+                config.AddBranch("save", databaseConfig =>
                 {
-                    databaseConfig.AddCommand<CreateBackupCommand>("backup");
-                    databaseConfig.AddCommand<DeleteBackupsCommand>("backup-delete");
+                    databaseConfig.AddBranch("backup", backupConfig =>
+                    {
+                        backupConfig.AddCommand<CreateBackupCommand>("create");
+                        backupConfig.AddCommand<DeleteBackupsCommand>("delete");
+                        backupConfig.AddCommand<ListBackupsCommand>("list");
+                        backupConfig.AddCommand<ChangeBackupNameCommand>("change");
+                        backupConfig.AddCommand<OpenBackupFolderCommand>("open");
+                    });
+
                 });
             });
             int returnCode = app.Run(args);

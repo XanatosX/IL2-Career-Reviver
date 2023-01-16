@@ -2,13 +2,11 @@
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace IL2CarrerReviverConsole.Commands.Cli;
+
+[Description("Create a backup from your savegames")]
 internal class CreateBackupCommand : Command
 {
     private readonly ISettingsService settingsService;

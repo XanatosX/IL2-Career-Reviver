@@ -14,7 +14,8 @@ internal static class ConsoleDependencyInjectionExension
         return collection.AddSingleton<DepedencyResolver>()
                          .AddSingleton<ViewFactory>()
                          .AddTransient<PilotView>()
-                         .AddTransient<PilotTableView>();
+                         .AddTransient<PilotTableView>()
+                         .AddTransient<BackupTableView>();
     }
 
     public static IServiceCollection AddBaseServices(this IServiceCollection collection)

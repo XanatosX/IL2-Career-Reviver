@@ -3,6 +3,7 @@
 namespace IL2CarrerReviverConsole.Services;
 public interface IDatabaseBackupService
 {
+    string GetBackupFolder();
     DatabaseBackup? CreateBackup();
     DatabaseBackup? CreateBackup(string? name);
     IEnumerable<DatabaseBackup> GetBackups();
