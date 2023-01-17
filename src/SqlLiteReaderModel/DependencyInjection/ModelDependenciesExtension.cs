@@ -46,6 +46,9 @@ public static class ModelDependenciesExtension
         return collection.AddSingleton<IByteArrayToDateTimeService, DefaultByteArrayToDateTimeService>()
                          .AddSingleton<IPilotStateService, DefaultPilotStateService>()
                          .AddSingleton<ISavegameLocatorService, AutomaticSteamSavegameSearchingService>()
+                         .AddSingleton<IGamePathValidationService, DefaultGamePathValidationService>()
+                         .AddSingleton<IDatabaseBackupService, DatabaseBackupService>()
+                         .AddSingleton<IFileChecksumService, Md5ChecksumService>()
                          .AddSingleton<IGamePathValidationService, DefaultGamePathValidationService>();
     }
 
