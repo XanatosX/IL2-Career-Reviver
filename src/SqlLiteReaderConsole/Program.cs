@@ -48,6 +48,7 @@ namespace src.SqlLiteReaderConsole
                     databaseConfig.AddBranch("game", listConfig =>
                     {
                         listConfig.AddCommand<GetPilotsCommand>("pilot");
+                        listConfig.AddCommand<RevivePilotCommand>("revive");
                     });
 
                 });

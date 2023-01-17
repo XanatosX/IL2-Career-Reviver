@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace IL2CarrerReviverModel.Data.Repositories;
-internal abstract class BaseRepository<T> : IRepository<T, long>
+internal abstract class BaseRepository<T> : IBaseRepository<T, long>
 {
     private readonly IDbContextFactory<IlTwoDatabaseContext> dbContextFactory;
 
@@ -62,6 +62,7 @@ internal abstract class BaseRepository<T> : IRepository<T, long>
         using (var dbContext = GetDatabaseContext())
         {
             dbContext.Update(entity);
+            dbContext.SaveChanges();
         }
     }
 }

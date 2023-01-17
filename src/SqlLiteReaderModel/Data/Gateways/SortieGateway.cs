@@ -7,26 +7,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace IL2CarrerReviverModel.Data.Gateways;
-internal class PilotGateway : IPilotGateway
+internal class SortieGateway : ISortieGateway
 {
-    private readonly IBaseRepository<Pilot, long> repository;
+    private readonly IBaseRepository<Sortie, long> repository;
 
-    public PilotGateway(IBaseRepository<Pilot, long> repository)
+    public SortieGateway(IBaseRepository<Sortie, long> repository)
     {
         this.repository = repository;
     }
 
-    public IEnumerable<Pilot> GetAll()
+    public bool DeleteById(long id)
     {
-        return repository.GetAll();
+        return repository.DeleteById(id);
     }
 
-    public IEnumerable<Pilot> GetAll(Func<Pilot, bool> filter)
+    public IEnumerable<Sortie> GetAll(Func<Sortie, bool> filter)
     {
         return repository.GetAll(filter);
     }
 
-    public Pilot? GetById(long id)
+    public Sortie? GetById(long id)
     {
         return repository.GetById(id);
     }
