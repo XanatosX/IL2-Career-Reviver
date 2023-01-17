@@ -10,5 +10,7 @@ public interface ISortieGateway
     Sortie? GetById(long id);
 
     bool DeleteById(long id);
+
+    bool Delete(Sortie sortie);
 }
 

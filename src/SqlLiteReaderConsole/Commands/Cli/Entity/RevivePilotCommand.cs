@@ -104,11 +104,25 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
             sortieDeleteStatus.Add(sortieGateway.DeleteById(sortie.Id));
         }
 
-        int successfulDelete = sortieDeleteStatus.Where(deleteStatus => deleteStatus).Count();
-        int totalDelete = sortieDataToDelete.Count;
-        bool sortieDeleteOverallStatus = successfulDelete == totalDelete;
+        int successfulSortieDelete = sortieDeleteStatus.Where(deleteStatus => deleteStatus).Count();
+        int totalSortieDelete = sortieDataToDelete.Count;
+        bool sortieDeleteOverallStatus = successfulSortieDelete == totalSortieDelete;
         AnsiConsole.MarkupLine($"Sortie deletion status: {GetColorForStatus(sortieDeleteOverallStatus)}{sortieDeleteOverallStatus}[/]");
-        AnsiConsole.MarkupLine($"Deleted: {successfulDelete} / {totalDelete}");
+        AnsiConsole.MarkupLine($"Deleted: {successfulSortieDelete} / {totalSortieDelete}");
+
+        List<bool> missionDeleteStatus = new List<bool>();
+        foreach (var mission in missionsToDelete)
+        {
+            missionDeleteStatus.Add(missionGateway.Delete(mission));
+        }
+        int successfulMissionDelete = missionDeleteStatus.Where(deleteStatus => deleteStatus).Count();
+        int totalMissionDelete = missionsToDelete.Count;
+        bool missionDeleteOverallStatus = successfulMissionDelete == totalMissionDelete;
+        AnsiConsole.MarkupLine($"Mission deletion status: {GetColorForStatus(missionDeleteOverallStatus)}{missionDeleteOverallStatus}[/]");
+        AnsiConsole.MarkupLine($"Deleted: {successfulMissionDelete} / {totalMissionDelete}");
+
+        bool overall = missionDeleteOverallStatus && sortieDeleteOverallStatus && careerUpdateSuccessful;
+        AnsiConsole.MarkupLine($"OverallStatus: {GetColorForStatus(overall)}{overall}[/]");
 
         return 0;
     }

@@ -16,9 +16,14 @@ internal class MissionGateway : IMissionGateway
         this.baseRepository = baseRepository;
     }
 
+    public bool Delete(Mission mission)
+    {
+        return baseRepository.Delete(mission);
+    }
+
     public bool DeleteById(long id)
     {
-        throw new NotImplementedException();
+        return baseRepository.DeleteById(id);
     }
 
     public IEnumerable<Mission> GetAll(Func<Mission, bool> filter)

@@ -8,21 +8,10 @@ internal class SortieRepository : BaseRepository<Sortie>
     {
     }
 
-    public override bool Delete(Sortie entity)
-    {
-        bool status = false;
-        using (var context = GetDatabaseContext())
-        {
-            context.Remove(entity);
-            context.SaveChanges();
-        }
-        return status;
-    }
-
     public override bool DeleteById(long key)
     {
         var sortie = GetById(key);
-        return GetById(key) is null ? false : Delete(sortie);
+        return sortie is null ? false : Delete(sortie);
     }
 
     public override IEnumerable<Sortie> GetAll(Func<Sortie, bool> filter)

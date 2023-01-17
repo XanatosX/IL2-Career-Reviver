@@ -16,6 +16,11 @@ internal class SortieGateway : ISortieGateway
         this.repository = repository;
     }
 
+    public bool Delete(Sortie sortie)
+    {
+        return repository.Delete(sortie);
+    }
+
     public bool DeleteById(long id)
     {
         return repository.DeleteById(id);

@@ -8,14 +8,10 @@ internal class MissionRepository : BaseRepository<Mission>
     {
     }
 
-    public override bool Delete(Mission entity)
-    {
-        throw new NotImplementedException();
-    }
-
     public override bool DeleteById(long key)
     {
-        throw new NotImplementedException();
+        var mission = GetById(key);
+        return mission is null ? false : Delete(mission);
     }
 
     public override IEnumerable<Mission> GetAll(Func<Mission, bool> filter)

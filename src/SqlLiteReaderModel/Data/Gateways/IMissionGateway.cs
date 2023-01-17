@@ -10,4 +10,6 @@ public interface IMissionGateway
     Mission? GetById(long id);
 
     bool DeleteById(long id);
+
+    bool Delete(Mission mission);
 }
