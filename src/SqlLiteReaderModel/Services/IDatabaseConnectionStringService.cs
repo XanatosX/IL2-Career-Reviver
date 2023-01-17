@@ -3,4 +3,6 @@
 public interface IDatabaseConnectionStringService
 {
     string? GetConnectionString();
+
+    string? GetDatabasePath();
 }

@@ -1,4 +1,5 @@
 using IL2CarrerReviverConsole.Commands.Cli;
+using IL2CarrerReviverConsole.Commands.Cli.Save;
 using IL2CarrerReviverConsole.DepedencyInjection;
 using IL2CarrerReviverConsole.Services;
 using IL2CarrerReviverModel.Data;
@@ -43,9 +44,21 @@ namespace src.SqlLiteReaderConsole
                     settingConfig.AddCommand<SetLogLevelCommand>("loglevel");
                 });
                 config.AddBranch("list", listConfig =>
-                 {
-                     listConfig.AddCommand<GetPilotsCommand>("pilot");
-                 });
+                {
+                    listConfig.AddCommand<GetPilotsCommand>("pilot");
+                });
+                config.AddBranch("save", databaseConfig =>
+                {
+                    databaseConfig.AddBranch("backup", backupConfig =>
+                    {
+                        backupConfig.AddCommand<CreateBackupCommand>("create");
+                        backupConfig.AddCommand<DeleteBackupsCommand>("delete");
+                        backupConfig.AddCommand<ListBackupsCommand>("list");
+                        backupConfig.AddCommand<ChangeBackupNameCommand>("rename");
+                        backupConfig.AddCommand<RestoreBackupCommand>("restore");
+                    });
+
+                });
             });
             int returnCode = app.Run(args);
             return returnCode;
