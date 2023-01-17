@@ -1,22 +1,13 @@
 using IL2CarrerReviverConsole.Commands.Cli;
+using IL2CarrerReviverConsole.Commands.Cli.Entity;
 using IL2CarrerReviverConsole.Commands.Cli.Save;
 using IL2CarrerReviverConsole.DepedencyInjection;
 using IL2CarrerReviverConsole.Services;
-using IL2CarrerReviverModel.Data;
-using IL2CarrerReviverModel.Data.Gateways;
 using IL2CarrerReviverModel.DependencyInjection;
-using IL2CarrerReviverModel.Models;
-using IL2CarrerReviverModel.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using Spectre.Console.Cli.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace src.SqlLiteReaderConsole
 {
@@ -43,10 +34,6 @@ namespace src.SqlLiteReaderConsole
                     settingConfig.AddCommand<ManuellDatabaseCommand>("manuell");
                     settingConfig.AddCommand<SetLogLevelCommand>("loglevel");
                 });
-                config.AddBranch("list", listConfig =>
-                {
-                    listConfig.AddCommand<GetPilotsCommand>("pilot");
-                });
                 config.AddBranch("save", databaseConfig =>
                 {
                     databaseConfig.AddBranch("backup", backupConfig =>
@@ -56,6 +43,11 @@ namespace src.SqlLiteReaderConsole
                         backupConfig.AddCommand<ListBackupsCommand>("list");
                         backupConfig.AddCommand<ChangeBackupNameCommand>("rename");
                         backupConfig.AddCommand<RestoreBackupCommand>("restore");
+                    });
+
+                    databaseConfig.AddBranch("game", listConfig =>
+                    {
+                        listConfig.AddCommand<GetPilotsCommand>("pilot");
                     });
 
                 });
