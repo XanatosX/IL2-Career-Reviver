@@ -53,7 +53,7 @@ namespace src.SqlLiteReaderConsole
                         backupConfig.AddCommand<CreateBackupCommand>("create");
                         backupConfig.AddCommand<DeleteBackupsCommand>("delete");
                         backupConfig.AddCommand<ListBackupsCommand>("list");
-                        backupConfig.AddCommand<ChangeBackupNameCommand>("change");
+                        backupConfig.AddCommand<ChangeBackupNameCommand>("rename");
                         backupConfig.AddCommand<OpenBackupFolderCommand>("open");
                     });
 

@@ -22,7 +22,10 @@ internal class DatabaseBackupService : IDatabaseBackupService
 
     private readonly string sourceDatabaseFile;
 
-    public DatabaseBackupService(ISettingsFolderBridge pathService, IFileChecksumService fileChecksumService, IDatabaseConnectionStringService databaseConnectionString, ILogger<DatabaseBackupService> logger)
+    public DatabaseBackupService(ISettingsFolderBridge pathService,
+                                 IFileChecksumService fileChecksumService,
+                                 IDatabaseConnectionStringService databaseConnectionString,
+                                 ILogger<DatabaseBackupService> logger)
     {
         this.fileChecksumService = fileChecksumService;
         this.logger = logger;
@@ -84,6 +87,7 @@ internal class DatabaseBackupService : IDatabaseBackupService
         {
             try
             {
+                logger.LogDebug("Saving backup list");
                 JsonSerializer.Serialize(fileStream, backups);
             }
             catch (Exception e)
@@ -142,5 +146,28 @@ internal class DatabaseBackupService : IDatabaseBackupService
     {
         Directory.Delete(backupTargetFolder, true);
         return Directory.Exists(backupTargetFolder);
+    }
+
+    public bool UpdateBackupName(Guid id, string name)
+    {
+        var allBackups = GetBackups().ToList();
+        var backup = allBackups.Where(b => b.Guid == id).FirstOrDefault();
+        if (backup is null)
+        {
+            logger.LogWarning($"Could not find backup with id {id} for renaming");
+            return false;
+        }
+        backup.BackupName = name;
+        var backups = allBackups.Where(b => b.Guid != id).ToList();
+        logger.LogInformation("Edit list for backups now");
+        backups.Add(backup);
+        SaveBackups(backups.ToList());
+
+        return GetBackups().Where(b => b.Guid == id).FirstOrDefault()?.BackupName == name;
+    }
+
+    public bool IsValidBackup(DatabaseBackup backup)
+    {
+        return fileChecksumService.GetChecksum(backup.BackupPath) == backup.Checksum;
     }
 }

@@ -1,16 +1,16 @@
-﻿using IL2CarrerReviverModel.Models;
-using IL2CarrerReviverModel.Services;
+﻿using IL2CarrerReviverConsole.Services;
+using IL2CarrerReviverModel.Models;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
 namespace IL2CarrerReviverConsole.Views;
 internal class BackupTableView : IView<IEnumerable<DatabaseBackup>>
 {
-    private readonly IFileChecksumService fileChecksumService;
+    private readonly IDatabaseBackupService backupService;
 
-    public BackupTableView(IFileChecksumService fileChecksumService)
+    public BackupTableView(IDatabaseBackupService backupService)
     {
-        this.fileChecksumService = fileChecksumService;
+        this.backupService = backupService;
     }
 
     public IRenderable GetView(IEnumerable<DatabaseBackup> entity)
@@ -23,8 +23,7 @@ internal class BackupTableView : IView<IEnumerable<DatabaseBackup>>
         table.AddColumn("Compromised");
         foreach (var backup in entity)
         {
-            string checksum = fileChecksumService.GetChecksum(backup.BackupPath);
-            bool isCompromised = checksum != backup.Checksum;
+            bool isCompromised = !backupService.IsValidBackup(backup);
             bool fileMissing = !File.Exists(backup.BackupPath);
             var style = new Style(isCompromised || fileMissing ? Color.Red : Color.Green);
             IEnumerable<IRenderable> renderables = new List<IRenderable>

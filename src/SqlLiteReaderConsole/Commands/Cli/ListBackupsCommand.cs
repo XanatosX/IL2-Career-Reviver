@@ -1,15 +1,9 @@
 ﻿using IL2CarrerReviverConsole.Services;
 using IL2CarrerReviverConsole.Views;
 using IL2CarrerReviverModel.Models;
-using IL2CarrerReviverModel.Services;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverConsole.Commands.Cli;
 internal class ListBackupsCommand : Command

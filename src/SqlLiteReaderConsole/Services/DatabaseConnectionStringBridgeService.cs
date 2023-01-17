@@ -24,6 +24,6 @@ internal class DatabaseConnectionStringBridgeService : BaseDatabaseConnectionSer
             throw e;
         }
 
-        return setting.DatabasePath;
+        return setting?.DatabasePath;
     }
 }
