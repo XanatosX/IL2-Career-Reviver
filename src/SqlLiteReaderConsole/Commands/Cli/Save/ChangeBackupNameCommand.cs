@@ -4,11 +4,10 @@ using IL2CarrerReviverModel.Models;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using Spectre.Console.Rendering;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
-namespace IL2CarrerReviverConsole.Commands.Cli;
+namespace IL2CarrerReviverConsole.Commands.Cli.Save;
 
 [Description("Change the name for a backup")]
 internal class ChangeBackupNameCommand : Command<ChangeBackupNameSettings>

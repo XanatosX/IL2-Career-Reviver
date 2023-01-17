@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
-namespace IL2CarrerReviverConsole.Commands.Cli;
+namespace IL2CarrerReviverConsole.Commands.Cli.Save;
 internal class ListBackupsCommand : Command
 {
     private readonly ViewFactory viewFactory;

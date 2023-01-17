@@ -1,21 +1,26 @@
 ﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
 using IL2CarrerReviverConsole.Services;
 using IL2CarrerReviverModel.Models;
+using Microsoft.Extensions.Logging;
+using Serilog.Core;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Intrinsics.X86;
 
-namespace IL2CarrerReviverConsole.Commands.Cli;
+namespace IL2CarrerReviverConsole.Commands.Cli.Save;
 
 [Description("Delete a single or multiple backups")]
 internal class DeleteBackupsCommand : Command<DeleteBackupsCommandSettings>
 {
     private readonly IDatabaseBackupService databaseBackupService;
+    private readonly ILogger<DeleteBackupsCommand> logger;
 
-    public DeleteBackupsCommand(IDatabaseBackupService databaseBackupService)
+    public DeleteBackupsCommand(IDatabaseBackupService databaseBackupService, ILogger<DeleteBackupsCommand> logger)
     {
         this.databaseBackupService = databaseBackupService;
+        this.logger = logger;
     }
 
     public override int Execute([NotNull] CommandContext context, [NotNull] DeleteBackupsCommandSettings settings)
@@ -58,7 +63,11 @@ internal class DeleteBackupsCommand : Command<DeleteBackupsCommandSettings>
 
         if (selection is not null)
         {
-            return DeleteBackup(selection);
+            if (AnsiConsole.Confirm($"Do you really want to delete the backup [yellow]{selection.DisplayName}[/]?"))
+            {
+                return DeleteBackup(selection);
+            }
+            return 0;
         }
         AnsiConsole.MarkupLine("[red]Selection was not valid![/]");
         return 1;

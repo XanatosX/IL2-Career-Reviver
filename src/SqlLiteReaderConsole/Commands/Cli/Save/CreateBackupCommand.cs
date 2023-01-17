@@ -1,13 +1,15 @@
-﻿using IL2CarrerReviverConsole.Services;
+﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
+using IL2CarrerReviverConsole.Services;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
-namespace IL2CarrerReviverConsole.Commands.Cli;
+namespace IL2CarrerReviverConsole.Commands.Cli.Save;
 
 [Description("Create a backup from your savegames")]
-internal class CreateBackupCommand : Command
+internal class CreateBackupCommand : Command<CreateBackupCommandSettings>
 {
     private readonly ISettingsService settingsService;
     private readonly IDatabaseBackupService databaseBackupService;
@@ -20,7 +22,7 @@ internal class CreateBackupCommand : Command
         this.logger = logger;
     }
 
-    public override int Execute(CommandContext context)
+    public override int Execute([NotNull] CommandContext context, [NotNull] CreateBackupCommandSettings settings)
     {
         var database = settingsService.GetSettings()?.DatabasePath;
         if (database is null)
@@ -28,19 +30,22 @@ internal class CreateBackupCommand : Command
             AnsiConsole.MarkupLine("[red]There is no database path provided please call 'settings auto' or 'settings manuell' first[/]");
             return 1;
         }
-        string? backupName = null;
-        if (AnsiConsole.Confirm("Do you want to name your backup?"))
-        {
-            backupName = AnsiConsole.Ask<string>("Enter backup name: ");
-        }
 
+        string backupName = settings.BackupName ?? $"Manually generated - {DateTime.Now}";
+        if (settings.BackupName is null)
+        {
+            if (AnsiConsole.Confirm($"Do you want to name your backup or use the name [yellow]{backupName}[/]?"))
+            {
+                backupName = AnsiConsole.Ask<string>("Enter backup name: ");
+            }
+        }
         var backup = databaseBackupService.CreateBackup(backupName);
         if (backup is null)
         {
             AnsiConsole.MarkupLine("[red]Something went wrong while creating the backup, please check the log for more information[/]");
             return 1;
         }
-        AnsiConsole.MarkupLine("[green]Backup was created successfully[/]");
+        AnsiConsole.MarkupLine($"[green]Backup with name [/][yellow]{backupName}[/][green] was created successfully[/]");
         return 0;
     }
 }

@@ -1,12 +1,7 @@
 ﻿using IL2CarrerReviverModel.Models;
 using IL2CarrerReviverModel.Services;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverConsole.Services;
 internal class DatabaseBackupService : IDatabaseBackupService
@@ -120,7 +115,8 @@ internal class DatabaseBackupService : IDatabaseBackupService
 
     public bool RestoreBackup(DatabaseBackup databaseBackup)
     {
-        return false;
+        File.Copy(databaseBackup.BackupPath, sourceDatabaseFile, true);
+        return fileChecksumService.GetChecksum(sourceDatabaseFile) == databaseBackup.Checksum;
     }
 
     public bool DeleteBackup(DatabaseBackup databaseBackup)

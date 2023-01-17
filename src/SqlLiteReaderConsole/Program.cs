@@ -1,4 +1,5 @@
 using IL2CarrerReviverConsole.Commands.Cli;
+using IL2CarrerReviverConsole.Commands.Cli.Save;
 using IL2CarrerReviverConsole.DepedencyInjection;
 using IL2CarrerReviverConsole.Services;
 using IL2CarrerReviverModel.Data;
@@ -54,7 +55,7 @@ namespace src.SqlLiteReaderConsole
                         backupConfig.AddCommand<DeleteBackupsCommand>("delete");
                         backupConfig.AddCommand<ListBackupsCommand>("list");
                         backupConfig.AddCommand<ChangeBackupNameCommand>("rename");
-                        backupConfig.AddCommand<OpenBackupFolderCommand>("open");
+                        backupConfig.AddCommand<RestoreBackupCommand>("restore");
                     });
 
                 });
