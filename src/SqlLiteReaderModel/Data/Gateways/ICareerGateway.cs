@@ -12,5 +12,5 @@ public interface ICareerGateway
 
     Career? GetById(long id);
 
-    void UpdateCareer(Career career);
+    Career? Update(Career career);
 }

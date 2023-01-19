@@ -30,4 +30,10 @@ internal class PilotGateway : IPilotGateway
     {
         return repository.GetById(id);
     }
+
+    public Pilot? Update(Pilot pilot)
+    {
+        repository.Update(pilot);
+        return GetById(pilot.Id);
+    }
 }

@@ -26,8 +26,9 @@ internal sealed class CareerGateway : ICareerGateway
         return repository.GetAll();
     }
 
-    public void UpdateCareer(Career career)
+    public Career? Update(Career career)
     {
         repository.Update(career);
+        return GetById(career.Id);
     }
 }

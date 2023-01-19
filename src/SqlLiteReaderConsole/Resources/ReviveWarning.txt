@@ -3,7 +3,7 @@
 Please keep in mind that the following operation will edit your save game!
 This change could lead to a large number of problems with all of your carrer saves.
 
-The revive tool will create a backup of your save before restoring the pilot, but to be absolutly sure create one on your own.
+Please create a backup of your save first so that you can restore it if something goes wrong. To do so call [yellow]'save backup create'[/]
 
 [red]Please close the game to unlock the database before you continue![/]
 
