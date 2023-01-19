@@ -1,46 +1,61 @@
+using IL2CarrerReviverConsole.Commands.Cli;
+using IL2CarrerReviverConsole.Commands.Cli.Entity;
+using IL2CarrerReviverConsole.Commands.Cli.Save;
+using IL2CarrerReviverConsole.DepedencyInjection;
+using IL2CarrerReviverConsole.Services;
+using IL2CarrerReviverModel.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using src.SqlLiteReaderModel.Model;
-using src.SqlLiteReaderModel.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-
+using Spectre.Console;
+using Spectre.Console.Cli;
+using Spectre.Console.Cli.Extensions.DependencyInjection;
 
 namespace src.SqlLiteReaderConsole
 {
     public class Program
     {
-        public static void Main(params string[] args)
+        public static int Main(params string[] args)
         {
-            ServiceProvider services = new ServiceCollection()
-                                            .AddSingleton<IDatabaseConnection, SqlLiteConnection>()
-                                            .AddSingleton<IDatabaseInformation, SqlLiteDatabaseInformation>()
-                                            .AddSingleton<ICareerInformation, SqlLiteCareerInformation>()
-                                            .BuildServiceProvider();
+            var collection = new ServiceCollection().AddBaseServices()
+                                                    .AddModelDependencies()
+                                                    .AddDbGateways()
+                                                    .AddViews()
+                                                    .AddAdditionalServices();
+            var typeRegistrar = new DependencyInjectionRegistrar(collection);
+            var app = new CommandApp(typeRegistrar);
 
-
-            IDatabaseConnection connection = services.GetRequiredService<IDatabaseConnection>();
-            connection.SetConnectionString(@"E:\Downloads\20220421_Backup_cp.db");
-
-            IDatabaseInformation information = services.GetRequiredService<IDatabaseInformation>();
-            ICareerInformation career = services.GetRequiredService<ICareerInformation>();
-            Console.WriteLine(string.Concat("IL-2 Career Editor Tool V", ""));
-            Console.WriteLine(string.Concat("Database Version ", information.GetDatabaseVersion()));
-            Console.WriteLine(string.Empty);
-
-            foreach (Pilot pilot in career.GetPilots())
+            var resourceReader = collection.BuildServiceProvider().GetRequiredService<ResourceFileReader>();
+            string name = resourceReader.GetResourceContent("AppName.txt");
+            AnsiConsole.Write(new FigletText($"{name}").Centered().Color(Color.Green));
+            app.Configure(config =>
             {
-                Console.WriteLine(string.Format("=== Pilot entry for pilot number: {0} ===", pilot.PilotId));
-                Console.WriteLine(string.Format("Name:         {0}", pilot.FirstName));
-                Console.WriteLine(string.Format("Last name:    {0}", pilot.LastName));
-                Console.WriteLine(string.Format("State:        {0}", pilot.Alive ? "Alive" : "Missed or KIA"));
-                Console.WriteLine(string.Format("Airfield:     {0}", pilot.currentAirfield));
-                Console.WriteLine(string.Format("=== Pilot entry end ===", pilot.LastName, pilot.FirstName));
-                Console.WriteLine(string.Empty);
-            }
+                config.AddBranch("settings", settingConfig =>
+                {
+                    settingConfig.AddCommand<AutomaticallyDetectDatabaseCommand>("auto");
+                    settingConfig.AddCommand<ManuellDatabaseCommand>("manuell");
+                    settingConfig.AddCommand<SetLogLevelCommand>("loglevel");
+                });
+                config.AddBranch("save", databaseConfig =>
+                {
+                    databaseConfig.AddBranch("backup", backupConfig =>
+                    {
+                        backupConfig.AddCommand<CreateBackupCommand>("create");
+                        backupConfig.AddCommand<DeleteBackupsCommand>("delete");
+                        backupConfig.AddCommand<ListBackupsCommand>("list");
+                        backupConfig.AddCommand<ChangeBackupNameCommand>("rename");
+                        backupConfig.AddCommand<RestoreBackupCommand>("restore");
+                    });
+
+                    databaseConfig.AddBranch("game", listConfig =>
+                    {
+                        listConfig.AddCommand<GetPilotsCommand>("pilot");
+                        listConfig.AddCommand<RevivePilotCommand>("revive");
+                    });
+
+                });
+            });
+            int returnCode = app.Run(args);
+            return returnCode;
+
         }
     }
 }
