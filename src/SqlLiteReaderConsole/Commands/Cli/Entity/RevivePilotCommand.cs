@@ -113,10 +113,21 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         {
             Thread.Sleep(200);
             ctx.Status("Resetting career");
+            var missionIdToGet = missionsToDelete.Count > 0 ? missionsToDelete.Select(mission => mission.Id).Min() : -1;
+            var latestMission = missionGateway.GetAll(mission => mission.Id < missionIdToGet && mission.SquadronId == career.Squadron.Id)
+                                              .OrderBy(mission => mission.Id)
+                                              .LastOrDefault();
+            if (missionIdToGet == -1 || latestMission is null)
+            {
+                AnsiConsole.MarkupLine("[red]Could not get latest mission where pilot was alive, aborting[/]");
+                return;
+            }
+
+            career.CurrentDate = latestMission.Date;
             career.State = 0;
             careerUpdateSuccessful = careerGateway.Update(career)?.State == 0;
             columns.Add(new TableColumn(career.Id.ToString(),
-                                        $"Reseting status for career with id [yellow]{career.Id}[/]",
+                                        $"Reseting status and date for career with id [yellow]{career.Id}[/]",
                                         "Career",
                                         "Changed",
                                         careerUpdateSuccessful));
