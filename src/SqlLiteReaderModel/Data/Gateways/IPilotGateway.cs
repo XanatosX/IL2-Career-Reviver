@@ -13,4 +13,6 @@ public interface IPilotGateway
     IEnumerable<Pilot> GetAll();
 
     Pilot? GetById(long id);
+
+    Pilot? Update(Pilot pilot);
 }

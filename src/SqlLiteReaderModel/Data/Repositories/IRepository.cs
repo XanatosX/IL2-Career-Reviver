@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace IL2CarrerReviverModel.Data.Repositories;
-internal interface IRepository<T, K>
+internal interface IBaseRepository<T, K>
 {
     public IEnumerable<T> GetAll();
 

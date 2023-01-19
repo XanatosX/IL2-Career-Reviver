@@ -10,5 +10,7 @@ public interface ICareerGateway
 {
     IEnumerable<Career> GetAll();
 
-    Career? GetById(int id);
+    Career? GetById(long id);
+
+    Career? Update(Career career);
 }

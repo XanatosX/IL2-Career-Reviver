@@ -27,13 +27,18 @@ public static class ModelDependenciesExtension
     {
         return collection.AddRepositories()
                          .AddSingleton<ICareerGateway, CareerGateway>()
-                         .AddSingleton<IPilotGateway, PilotGateway>();
+                         .AddSingleton<IPilotGateway, PilotGateway>()
+                         .AddSingleton<IMissionGateway, MissionGateway>()
+                         .AddSingleton<ISortieGateway, SortieGateway>();
     }
 
     private static IServiceCollection AddRepositories(this IServiceCollection collection)
     {
-        return collection.AddSingleton<IRepository<Career, long>, CareerRepository>()
-                         .AddSingleton<IRepository<Pilot, long>, PilotRepository>();
+        return collection.AddSingleton<IBaseRepository<Career, long>, CareerRepository>()
+                         .AddSingleton<IBaseRepository<Pilot, long>, PilotRepository>()
+                         .AddSingleton<IBaseRepository<Mission, long>, MissionRepository>()
+                         .AddSingleton<IBaseRepository<Sortie, long>, SortieRepository>();
+
     }
 
     public static IServiceCollection AddAdditionalServices(this IServiceCollection collection)
@@ -43,7 +48,8 @@ public static class ModelDependenciesExtension
                          .AddSingleton<ISavegameLocatorService, AutomaticSteamSavegameSearchingService>()
                          .AddSingleton<IGamePathValidationService, DefaultGamePathValidationService>()
                          .AddSingleton<IDatabaseBackupService, DatabaseBackupService>()
-                         .AddSingleton<IFileChecksumService, Md5ChecksumService>();
+                         .AddSingleton<IFileChecksumService, Md5ChecksumService>()
+                         .AddSingleton<IGamePathValidationService, DefaultGamePathValidationService>();
     }
 
 

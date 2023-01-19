@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace IL2CarrerReviverModel.Data.Gateways;
 internal class PilotGateway : IPilotGateway
 {
-    private readonly IRepository<Pilot, long> repository;
+    private readonly IBaseRepository<Pilot, long> repository;
 
-    public PilotGateway(IRepository<Pilot, long> repository)
+    public PilotGateway(IBaseRepository<Pilot, long> repository)
     {
         this.repository = repository;
     }
@@ -29,5 +29,11 @@ internal class PilotGateway : IPilotGateway
     public Pilot? GetById(long id)
     {
         return repository.GetById(id);
+    }
+
+    public Pilot? Update(Pilot pilot)
+    {
+        repository.Update(pilot);
+        return GetById(pilot.Id);
     }
 }

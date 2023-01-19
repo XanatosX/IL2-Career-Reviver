@@ -1,4 +1,5 @@
 ﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
+using IL2CarrerReviverConsole.Model;
 using IL2CarrerReviverConsole.Services;
 using IL2CarrerReviverConsole.Views;
 using IL2CarrerReviverModel.Data.Gateways;
@@ -8,16 +9,18 @@ using Spectre.Console;
 using Spectre.Console.Cli;
 using System.Diagnostics.CodeAnalysis;
 
-namespace IL2CarrerReviverConsole.Commands.Cli;
+namespace IL2CarrerReviverConsole.Commands.Cli.Entity;
 internal class GetPilotsCommand : Command<GetPilotSettings>
 {
     private readonly IPilotGateway pilotGateway;
+    private readonly ICareerGateway careerGateway;
     private readonly ViewFactory viewFactory;
     private readonly ILogger<GetPilotsCommand> logger;
 
-    public GetPilotsCommand(IPilotGateway pilotGateway, ViewFactory viewFactory, ILogger<GetPilotsCommand> logger)
+    public GetPilotsCommand(IPilotGateway pilotGateway, ICareerGateway careerGateway, ViewFactory viewFactory, ILogger<GetPilotsCommand> logger)
     {
         this.pilotGateway = pilotGateway;
+        this.careerGateway = careerGateway;
         this.viewFactory = viewFactory;
         this.logger = logger;
     }
@@ -25,7 +28,8 @@ internal class GetPilotsCommand : Command<GetPilotSettings>
     public override int Execute([NotNull] CommandContext context, [NotNull] GetPilotSettings settings)
     {
         logger.LogInformation("Get pilots");
-        var pilots = settings.Name is null ? pilotGateway.GetAll() : pilotGateway.GetAll(pilot => pilot.Name == settings.Name || pilot.LastName == settings.Name);
+        var pilots = settings.PlayerOnly ? careerGateway.GetAll().Select(career => career.Player) : pilotGateway.GetAll(pilot => PilotFilter(pilot, settings.Name));
+
         List<Pilot> pilotsToRender = pilots?.ToList() ?? new List<Pilot>();
         if (pilotsToRender.Count == 1)
         {
@@ -38,5 +42,10 @@ internal class GetPilotsCommand : Command<GetPilotSettings>
         IView<IEnumerable<Pilot>>? tableView = viewFactory.CreateView<PilotTableView>();
         AnsiConsole.Write(tableView?.GetView(pilotsToRender) ?? new Markup("[red]Could not find view to display multiple pilot[/]"));
         return 0;
+    }
+
+    private bool PilotFilter(Pilot pilot, string? name)
+    {
+        return name is null ? true : pilot.Name == name || pilot.LastName == name;
     }
 }
