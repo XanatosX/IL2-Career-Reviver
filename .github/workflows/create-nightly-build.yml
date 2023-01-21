@@ -32,6 +32,7 @@ jobs:
         continue-on-error: true
         if: ${{ env.DEBUG == 'true' }} || ${{ github.event_name == 'schedule' }}
         # Based on https://stackoverflow.com/questions/63014786/how-to-schedule-a-github-actions-nightly-build-but-run-it-only-when-there-where
+        # @Note: Check the comments on the solution!
         run: |
           latest=$(git log -n 1 --pretty=format:"%H")
           sha=$(git rev-list --after="24 hours" $latest)
@@ -68,7 +69,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
   create-windows-build:
     name: Create Windows build
-    if: ${{ needs.check-for-changes.outputs.should-run == 'true' }}
+    if: needs.check-for-changes.outputs.should-run == 'true'
     needs: ["check-build"]
     runs-on: windows-latest
     steps:
@@ -102,7 +103,7 @@ jobs:
        if-no-files-found: error
   create-release:
     name: Create GitHub Release
-    if: ${{ needs.check-for-changes.outputs.should-run == 'true' }}
+    if: needs.check-for-changes.outputs.should-run == 'true'
     needs: ["create-windows-build"]
     runs-on: ubuntu-latest
     steps:
