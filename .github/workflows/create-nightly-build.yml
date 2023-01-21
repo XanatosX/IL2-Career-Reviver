@@ -44,6 +44,9 @@ jobs:
             echo "Check successful"
             echo "should_run=true" >> $GITHUB_OUTPUT
           fi
+      - name: Display result variable
+        if: ${{ env.DEBUG == 'true' }}
+        run: echo ${{ needs.check-for-changes.outputs.should_run }}
   check-build:
     name: Check and Test build
     if: ${{ needs.check-for-changes.outputs.should_run == 'true' }}
