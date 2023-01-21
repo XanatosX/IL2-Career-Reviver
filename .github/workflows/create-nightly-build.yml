@@ -11,7 +11,7 @@ env:
   REF_CHECKOUT_BRANCH: develop
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
-  WINDOWS_ARTIFACT_NAME: WindowsBuildArtifact_x64
+  WINDOWS_ARTIFACT_NAME: IL-2_Career_Toolset_windows_x64
   RELEASE_ARTIFACT_FOLDER: artifacts
 
 jobs:
