@@ -47,6 +47,14 @@ jobs:
       - name: Display result variable
         if: ${{ env.DEBUG == 'true' }}
         run: echo ${{ needs.check-for-changes.outputs.should_run }}
+  debug-check-for-changes:
+    name: Debug step for check for changes
+    if: ${{ env.DEBUG == 'true' }}
+    needs: [check-for-changes]
+    runs-on: ubuntu-latest
+    steps:
+     - name: Check output or check for changes
+       run: echo ${{ needs.check-for-changes.outputs.should_run }}
   check-build:
     name: Check and Test build
     if: ${{ needs.check-for-changes.outputs.should_run == 'true' }}
