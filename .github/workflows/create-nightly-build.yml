@@ -30,11 +30,11 @@ jobs:
       - name: Get github refs for debug
         if: ${{ env.DEBUG == 'true' }}
         run: |
-          git rev-list --all --after="24 hours"
-          sha=$(git log -n 1 --pretty=format:"%H")
-          echo $sha
+          latest=$(git rev-list --all --after="24 hours")
+          current=$(git log -n 1 --pretty=format:"%H")
+          echo $latest=$current?
           echo Do the check now
-          test -z $(git rev-list --all --after="24 hours" $sha)
+          test -z $current=$latest
       - name: get latest commit and check it
         id: should_run
         continue-on-error: true
