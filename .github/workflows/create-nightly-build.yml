@@ -39,6 +39,7 @@ jobs:
             echo "test failed"
           else
             echo "test completed"
+          fi
       - name: get latest commit and check it
         id: should_run
         continue-on-error: true
