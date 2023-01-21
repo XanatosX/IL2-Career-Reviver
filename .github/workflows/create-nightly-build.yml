@@ -33,8 +33,8 @@ jobs:
           git rev-list --all --after="24 hours"
           sha=$(git log -n 1 --pretty=format:"%H")
           echo $sha
-          result=test -z $(git rev-list --all --after="24 hours" $sha)
-          echo $result
+          echo Do the check now
+          test -z $(git rev-list --all --after="24 hours" $sha)
       - name: get latest commit and check it
         id: should_run
         continue-on-error: true
