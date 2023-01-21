@@ -37,7 +37,7 @@ jobs:
           if test -z $sha
           then
             echo "test failed"
-           else
+          else
             echo "test completed""
       - name: get latest commit and check it
         id: should_run
