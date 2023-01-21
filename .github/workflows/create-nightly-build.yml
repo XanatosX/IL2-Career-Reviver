@@ -45,13 +45,6 @@ jobs:
             echo "Check successful"
             echo "should-run=true" >> $GITHUB_OUTPUT
           fi
-  debug-check-for-changes:
-    name: Debug step for check for changes
-    needs: [check-for-changes]
-    runs-on: ubuntu-latest
-    steps:
-     - name: Check output or check for changes
-       run: echo result=${{ needs.check-for-changes.outputs.should-run }}
   check-build:
     name: Check and Test build
     # Based on https://stackoverflow.com/questions/59882715/use-environment-variable-in-github-action-if
