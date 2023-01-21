@@ -35,7 +35,7 @@ The following log levels are allowed:
 - Error
 - Critical
 
-On default the app will use `warning`. The logfile is getting saved in `%appdata%\IL2CarrerReviverConsole`.
+On default the app will use `warning`. The logfile is getting saved in `%appdata%\IL2CareerToolset`.
 Just enter the string into the navigation bar in your explorer to get there.
 
 #### Automatic search for steam savegame
