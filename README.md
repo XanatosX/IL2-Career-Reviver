@@ -48,6 +48,8 @@ This command will try to automatically detect your database file, this will only
 
 #### Enter Savegame manually
 
+This command will allow you to set the game folder yourself.
+
 ### Pilots
 
 #### Get Pilots
@@ -70,3 +72,6 @@ This command will try to automatically detect your database file, this will only
 
 # License
 
+Read the [license] file for more information
+
+[license]: LICENSE
