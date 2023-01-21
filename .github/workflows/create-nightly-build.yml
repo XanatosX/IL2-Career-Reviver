@@ -46,7 +46,7 @@ jobs:
           fi
   check-build:
     name: Check and Test build
-    if: ${{ needs.check-for-changes.outputs.should_run == true }}
+    if: ${{ needs.check-for-changes.outputs.should_run == 'true' }}
     needs: [check-for-changes]
     runs-on: ubuntu-latest
     steps:
