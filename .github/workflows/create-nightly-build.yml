@@ -49,7 +49,7 @@ jobs:
         run: echo ${{ needs.check-for-changes.outputs.should_run }}
   debug-check-for-changes:
     name: Debug step for check for changes
-    if: ${{ env.DEBUG == 'true' }}
+    if: env.DEBUG == 'true'
     needs: [check-for-changes]
     runs-on: ubuntu-latest
     steps:
