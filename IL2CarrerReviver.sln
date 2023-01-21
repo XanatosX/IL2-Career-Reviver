@@ -5,9 +5,18 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{14B938F4-3F99-40D0-93DC-3F2F85C9EF55}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IL2CarrerReviverConsole", "src\SqlLiteReaderConsole\IL2CarrerReviverConsole.csproj", "{988C2EB2-3AF3-471B-888C-179D3FBAAED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IL2CareerToolset", "src\IL2CareerToolset\IL2CareerToolset.csproj", "{988C2EB2-3AF3-471B-888C-179D3FBAAED6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IL2CarrerReviverModel", "src\SqlLiteReaderModel\IL2CarrerReviverModel.csproj", "{F7A3D897-740E-43BB-853F-B4A5C0542372}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IL2CareerModel", "src\IL2CareerModel\IL2CareerModel.csproj", "{F7A3D897-740E-43BB-853F-B4A5C0542372}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1772AF32-5E41-42C0-8419-7C960A8B29D8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.md = .github\ISSUE_TEMPLATE\bug_report.md
+		.github\workflows\codeql.yml = .github\workflows\codeql.yml
+		.github\workflows\create-nightly-build.yml = .github\workflows\create-nightly-build.yml
+		.github\ISSUE_TEMPLATE\feature_request.md = .github\ISSUE_TEMPLATE\feature_request.md
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
