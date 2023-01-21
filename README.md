@@ -40,6 +40,11 @@ Just enter the string into the navigation bar in your explorer to get there.
 
 #### Automatic search for steam savegame
 
+`IL2CareerToolset.exe settings auto`
+
+This command will try to automatically detect your database file, this will only work if you use a steam installation.
+**Keep in mind that this command will scan all your discs and folders to find the game, no data will be uploaded.**
+
 #### Enter Savegame manually
 
 ### Pilots
