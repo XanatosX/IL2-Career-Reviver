@@ -38,10 +38,10 @@ jobs:
         continue-on-error: true
         if: ${{ env.DEBUG == 'true' }} || ${{ github.event_name == 'schedule' }}
         run: |
-           echo "::set-output name=should_run::true" 
+           echo "should_run=true" >> $GITHUB_OUTPUT
            sha=$(git log -n 1 --pretty=format:"%H")
            echo $sha
-           test -z $(git rev-list --all --after="24 hours" $sha) && echo "::set-output name=should_run::false"
+           test -z $(git rev-list --all --after="24 hours" $sha) && echo "should_run=false" >> $GITHUB_OUTPUT
   check-build:
     name: Check and Test build
     if: ${{ needs.check-for-changes.outputs.should_run == 'true' }}
