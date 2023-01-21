@@ -47,7 +47,7 @@ jobs:
           fi
       - name: Display result variable
         if: ${{ env.DEBUG == 'true' }}
-        run: echo ${{ needs.check-for-changes.outputs.should_run }}
+        run: echo result=${{ needs.check-for-changes.outputs.should_run }}
   debug-check-for-changes:
     name: Debug step for check for changes
     needs: [check-for-changes]
