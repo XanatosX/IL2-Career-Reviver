@@ -70,8 +70,11 @@ This command will allow you to set the game folder yourself.
 
 # Report Bugs
 
+Go to [issues] to report any bugs you encounter.
+
 # License
 
 Read the [license] file for more information
 
 [license]: LICENSE
+[issues]: https://github.com/XanatosX/IL2CarrerReviver/issues
