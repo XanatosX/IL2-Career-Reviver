@@ -1,10 +1,66 @@
 # IL 2 Career Toolset
 
-This tool will 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2f639adcc2c64220acea31837f5e5d80)](https://www.codacy.com/gh/XanatosX/IL2CarrerReviver/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=XanatosX/IL2CarrerReviver&amp;utm_campaign=Badge_Grade)
+
+This tool will provide you different commands to performe on your save file.
+One of the major features is to revive a dead pilot by resetting the carreer to the day before
+death.
+
+## Warning
+
+This tool will change, delete and move data in your save file around, which can corrupt it.
+This can lead to unwanted behaviors of the game or make the save useless.
+Those errors could appear later and may be invisible directly after usage.
+Command's which change your save file will present you a warning you need to comfirm before the
+command will run.
 
 ## Command list
 
-## Report Bugs
+You need to open a cmd or powershell to run the commands, to do so press windows key and search for
+powershell or cmd. Navigate to the folder contaning the exe of the toolset by `cd {Folder name you extracted the zip to}`. 
+Use the commands listed below to use the tool
 
-## License
+### Settings
+
+#### Set Log level
+
+`IL2CareerToolset.exe settings loglevel {loglevel}`
+
+The following log levels are allowed:
+
+- Trace
+- Debug
+- Information
+- Warning
+- Error
+- Critical
+
+On default the app will use `warning`. The logfile is getting saved in `%appdata%\IL2CarrerReviverConsole`.
+Just enter the string into the navigation bar in your explorer to get there.
+
+#### Automatic search for steam savegame
+
+#### Enter Savegame manually
+
+### Pilots
+
+#### Get Pilots
+
+#### Revive Pilots
+
+### Backup
+
+#### Create Save Backup
+
+#### Delete Backup
+
+#### List Backup's
+
+#### Rename Backup's
+
+#### Restore Backup
+
+# Report Bugs
+
+# License
 

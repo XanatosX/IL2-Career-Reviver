@@ -38,6 +38,7 @@
 	<PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <Nullable>enable</Nullable>
+    <AssemblyName>IL2CareerToolset</AssemblyName>
   </PropertyGroup>
 
 </Project>
