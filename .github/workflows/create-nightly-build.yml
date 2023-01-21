@@ -31,10 +31,14 @@ jobs:
         if: ${{ env.DEBUG == 'true' }}
         run: |
           latest=$(git rev-list --all --after="24 hours")
-          current=$(git log -n 1 --pretty=format:"%H")
-          echo $latest=$current?
+          sha=$(git rev-list --after="24 hours" $latest)
+          echo $sha
           echo Do the check now
-          test -z $current=$latest && echo identical
+          if test -z $sha
+          then
+            echo "test failed"
+           else
+            echo "test completed""
       - name: get latest commit and check it
         id: should_run
         continue-on-error: true
