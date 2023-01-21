@@ -48,6 +48,8 @@ This command will try to automatically detect your database file, this will only
 
 #### Enter Savegame manually
 
+`IL2CareerToolset.exe settings manuell`
+
 This command will allow you to set the game folder yourself.
 
 ### Pilots
