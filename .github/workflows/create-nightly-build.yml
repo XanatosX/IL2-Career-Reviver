@@ -84,7 +84,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Publish Application
-      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} --self-contained
+      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }}
     - name: Cleanup published build
       run: rm ${{ env.APPLICATION_PUBLISH_FOLDER }}\*.pdb
     - name: Show content for debug
