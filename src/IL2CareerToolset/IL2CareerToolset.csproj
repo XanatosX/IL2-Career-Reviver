@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <None Remove="Resources\AppName.txt" />
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SqlLiteReaderModel\IL2CareerModel.csproj" />
+    <ProjectReference Include="..\IL2CareerModel\IL2CareerModel.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
