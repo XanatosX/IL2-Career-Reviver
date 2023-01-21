@@ -32,10 +32,8 @@ jobs:
         run: |
           git rev-list --all --after="24 hours"
           git log -n 1 --pretty=format:"%H"
-          sha1=$(git log -n 1 --pretty=format:"%H")
-          sha2=$(git rev-list --all --after="24 hours" $sha)
-          echo sha1
-          echo sha2
+          sha=$(git log -n 1 --pretty=format:"%H")
+          echo $sha
       - name: get latest commit and check it
         id: should_run
         continue-on-error: true
