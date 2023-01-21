@@ -19,6 +19,10 @@ internal class SettingsService : ISettingsService
     public Setting? GetSettings()
     {
         Setting? setting = null;
+        if (!File.Exists(pathService.GetSettingsPath()))
+        {
+            return setting;
+        }
         using (FileStream stream = new FileStream(pathService.GetSettingsPath(), FileMode.Open, FileAccess.Read))
         {
             setting = JsonSerializer.Deserialize<Setting>(stream);
