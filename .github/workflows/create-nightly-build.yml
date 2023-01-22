@@ -133,7 +133,7 @@ jobs:
           gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
             --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
             --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
-            '${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
+            ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
           
           # '${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
 #      - uses: ncipollo/release-action@v1
