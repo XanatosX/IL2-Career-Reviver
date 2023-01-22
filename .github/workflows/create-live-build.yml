@@ -54,14 +54,15 @@ jobs:
     - name: Get release version
       run: |
          # Found at https://github.com/orgs/community/discussions/25713
+         # Additional env fix found on https://github.com/actions/runner-images/issues/5251
          if ( '${{ GITHUB.REF_TYPE }}' -eq 'branch' ) {
-             echo "BUILD_VERSION=0.0.0" >> $GITHUB_ENV
+             echo "BUILD_VERSION=0.0.0" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
            }
            else {
-             echo "BUILD_VERSION=${{ GITHUB.REF_NAME }}" >> $GITHUB_ENV
+             echo "BUILD_VERSION=${{ GITHUB.REF_NAME }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
            }
     - name: Publish Application
-      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} /p:Version=${{ env.BUILD_VERSION }}
+      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} /p:Version=$BUILD_VERSION
     - name: Cleanup published build
       run: rm ${{ env.APPLICATION_PUBLISH_FOLDER }}\*.pdb
     - name: Show content for debug
