@@ -38,8 +38,6 @@ jobs:
     name: Publish Windows build
     needs: ["check-build"]
     runs-on: windows-latest
-    env:
-     BUILD_VERSION: 0.0.0.0
     steps:
     - uses: actions/checkout@v3
       with:
