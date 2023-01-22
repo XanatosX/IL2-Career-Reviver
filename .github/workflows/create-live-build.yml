@@ -59,7 +59,7 @@ jobs:
              echo "build_version=${{ GITHUB.REF_NAME }}" >> $GITHUB_ENV
            }
     - name: Publish Application
-      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} --self-contained  /p:AssemblyVersion=$Env:build_version
+      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} --self-contained  /p:AssemblyVersion=${{ env.build_version }}
     - name: Cleanup published build
       run: rm ${{ env.APPLICATION_PUBLISH_FOLDER }}\*.pdb
     - name: Show content for debug

@@ -90,11 +90,44 @@ if it was successful.
 
 ### Backup
 
+#### List Backup's
+
+`IL2CareerToolset.exe save backup list`
+
+Get a table with all the backups created for your game.
+
 #### Create Save Backup
+
+`IL2CareerToolset.exe save backup create [Arguments]`
+
+Create a new backup for your game and store it to the backup folder `%appdata%\IL2CareerToolset\backups`.
+
+##### Arguments
+
+| Position | Required |             Description          |
+| -------- | -------- | -------------------------------- |
+|    0     | OPTIONAL | The name of the backup to create |
 
 #### Delete Backup
 
-#### List Backup's
+`IL2CareerToolset.exe save backup delete [Arguments] [Flags]`
+
+Delete a single backup or all of them, if no arguments provided the program will ask for a backup to delete.
+
+
+##### Arguments
+
+| Position | Required |             Description          |
+| -------- | -------- | -------------------------------- |
+|    0     | OPTIONAL | The guid of the backup to delete |
+
+To get the guid for a backup use the `list` command first
+
+##### Flags
+
+|    Flag  |             Description             |
+| -------- | ----------------------------------- |
+| -a|--all | Delete all the backups for the game |
 
 #### Rename Backup's
 
