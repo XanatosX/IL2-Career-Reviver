@@ -130,8 +130,8 @@ jobs:
             else
                 echo "Create non draft build"
           fi
-          parameters=$parameters' --notes "Recent version of the develop branch, ready for testing"
-          echo command parameters=$parameters
+          parameters=$parameters' --notes "Recent version of the develop branch, ready for testing"'
+          echo parameters=$parameters
           gh release create $parameters ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
 #      - uses: ncipollo/release-action@v1
 #        with:
