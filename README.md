@@ -66,7 +66,7 @@ This command will list all the pilots of all your save games. there are some pos
 
 | Position | Required |              Description            |
 | -------- | -------- | ----------------------------------- |
-|    0     | OPTIONAL | The name of the pilot to search for |
+|    1     | OPTIONAL | The name of the pilot to search for |
 
 ##### Flags
 
@@ -106,7 +106,7 @@ Create a new backup for your game and store it to the backup folder `%appdata%\I
 
 | Position | Required |             Description          |
 | -------- | -------- | -------------------------------- |
-|    0     | OPTIONAL | The name of the backup to create |
+|    1     | OPTIONAL | The name of the backup to create |
 
 #### Delete Backup
 
@@ -119,9 +119,9 @@ Delete a single backup or all of them, if no arguments provided the program will
 
 | Position | Required |             Description          |
 | -------- | -------- | -------------------------------- |
-|    0     | OPTIONAL | The guid of the backup to delete |
+|    1     | OPTIONAL | The guid of the backup to delete |
 
-To get the guid for a backup use the `list` command first
+> :information_source: To get the guid for a backup use the `list` command first
 
 ##### Flags
 
@@ -131,7 +131,32 @@ To get the guid for a backup use the `list` command first
 
 #### Rename Backup's
 
+`IL2CareerToolset.exe save backup rename [Arguments]`
+
+Rename a backup. If no arguments provided the program will ask you for a backup to rename and the new name to use
+
+##### Arguments
+
+| Position | Required |              Description           |
+| -------- | -------- | ---------------------------------- |
+|    1     | OPTIONAL | The guid of the backup to rename   |
+|    2     | OPTIONAL | The new name to use for the backup |
+
+> :information_source: To get the guid for a backup use the `list` command first
+
 #### Restore Backup
+
+`IL2CareerToolset.exe save backup restore [Arguments]`
+
+Restore a backup. If no argument provided the program will show a list with all the backups you could restore
+
+##### Arguments
+
+| Position | Required |               Description           |
+| -------- | -------- | ----------------------------------- |
+|    1     | OPTIONAL | The guid of the backup to restore   |
+
+> :information_source: To get the guid for a backup use the `list` command first
 
 # Report Bugs
 
