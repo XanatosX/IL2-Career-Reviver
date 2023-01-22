@@ -132,7 +132,8 @@ jobs:
           fi
           parameters=$parameters' --notes "Recent version of the develop branch, ready for testing"'
           echo parameters=$parameters
-          gh release create ${parameters} '${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
+          gh release create ${parameters}
+          # '${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
 #      - uses: ncipollo/release-action@v1
 #        with:
 #          name: ${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]
