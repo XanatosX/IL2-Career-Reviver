@@ -53,10 +53,10 @@ jobs:
       run: |
          # Found at https://github.com/orgs/community/discussions/25713
          if ( '${{ GITHUB.REF_TYPE }}' -eq 'branch' ) {
-             "build_version=0.0.0" >> $GITHUB_ENV
+             echo "build_version=0.0.0" >> $GITHUB_ENV
            }
            else {
-             "build_version=${{ GITHUB.REF_NAME }}" >> $GITHUB_ENV
+             echo "build_version=${{ GITHUB.REF_NAME }}" >> $GITHUB_ENV
            }
     - name: Publish Application
       run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} --self-contained  /p:AssemblyVersion=$Env:build_version
