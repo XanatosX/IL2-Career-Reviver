@@ -76,6 +76,18 @@ This command will list all the pilots of all your save games. there are some pos
 
 #### Revive Pilots
 
+`IL2CareerToolset.exe save game pilot [Flags]`
+
+Revive a pilot from your save game, please create a backup first. Keep in mind that this action could destroy your save.
+The command will ask you which pilot to revive as you run it. It will ask you to confirm the revive and give you an overview 
+if it was successful.
+
+##### Flags
+
+|      Flag     |         Description         |
+| ------------- | --------------------------- |
+| -i|--ironman  | Include iron man characters |
+
 ### Backup
 
 #### Create Save Backup
