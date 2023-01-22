@@ -8,7 +8,6 @@ on:
 
 env:
   DEBUG: true
-  BUILD_VERSION: 0.0.0.0
   REF_CHECKOUT_BRANCH: master
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
@@ -39,6 +38,8 @@ jobs:
     name: Publish Windows build
     needs: ["check-build"]
     runs-on: windows-latest
+    env:
+     BUILD_VERSION: 0.0.0.0
     steps:
     - uses: actions/checkout@v3
       with:
