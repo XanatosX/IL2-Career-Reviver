@@ -8,6 +8,7 @@ on:
 
 env:
   DEBUG: true
+  BUILD_VERSION: 0.0.0.0
   REF_CHECKOUT_BRANCH: master
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
@@ -53,13 +54,13 @@ jobs:
       run: |
          # Found at https://github.com/orgs/community/discussions/25713
          if ( '${{ GITHUB.REF_TYPE }}' -eq 'branch' ) {
-             echo "build_version=0.0.0" >> $GITHUB_ENV
+             echo "BUILD_VERSION=0.0.0" >> $GITHUB_ENV
            }
            else {
-             echo "build_version=${{ GITHUB.REF_NAME }}" >> $GITHUB_ENV
+             echo "BUILD_VERSION=${{ GITHUB.REF_NAME }}" >> $GITHUB_ENV
            }
     - name: Publish Application
-      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} /p:AssemblyVersion=${{ env.build_version }}
+      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} /p:Version=${{ env.BUILD_VERSION }}
     - name: Cleanup published build
       run: rm ${{ env.APPLICATION_PUBLISH_FOLDER }}\*.pdb
     - name: Show content for debug
