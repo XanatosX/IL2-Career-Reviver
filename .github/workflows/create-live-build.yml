@@ -80,7 +80,11 @@ jobs:
     name: Upload Artifacts to release
     needs: ["create-windows-build"]
     runs-on: ubuntu-latest
-    steps:
+    steps:      
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.REF_CHECKOUT_BRANCH }}
+          lfs: true
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with: 
