@@ -132,7 +132,7 @@ jobs:
           fi
           parameters=$parameters' --notes Recent version of the develop branch, ready for testing'
           echo command parameters=$parameters
-          #gh release create $parameters
+          gh release create $parameters
 #      - uses: ncipollo/release-action@v1
 #        with:
 #          name: ${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]
