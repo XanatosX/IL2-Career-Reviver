@@ -85,6 +85,6 @@ jobs:
         if: ${{ env.DEBUG == 'true' }}
         run: ls -la $RELEASE_ARTIFACT_FOLDER
       - name: Upload artifacts
-        if: github.event_name = 'release'
+        if: github.event_name == 'release'
         run: |
           gh release upload ${{ GITHUB.GITHUB_REF }} ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
