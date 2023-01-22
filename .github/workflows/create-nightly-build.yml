@@ -11,7 +11,7 @@ env:
   REF_CHECKOUT_BRANCH: develop
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
-  WINDOWS_ARTIFACT_NAME: IL-2_Career_Toolset_windows_x64
+  WINDOWS_ARTIFACT_NAME: IL_2_Career_Toolset_windows_x64
   RELEASE_ARTIFACT_FOLDER: artifacts
 
 jobs:
@@ -121,7 +121,7 @@ jobs:
         run: ls -la $RELEASE_ARTIFACT_FOLDER
       - name: Create release and upload artifacts
         run: |
-          parameters=Develop-${{ GITHUB.RUN_NUMBER }} ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
+          parameters='Develop-${{ GITHUB.RUN_NUMBER }} ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
           parameters=${parameters} --title ${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}] --target ${{ env.REF_CHECKOUT_BRANCH }} --generate-notes --prerelease
           parameters=${parameters} --notes Recent version of the develop branch, ready for testing
           if ${{ env.DEBUG == 'true' }}
