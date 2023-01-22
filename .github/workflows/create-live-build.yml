@@ -96,4 +96,4 @@ jobs:
       - name: Upload artifacts
         if: github.event_name == 'release'
         run: |
-          gh release upload ${{ GITHUB.GITHUB_REF }} ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
+          gh release upload ${{ GITHUB.GITHUB_REF }} ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
