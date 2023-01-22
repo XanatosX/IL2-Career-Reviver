@@ -13,6 +13,7 @@ env:
   APPLICATION_PUBLISH_FOLDER: ./publish
   WINDOWS_ARTIFACT_NAME: IL_2_Career_Toolset_windows_x64
   RELEASE_ARTIFACT_FOLDER: artifacts
+  GH_TOKEN: ${{ github.token }}
 
 jobs:
   check-for-changes:
