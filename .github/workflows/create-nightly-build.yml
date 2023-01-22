@@ -10,8 +10,9 @@ env:
   REF_CHECKOUT_BRANCH: develop
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
-  WINDOWS_ARTIFACT_NAME: IL-2_Career_Toolset_windows_x64
+  WINDOWS_ARTIFACT_NAME: IL_2_Career_Toolset_windows_x64
   RELEASE_ARTIFACT_FOLDER: artifacts
+  GH_TOKEN: ${{ github.token }}
 
 jobs:
   check-for-changes:
@@ -83,7 +84,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Publish Application
-      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} --self-contained
+      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} /p:Version=0.0.0
     - name: Cleanup published build
       run: rm ${{ env.APPLICATION_PUBLISH_FOLDER }}\*.pdb
     - name: Show content for debug
@@ -106,6 +107,10 @@ jobs:
     needs: ["create-windows-build"]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ env.REF_CHECKOUT_BRANCH }}
+          lfs: true
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with: 
@@ -118,13 +123,17 @@ jobs:
       - name: display artifacts folder content
         if: ${{ env.DEBUG == 'true' }}
         run: ls -la $RELEASE_ARTIFACT_FOLDER
-      - uses: ncipollo/release-action@v1
-        with:
-          name: ${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]
-          tag: Develop-${{ GITHUB.RUN_NUMBER }}
-          generateReleaseNotes: true
-          body: Recent version of the develop branch, ready for testing
-          draft: ${{ env.DEBUG }}
-          prerelease: true
-          artifacts: ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
-          artifactContentType: "application/zip"
+      - name: Create release and upload artifacts (DEBUG)
+        if:  ${{ env.DEBUG == 'true' }}
+        run: |
+          gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
+            --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
+            --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
+            -d ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
+      - name: Create release and upload artifacts
+        if:  ${{ env.DEBUG == 'false' }}
+        run: |
+          gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
+            --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
+            --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
+            ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
