@@ -51,6 +51,7 @@ jobs:
       run: dotnet restore
     - name: Get release version
       run: |
+         # Found at https://github.com/orgs/community/discussions/25713
          if ( '${{ GITHUB.REF_TYPE }}' -eq 'branch' ) {
              "build_version=0.0.0" >> $GITHUB_ENV
            }
