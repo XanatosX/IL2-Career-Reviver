@@ -131,9 +131,8 @@ jobs:
                 echo "Create non draft build"
           fi
           parameters=$parameters' --notes "Recent version of the develop branch, ready for testing"
-          #  ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
           echo command parameters=$parameters
-          gh release create $parameters
+          gh release create $parameters ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
 #      - uses: ncipollo/release-action@v1
 #        with:
 #          name: ${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]
