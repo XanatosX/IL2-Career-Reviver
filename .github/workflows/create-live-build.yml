@@ -4,10 +4,9 @@ name: Live build
 on:
   release:
     types: [created]
-  push:
 
 env:
-  DEBUG: true
+  DEBUG: false
   REF_CHECKOUT_BRANCH: master
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
@@ -99,6 +98,6 @@ jobs:
         if: ${{ env.DEBUG == 'true' }}
         run: ls -la $RELEASE_ARTIFACT_FOLDER
       - name: Upload artifacts
-        if: github.event_name == 'release'
+        if: ${{ env.DEBUG == 'false' }}
         run: |
           gh release upload ${{ GITHUB.GITHUB_REF }} ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
