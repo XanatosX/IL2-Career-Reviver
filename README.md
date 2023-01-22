@@ -58,19 +58,105 @@ This command will allow you to set the game folder yourself.
 
 #### Get Pilots
 
+`IL2CareerToolset.exe save game pilot [Arguments] [Flags]`
+
+This command will list all the pilots of all your save games. there are some possibilities for filtering
+
+##### Arguments
+
+| Position | Required |              Description            |
+| -------- | -------- | ----------------------------------- |
+|    1     | OPTIONAL | The name of the pilot to search for |
+
+##### Flags
+
+|     Flag     |       Description       |
+| ------------ | ----------------------- |
+| -p|--player  | Only show player pilots |
+
 #### Revive Pilots
+
+`IL2CareerToolset.exe save game pilot [Flags]`
+
+Revive a pilot from your save game, please create a backup first. Keep in mind that this action could destroy your save.
+The command will ask you which pilot to revive as you run it. It will ask you to confirm the revive and give you an overview 
+if it was successful.
+
+##### Flags
+
+|      Flag     |         Description         |
+| ------------- | --------------------------- |
+| -i|--ironman  | Include iron man characters |
 
 ### Backup
 
+#### List Backup's
+
+`IL2CareerToolset.exe save backup list`
+
+Get a table with all the backups created for your game.
+
 #### Create Save Backup
+
+`IL2CareerToolset.exe save backup create [Arguments]`
+
+Create a new backup for your game and store it to the backup folder `%appdata%\IL2CareerToolset\backups`.
+
+##### Arguments
+
+| Position | Required |             Description          |
+| -------- | -------- | -------------------------------- |
+|    1     | OPTIONAL | The name of the backup to create |
 
 #### Delete Backup
 
-#### List Backup's
+`IL2CareerToolset.exe save backup delete [Arguments] [Flags]`
+
+Delete a single backup or all of them, if no arguments provided the program will ask for a backup to delete.
+
+
+##### Arguments
+
+| Position | Required |             Description          |
+| -------- | -------- | -------------------------------- |
+|    1     | OPTIONAL | The guid of the backup to delete |
+
+> :information_source: To get the guid for a backup use the `list` command first
+
+##### Flags
+
+|    Flag  |             Description             |
+| -------- | ----------------------------------- |
+| -a|--all | Delete all the backups for the game |
 
 #### Rename Backup's
 
+`IL2CareerToolset.exe save backup rename [Arguments]`
+
+Rename a backup. If no arguments provided the program will ask you for a backup to rename and the new name to use
+
+##### Arguments
+
+| Position | Required |              Description           |
+| -------- | -------- | ---------------------------------- |
+|    1     | OPTIONAL | The guid of the backup to rename   |
+|    2     | OPTIONAL | The new name to use for the backup |
+
+> :information_source: To get the guid for a backup use the `list` command first
+
 #### Restore Backup
+
+`IL2CareerToolset.exe save backup restore [Arguments]`
+
+Restore a backup. If no argument provided the program will show a list with all the backups you could restore
+
+##### Arguments
+
+| Position | Required |               Description           |
+| -------- | -------- | ----------------------------------- |
+|    1     | OPTIONAL | The guid of the backup to restore   |
+
+> :information_source: To get the guid for a backup use the `list` command first
 
 # Report Bugs
 
