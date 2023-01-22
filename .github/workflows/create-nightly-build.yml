@@ -122,15 +122,15 @@ jobs:
       - name: Create release and upload artifacts
         run: |
           parameters='Develop-${{ GITHUB.RUN_NUMBER }} ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
-          parameters=${parameters} --title ${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}] --target ${{ env.REF_CHECKOUT_BRANCH }} --generate-notes --prerelease
-          parameters=${parameters} --notes Recent version of the develop branch, ready for testing
+          parameters=$parameters' --title ${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}] --target ${{ env.REF_CHECKOUT_BRANCH }} --generate-notes --prerelease'
+          parameters=$parameters' --notes Recent version of the develop branch, ready for testing'
           if ${{ env.DEBUG == 'true' }}
             then
-                parameters=${parameters} -d
+                parameters=$parameters' -d'
             else
                 echo "Create non draft build"
           fi
-          parameters=${parameters} --notes Recent version of the develop branch, ready for testing
+          parameters=$parameters' --notes Recent version of the develop branch, ready for testing'
           echo command parameters=$parameters
           #gh release create $parameters
 #      - uses: ncipollo/release-action@v1
