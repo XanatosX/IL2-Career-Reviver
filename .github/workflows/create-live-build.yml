@@ -100,4 +100,4 @@ jobs:
       - name: Upload artifacts
         if: ${{ env.DEBUG == 'false' }}
         run: |
-          gh release upload ${{ GITHUB.REF }} ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
+          gh release upload ${{ GITHUB.REF_NAME }} ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
