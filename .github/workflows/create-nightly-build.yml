@@ -120,19 +120,21 @@ jobs:
       - name: display artifacts folder content
         if: ${{ env.DEBUG == 'true' }}
         run: ls -la $RELEASE_ARTIFACT_FOLDER
-      - name: Create release and upload artifacts
+      - name: Create release and upload artifacts (DEBUG)
+        if:  ${{ env.DEBUG == 'true' }}
         run: |
-          parameters='Develop-${{ GITHUB.RUN_NUMBER }}'
-          parameters=$parameters' --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} --generate-notes --prerelease'
-          if ${{ env.DEBUG == 'true' }}
-            then
-                parameters=$parameters' -d'
-            else
-                echo "Create non draft build"
-          fi
-          parameters=$parameters' --notes "Recent version of the develop branch, ready for testing"'
-          echo parameters=$parameters
-          gh release create ${parameters}
+          gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
+            --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
+            --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
+            -d '${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
+      - name: Create release and upload artifacts
+        if:  ${{ env.DEBUG == 'false' }}
+        run: |
+          gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
+            --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
+            --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
+            '${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
+          
           # '${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip'
 #      - uses: ncipollo/release-action@v1
 #        with:
