@@ -58,6 +58,22 @@ This command will allow you to set the game folder yourself.
 
 #### Get Pilots
 
+`IL2CareerToolset.exe save game pilot [Arguments] [Flags]`
+
+This command will list all the pilots of all your save games. there are some possibilities for filtering
+
+##### Arguments
+
+| Position | Required |              Description            |
+| -------- | -------- | ----------------------------------- |
+|    0     | OPTIONAL | The name of the pilot to search for |
+
+##### Flags
+
+|     Flag     |       Description       |
+| ------------ | ----------------------- |
+| -p|--player  | Only show player pilots |
+
 #### Revive Pilots
 
 ### Backup
