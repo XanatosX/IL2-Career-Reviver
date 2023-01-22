@@ -49,8 +49,16 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: Get release version
+      run: |
+         if ${{ GITHUB.GITHUB_REF_TYPE }} = 'branch'
+           then
+             build_version=0.0.0 >> $GITHUB_ENV
+           else
+             build_version=${{ GITHUB.GITHUB_REF_NAME }} >> $GITHUB_ENV
+         fi
     - name: Publish Application
-      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} --self-contained
+      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} --self-contained  /p:AssemblyVersion=${{ env.build_version }}
     - name: Cleanup published build
       run: rm ${{ env.APPLICATION_PUBLISH_FOLDER }}\*.pdb
     - name: Show content for debug
@@ -81,7 +89,7 @@ jobs:
           cd ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_ARTIFACT_NAME
           zip -r $WINDOWS_ARTIFACT_NAME.zip ./*
           mv $WINDOWS_ARTIFACT_NAME.zip ../
-      - name: display artifacts folder content
+      - name: Display artifacts folder content
         if: ${{ env.DEBUG == 'true' }}
         run: ls -la $RELEASE_ARTIFACT_FOLDER
       - name: Upload artifacts
