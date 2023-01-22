@@ -3,7 +3,7 @@ name: Live build
 # Based on https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
 on:
   release:
-    types: [created]
+    types: [released]
 
 env:
   DEBUG: false
