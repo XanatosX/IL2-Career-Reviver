@@ -72,7 +72,7 @@ This command will list all the pilots of all your save games. there are some pos
 
 |     Flag     |       Description       |
 | ------------ | ----------------------- |
-| -p|--player  | Only show player pilots |
+| -p\|--player  | Only show player pilots |
 
 #### Revive Pilots
 
@@ -86,7 +86,7 @@ if it was successful.
 
 |      Flag     |         Description         |
 | ------------- | --------------------------- |
-| -i|--ironman  | Include iron man characters |
+| -i\|--ironman  | Include iron man characters |
 
 ### Backup
 
@@ -127,7 +127,7 @@ Delete a single backup or all of them, if no arguments provided the program will
 
 |    Flag  |             Description             |
 | -------- | ----------------------------------- |
-| -a|--all | Delete all the backups for the game |
+| -a\|--all | Delete all the backups for the game |
 
 #### Rename Backup's
 
