@@ -1,4 +1,8 @@
 ﻿namespace IL2CareerModel.Models.Database;
+
+/// <summary>
+/// Settings to connect to the database
+/// </summary>
 public class DatabaseSettings
 {
     /// <summary>
