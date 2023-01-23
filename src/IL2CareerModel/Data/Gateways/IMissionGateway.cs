@@ -1,15 +1,11 @@
-﻿using IL2CarrerReviverModel.Models;
+﻿using IL2CareerModel.Data.Gateways;
+using IL2CarrerReviverModel.Models;
 
 namespace IL2CarrerReviverModel.Data.Gateways;
-public interface IMissionGateway
+
+/// <summary>
+/// The gateway to change the mission table on the database
+/// </summary>
+public interface IMissionGateway : IReadGateway<Mission>, IWriteGateway<Mission>
 {
-    IEnumerable<Mission> GetAll() => GetAll(_ => true);
-
-    IEnumerable<Mission> GetAll(Func<Mission, bool> filter);
-
-    Mission? GetById(long id);
-
-    bool DeleteById(long id);
-
-    bool Delete(Mission mission);
 }

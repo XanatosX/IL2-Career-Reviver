@@ -1,18 +1,11 @@
-﻿using IL2CarrerReviverModel.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IL2CareerModel.Data.Gateways;
+using IL2CarrerReviverModel.Models;
 
 namespace IL2CarrerReviverModel.Data.Gateways;
-public interface IPilotGateway
+
+/// <summary>
+/// The gateway to change the pilot table on the database
+/// </summary>
+public interface IPilotGateway : IReadGateway<Pilot>, IWriteGateway<Pilot>
 {
-    IEnumerable<Pilot> GetAll(Func<Pilot, bool> filter);
-
-    IEnumerable<Pilot> GetAll();
-
-    Pilot? GetById(long id);
-
-    Pilot? Update(Pilot pilot);
 }
