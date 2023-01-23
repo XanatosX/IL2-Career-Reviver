@@ -1,4 +1,4 @@
-﻿using IL2CarrerReviverModel.Models;
+﻿using IL2CareerModel.Models.Database;
 using IL2CarrerReviverModel.Services;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -19,7 +19,7 @@ internal class DatabaseBackupService : IDatabaseBackupService
 
     public DatabaseBackupService(ISettingsFolderBridge pathService,
                                  IFileChecksumService fileChecksumService,
-                                 IDatabaseConnectionStringService databaseConnectionString,
+                                 DatabaseSettings databaseSettings,
                                  ILogger<DatabaseBackupService> logger)
     {
         this.fileChecksumService = fileChecksumService;
@@ -31,7 +31,7 @@ internal class DatabaseBackupService : IDatabaseBackupService
         {
             Directory.CreateDirectory(backupTargetFolder);
         }
-        sourceDatabaseFile = databaseConnectionString.GetDatabasePath() ?? string.Empty;
+        sourceDatabaseFile = databaseSettings.DatabasePath ?? string.Empty;
     }
 
     public string GetBackupFolder()

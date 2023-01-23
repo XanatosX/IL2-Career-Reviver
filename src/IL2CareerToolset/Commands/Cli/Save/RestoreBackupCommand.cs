@@ -1,6 +1,6 @@
-﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
+﻿using IL2CareerModel.Models.Database;
+using IL2CarrerReviverConsole.Commands.Cli.Settings;
 using IL2CarrerReviverConsole.Services;
-using IL2CarrerReviverModel.Models;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;

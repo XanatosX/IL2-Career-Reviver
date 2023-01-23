@@ -1,5 +1,5 @@
-﻿using IL2CarrerReviverConsole.Services;
-using IL2CarrerReviverModel.Models;
+﻿using IL2CareerModel.Models.Database;
+using IL2CarrerReviverConsole.Services;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
