@@ -28,11 +28,21 @@ servers you play on. I would guess that this is not the case but I'm not able to
 > :information_source: Command's which change your save file will present you a warning you need to comfirm before the
 command will run.
 
+## Installation
+
+To install the tool head over to the [releases] or use the [latest release][latest_release].
+Download the asset containing the tool, which is a zip file. As soon as the tool is downloaded unzip it 
+to a folder on your computer.
+
+Continue with the Command list section
+
 ## Command list
 
-You need to open a cmd or powershell to run the commands, to do so press windows key and search for
+You need to open a `command line` or `powershell` to run the commands, to do so press windows key and search for
 powershell or cmd. Navigate to the folder contaning the exe of the toolset by `cd {Folder name you extracted the zip to}`. 
 Use the commands listed below to use the tool
+
+If you need any additional information or need help with the usage please create a [issue][issues].
 
 ### Settings
 
@@ -178,6 +188,8 @@ Go to [issues] to report any bugs you encounter.
 
 Read the [license] file for more information
 
+[releases]: https://github.com/XanatosX/IL2CarrerReviver/releases
+[latest_release]: https://github.com/XanatosX/IL2CarrerReviver/releases/latest
 [license]: LICENSE
 [issues]: https://github.com/XanatosX/IL2CarrerReviver/issues
 [game_website]: https://il2sturmovik.com/
