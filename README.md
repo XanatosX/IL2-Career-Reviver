@@ -2,18 +2,27 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2f639adcc2c64220acea31837f5e5d80)](https://www.codacy.com/gh/XanatosX/IL2CarrerReviver/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=XanatosX/IL2CarrerReviver&amp;utm_campaign=Badge_Grade)
 
+> :warning: This tool can only be used with the Game `L-2 Sturmovik Great Battles`.
+> To get the game please go to the [game website][game_website] or steam.
+
+
 **This readme is still WIP I did want to get nighly build's up ASAP.**
 
 This tool will provide you different commands to performe on your save file.
 One of the major features is to revive a dead pilot by resetting the carreer to the day before
 death.
 
-## Warning
+## :warning: Warning :warning:
 
 This tool will change, delete and move data in your save file around, which can corrupt it.
-This can lead to unwanted behaviors of the game or make the save useless.
-Those errors could appear later and may be invisible directly after usage.
-Command's which change your save file will present you a warning you need to comfirm before the
+This can lead to unwanted behaviors of the game or break the save completly,
+which will affec all other careers as well.
+Those errors could appear later on and may be invisible directly after usage.
+
+> :warning: Since I do not play in multiplayer I have no clue if editing the database will cause any errors with the
+servers you play on. I would guess that this is not the case but I'm not able to confirm it just yet.
+
+> :information_source: Command's which change your save file will present you a warning you need to comfirm before the
 command will run.
 
 ## Command list
@@ -168,3 +177,4 @@ Read the [license] file for more information
 
 [license]: LICENSE
 [issues]: https://github.com/XanatosX/IL2CarrerReviver/issues
+[game_website]: https://il2sturmovik.com/
