@@ -1,6 +1,9 @@
 # IL 2 Career Toolset
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2f639adcc2c64220acea31837f5e5d80)](https://www.codacy.com/gh/XanatosX/IL2CarrerReviver/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=XanatosX/IL2CarrerReviver&amp;utm_campaign=Badge_Grade)
+[![Nightly Develop Build](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-nightly-build.yml/badge.svg?branch=master)](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-nightly-build.yml)
+[![Live build](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-live-build.yml/badge.svg)](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-live-build.yml)
+
 
 > :warning: This tool can only be used with the Game `L-2 Sturmovik Great Battles`.
 > To get the game please go to the [game website][game_website] or steam.
