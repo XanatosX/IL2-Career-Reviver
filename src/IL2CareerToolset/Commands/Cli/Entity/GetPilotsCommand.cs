@@ -28,9 +28,11 @@ internal class GetPilotsCommand : Command<GetPilotSettings>
     public override int Execute([NotNull] CommandContext context, [NotNull] GetPilotSettings settings)
     {
         logger.LogInformation("Get pilots");
-        var pilots = settings.PlayerOnly ? careerGateway.GetAll().Select(career => career.Player) : pilotGateway.GetAll(pilot => PilotFilter(pilot, settings.Name));
+        var pilots = settings.PlayerOnly ? careerGateway.GetAll()
+                                                        .Select(career => career.Player)
+                                                        .OfType<Pilot>() : pilotGateway.GetAll(pilot => PilotFilter(pilot, settings.Name));
 
-        List<Pilot> pilotsToRender = pilots?.ToList() ?? new List<Pilot>();
+        List<Pilot> pilotsToRender = pilots?.ToList() ?? new();
         if (pilotsToRender.Count == 1)
         {
             logger.LogDebug($"Found a single pilot to render");
