@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace IL2CarrerReviverModel.Data.Repositories;
+
 internal class MissionRepository : BaseRepository<Mission>
 {
     public MissionRepository(IDbContextFactory<IlTwoDatabaseContext> dbContextFactory) : base(dbContextFactory)
