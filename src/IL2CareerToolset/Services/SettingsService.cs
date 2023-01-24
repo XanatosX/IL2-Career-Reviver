@@ -1,19 +1,17 @@
 ﻿using IL2CarrerReviverConsole.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Extensions.Logging;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverConsole.Services;
 internal class SettingsService : ISettingsService
 {
     private readonly PathService pathService;
+    private readonly ILogger<SettingsService> logger;
 
-    public SettingsService(PathService pathService)
+    public SettingsService(PathService pathService, ILogger<SettingsService> logger)
     {
         this.pathService = pathService;
+        this.logger = logger;
     }
 
     public Setting? GetSettings()
@@ -30,24 +28,33 @@ internal class SettingsService : ISettingsService
         return setting;
     }
 
-    public void UpdateSettings(Setting newSettings)
+    public bool UpdateSettings(Setting newSettings)
     {
-
+        return SaveSettings(newSettings);
     }
-    public void UpdateSettings(Action<Setting> updateAction)
+
+    public bool UpdateSettings(Action<Setting> updateAction)
     {
         Setting setting = GetSettings() ?? new Setting();
         updateAction(setting);
-        SaveSettings(setting);
+        return SaveSettings(setting);
     }
 
-    private void SaveSettings(Setting setting)
+    private bool SaveSettings(Setting setting)
     {
-        var test = pathService.GetSettingsPath();
+        bool saveComplete = true;
         using (FileStream fileStream = new FileStream(pathService.GetSettingsPath(), FileMode.Create, FileAccess.Write))
         {
-            JsonSerializer.Serialize(fileStream, setting);
+            try
+            {
+                JsonSerializer.Serialize(fileStream, setting);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Saving the settings did not work");
+                saveComplete = false;
+            }
         }
-
+        return saveComplete;
     }
 }

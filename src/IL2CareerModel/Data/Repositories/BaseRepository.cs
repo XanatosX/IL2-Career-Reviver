@@ -1,16 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverModel.Data.Repositories;
 internal abstract class BaseRepository<T> : IBaseRepository<T, long>
 {
     private readonly IDbContextFactory<IlTwoDatabaseContext> dbContextFactory;
 
-    public BaseRepository(IDbContextFactory<IlTwoDatabaseContext> dbContextFactory)
+    protected BaseRepository(IDbContextFactory<IlTwoDatabaseContext> dbContextFactory)
     {
         this.dbContextFactory = dbContextFactory;
     }

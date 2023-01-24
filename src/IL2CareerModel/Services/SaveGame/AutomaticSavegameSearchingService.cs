@@ -13,7 +13,7 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
 
     public int Priority => 1;
 
-    private readonly string[] ignoredFolders = new string[] {
+    private readonly string[] ignoredFolders = new[] {
         "users",
         "my games",
         "windows",

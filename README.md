@@ -2,7 +2,7 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2f639adcc2c64220acea31837f5e5d80)](https://www.codacy.com/gh/XanatosX/IL2CarrerReviver/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=XanatosX/IL2CarrerReviver&amp;utm_campaign=Badge_Grade)
 
-**This readme is still WIP I did want to get nighly build's up ASAP**
+**This readme is still WIP I did want to get nighly build's up ASAP.**
 
 This tool will provide you different commands to performe on your save file.
 One of the major features is to revive a dead pilot by resetting the carreer to the day before

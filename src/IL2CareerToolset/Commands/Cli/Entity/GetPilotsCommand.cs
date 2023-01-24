@@ -46,6 +46,6 @@ internal class GetPilotsCommand : Command<GetPilotSettings>
 
     private bool PilotFilter(Pilot pilot, string? name)
     {
-        return name is null ? true : pilot.Name == name || pilot.LastName == name;
+        return name is null || pilot.Name == name || pilot.LastName == name;
     }
 }

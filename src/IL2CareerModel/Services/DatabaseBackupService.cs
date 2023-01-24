@@ -7,9 +7,8 @@ namespace IL2CarrerReviverConsole.Services;
 internal class DatabaseBackupService : IDatabaseBackupService
 {
     private readonly IFileChecksumService fileChecksumService;
-    private readonly ILogger<DatabaseBackupService> logger;
 
-    private readonly string baseFolder;
+    private readonly ILogger<DatabaseBackupService> logger;
 
     private readonly string backupTargetFolder;
 
@@ -24,7 +23,7 @@ internal class DatabaseBackupService : IDatabaseBackupService
     {
         this.fileChecksumService = fileChecksumService;
         this.logger = logger;
-        baseFolder = pathService.GetSettingsFolder();
+        string baseFolder = pathService.GetSettingsFolder();
         backupTargetFolder = Path.Combine(baseFolder, "backups");
         backupOverviewFile = Path.Combine(backupTargetFolder, "backups.json");
         if (!Directory.Exists(backupTargetFolder))
