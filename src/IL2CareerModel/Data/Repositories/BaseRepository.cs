@@ -19,7 +19,7 @@ internal abstract class BaseRepository<T> : IBaseRepository<T, long>
     {
         if (entity is null)
         {
-            return default(T);
+            return default;
         }
         using (var dbContext = GetDatabaseContext())
         {

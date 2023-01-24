@@ -37,7 +37,7 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
     public string? GetSavegamePath()
     {
         DriveInfo[] drives = DriveInfo.GetDrives();
-        List<Task<string>> awaitedTasks = new List<Task<string>>();
+        List<Task<string>> awaitedTasks = new();
         logger.LogInformation($"Start scan");
         foreach (DriveInfo drive in drives)
         {
@@ -74,7 +74,7 @@ internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
     private string ScanForSteamFolder(string root, int currentDepth, int depth)
     {
         currentDepth++;
-        string[] directories = new string[0];
+        string[] directories = Array.Empty<string>();
         logger.LogInformation($"Scan folder {root}");
         try
         {
