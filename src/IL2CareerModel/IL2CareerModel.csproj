@@ -10,7 +10,15 @@
     <PackageProjectUrl>https://github.com/XanatosX/IL2CarrerReviver</PackageProjectUrl>
     <RepositoryUrl>https://github.com/XanatosX/IL2CarrerReviver</RepositoryUrl>
     <PackageTags>dotnet, c#, IL2-Sturmovik</PackageTags>
+    <PackageReadmeFile>README_Model.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README_Model.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
