@@ -48,7 +48,7 @@ jobs:
   check-build:
     name: Check and Test build
     # Based on https://stackoverflow.com/questions/59882715/use-environment-variable-in-github-action-if
-    if: needs.check-for-changes.outputs.should-run == 'true'
+    if: needs.check-for-changes.outputs.should-run == 'true' 
     needs: [check-for-changes]
     runs-on: ubuntu-latest
     steps:
@@ -160,11 +160,11 @@ jobs:
           cd ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_ARTIFACT_NAME
           zip -r $WINDOWS_ARTIFACT_NAME.zip ./*
           mv $WINDOWS_ARTIFACT_NAME.zip ../
-          rm -rf ./$WINDOWS_ARTIFACT_NAME
+          rm -rf ./../$WINDOWS_ARTIFACT_NAME
       - name: Move nuget tool
         run: |
           mv ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_NUGET_ARTIFACT_NAME/IL2CareerToolset*.nupkg ./$RELEASE_ARTIFACT_FOLDER
-          rm -rf ./$RELEASE_ARTIFACT_FOLDER/WINDOWS_NUGET_ARTIFACT_NAME/
+          rm -rf ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_NUGET_ARTIFACT_NAME/
       - name: display artifacts folder content
         if: ${{ env.DEBUG == 'true' }}
         run: ls -la $RELEASE_ARTIFACT_FOLDER
