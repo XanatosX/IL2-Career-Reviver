@@ -41,8 +41,10 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
     public override int Execute([NotNull] CommandContext context, [NotNull] RevivePilotCommandSettings settings)
     {
         var possibleReviceCandidates = careerGateway.GetAll()
-                                            .Where(career => career.Player.State != 0)
+                                            .Where(career => settings.IncludeIronMan || career.IronMan == 0)
+                                            .Where(career => career?.Player?.State != 0)
                                             .Select(career => career.Player)
+                                            .OfType<Pilot>()
                                             .ToList();
 
         if (!possibleReviceCandidates.Any())
