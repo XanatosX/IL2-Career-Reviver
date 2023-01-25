@@ -147,7 +147,7 @@ jobs:
   create-release:
     name: Create GitHub Release
     if: needs.check-for-changes.outputs.should-run == 'true'
-    needs: ["create-windows-build"]
+    needs: ["create-windows-build", "create-windows-nuget-tool-build"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -163,6 +163,11 @@ jobs:
           cd ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_ARTIFACT_NAME
           zip -r $WINDOWS_ARTIFACT_NAME.zip ./*
           mv $WINDOWS_ARTIFACT_NAME.zip ../
+          rmdir -r ./$WINDOWS_ARTIFACT_NAME
+      - name: Move nuget tool
+        run: |
+          mv ./$RELEASE_ARTIFACT_FOLDER/WINDOWS_NUGET_ARTIFACT_NAME/IL2CareerToolset*.nupkg ./$RELEASE_ARTIFACT_FOLDER
+          rmdir rmdir -r ./$RELEASE_ARTIFACT_FOLDER/WINDOWS_NUGET_ARTIFACT_NAME/
       - name: display artifacts folder content
         if: ${{ env.DEBUG == 'true' }}
         run: ls -la $RELEASE_ARTIFACT_FOLDER
@@ -179,4 +184,4 @@ jobs:
           gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
             --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
             --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
-            ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
+            ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.*
