@@ -4,6 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>XanatosX.IL2Career.DatabaseAccess</Title>
+    <Authors>XanatosX</Authors>
+    <Description>The model and gateways for the IL2 Career Toolset</Description>
+    <PackageProjectUrl>https://github.com/XanatosX/IL2CarrerReviver</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/XanatosX/IL2CarrerReviver</RepositoryUrl>
+    <PackageTags>dotnet, c#, IL2-Sturmovik</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

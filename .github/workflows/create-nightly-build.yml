@@ -128,12 +128,12 @@ jobs:
            else {
              echo "BUILD_VERSION=${{ GITHUB.REF_NAME }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
            }
-    - name: Publish Application
+    - name: Pack application
       run: dotnet pack -o ${{ env.APPLICATION_PUBLISH_FOLDER }} -p:Version=${{ env.BUILD_VERSION }}
     - name: Show content for debug
       if: ${{ env.DEBUG == 'true' }}
       run: ls
-    - name: Show content to publish
+    - name: Show content which was packed
       if: ${{ env.DEBUG == 'true' }}
       run: |
         cd ./publish

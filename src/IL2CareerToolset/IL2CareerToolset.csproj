@@ -43,7 +43,7 @@
     <Description>A toolset to revive a pilot from a IL2 career. The tool will change your save database</Description>
     <PackageProjectUrl>https://github.com/XanatosX/IL2CarrerReviver</PackageProjectUrl>
     <RepositoryUrl>https://github.com/XanatosX/IL2CarrerReviver</RepositoryUrl>
-    <PackageTags>dotnet, c#, IL2-Sturmovik</PackageTags>
+    <PackageTags>dotnet, c#, IL2-Sturmovik, tool</PackageTags>
     <PackAsTool>True</PackAsTool>
   </PropertyGroup>
 
