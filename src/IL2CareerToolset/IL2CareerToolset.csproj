@@ -14,6 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -35,10 +42,17 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-	<PublishSingleFile>true</PublishSingleFile>
-    <SelfContained>true</SelfContained>
     <Nullable>enable</Nullable>
     <AssemblyName>IL2CareerToolset</AssemblyName>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>XanatosX.IL2CareerToolset</Title>
+    <Authors>XanatosX</Authors>
+    <Description>A toolset to revive a pilot from a IL2 career. The tool will change your save database</Description>
+    <PackageProjectUrl>https://github.com/XanatosX/IL2CarrerReviver</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/XanatosX/IL2CarrerReviver</RepositoryUrl>
+    <PackageTags>dotnet, c#, IL2-Sturmovik, tool</PackageTags>
+    <PackAsTool>True</PackAsTool>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
 </Project>

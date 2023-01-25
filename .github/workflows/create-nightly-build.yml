@@ -11,6 +11,7 @@ env:
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
   WINDOWS_ARTIFACT_NAME: IL_2_Career_Toolset_windows_x64
+  WINDOWS_NUGET_ARTIFACT_NAME: IL_2_Career_Toolset_Nuget_windows_x64
   RELEASE_ARTIFACT_FOLDER: artifacts
   GH_TOKEN: ${{ github.token }}
 
@@ -22,9 +23,6 @@ jobs:
       should-run: ${{ steps.should-run.outputs.should-run }}
     steps:
       - uses: actions/checkout@v3
-        if: ${{ env.DEBUG == 'true' }}
-      - uses: actions/checkout@v3
-        if: ${{ env.DEBUG == 'false' }}
         with:
           ref: ${{ env.REF_CHECKOUT_BRANCH }}
       - name: get latest commit and check it
@@ -35,7 +33,8 @@ jobs:
         # @Note: Check the comments on the solution!
         run: |
           latest=$(git log -n 1 --pretty=format:"%H")
-          sha=$(git rev-list --after="24 hours" $latest)
+          # For debug testing remove ${{ env.REF_CHECKOUT_BRANCH }}
+          sha=$(git rev-list ${{ env.REF_CHECKOUT_BRANCH }} --after="24 hours" $latest)
           echo $sha
           echo Do the check now
           if test -z $sha
@@ -49,7 +48,7 @@ jobs:
   check-build:
     name: Check and Test build
     # Based on https://stackoverflow.com/questions/59882715/use-environment-variable-in-github-action-if
-    if: needs.check-for-changes.outputs.should-run == 'true'
+    if: needs.check-for-changes.outputs.should-run == 'true' 
     needs: [check-for-changes]
     runs-on: ubuntu-latest
     steps:
@@ -84,7 +83,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Publish Application
-      run: dotnet publish -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} /p:Version=0.0.0
+      run: dotnet publish .\src\IL2CareerToolset\IL2CareerToolset.csproj -r win-x64 -c Release -o ${{ env.APPLICATION_PUBLISH_FOLDER }} --self-contained true -p:Version=0.0.0 -p:PublishSingleFile=true
     - name: Cleanup published build
       run: rm ${{ env.APPLICATION_PUBLISH_FOLDER }}\*.pdb
     - name: Show content for debug
@@ -101,10 +100,41 @@ jobs:
        name: ${{ env.WINDOWS_ARTIFACT_NAME }}
        path: ${{ env.APPLICATION_PUBLISH_FOLDER }}
        if-no-files-found: error
+  create-windows-nuget-tool-build:
+    name: Build nuget tool
+    needs: ["check-build"]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ env.REF_CHECKOUT_BRANCH }}
+        lfs: true
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Pack application
+      run: dotnet pack -o ${{ env.APPLICATION_PUBLISH_FOLDER }} -p:Version=0.0.0
+    - name: Show content for debug
+      if: ${{ env.DEBUG == 'true' }}
+      run: ls
+    - name: Show content which was packed
+      if: ${{ env.DEBUG == 'true' }}
+      run: |
+        cd ./publish
+        ls
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+       name: ${{ env.WINDOWS_NUGET_ARTIFACT_NAME }}
+       path: ${{ env.APPLICATION_PUBLISH_FOLDER }}
+       if-no-files-found: error
   create-release:
     name: Create GitHub Release
     if: needs.check-for-changes.outputs.should-run == 'true'
-    needs: ["create-windows-build"]
+    needs: ["create-windows-build", "create-windows-nuget-tool-build"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -120,6 +150,11 @@ jobs:
           cd ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_ARTIFACT_NAME
           zip -r $WINDOWS_ARTIFACT_NAME.zip ./*
           mv $WINDOWS_ARTIFACT_NAME.zip ../
+          rm -rf ./../$WINDOWS_ARTIFACT_NAME
+      - name: Move nuget tool
+        run: |
+          mv ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_NUGET_ARTIFACT_NAME/IL2CareerToolset*.nupkg ./$RELEASE_ARTIFACT_FOLDER
+          rm -rf ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_NUGET_ARTIFACT_NAME/
       - name: display artifacts folder content
         if: ${{ env.DEBUG == 'true' }}
         run: ls -la $RELEASE_ARTIFACT_FOLDER
@@ -129,11 +164,11 @@ jobs:
           gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
             --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
             --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
-            -d ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
+            -d ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.*
       - name: Create release and upload artifacts
         if:  ${{ env.DEBUG == 'false' }}
         run: |
           gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
             --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
             --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
-            ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
+            ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.*
