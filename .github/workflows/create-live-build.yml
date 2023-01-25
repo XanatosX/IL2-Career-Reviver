@@ -166,6 +166,9 @@ jobs:
       if: ${{ env.DEBUG == 'true' }}
       run: ls -la ${{ env.RELEASE_ARTIFACT_FOLDER }}
     - name: Publish NuGet package
+      if: ${{ env.DEBUG == 'false' }}
+      env: # Or as an environment variable
+        nuget_apikey: ${{ secrets.NUGET_API_KEY }}
       run: |
         cd ${{ env.RELEASE_ARTIFACT_FOLDER }}
-        dotnet nuget push *.nupkg --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json
+        dotnet nuget push *.nupkg --api-key "$nuget_apikey" --source https://api.nuget.org/v3/index.json
