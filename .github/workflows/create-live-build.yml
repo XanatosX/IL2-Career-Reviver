@@ -153,7 +153,7 @@ jobs:
   upload-nuget-releases:
     name: Upload Nuget packages
     #if: github.event_name == 'release'
-    needs: ["create-windows-build", "create-windows-nuget-tool-build"]
+    needs: [upload-release]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@v3
