@@ -4,10 +4,9 @@ on:
   workflow_dispatch:
   schedule:
   - cron: 0 0 * * *
-  push:
 
 env:
-  DEBUG: true
+  DEBUG: false
   REF_CHECKOUT_BRANCH: develop
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
@@ -24,9 +23,6 @@ jobs:
       should-run: ${{ steps.should-run.outputs.should-run }}
     steps:
       - uses: actions/checkout@v3
-        if: ${{ env.DEBUG == 'true' }}
-      - uses: actions/checkout@v3
-        if: ${{ env.DEBUG == 'false' }}
         with:
           ref: ${{ env.REF_CHECKOUT_BRANCH }}
       - name: get latest commit and check it
@@ -37,6 +33,7 @@ jobs:
         # @Note: Check the comments on the solution!
         run: |
           latest=$(git log -n 1 --pretty=format:"%H")
+          # For debug testing remove ${{ env.REF_CHECKOUT_BRANCH }}
           sha=$(git rev-list ${{ env.REF_CHECKOUT_BRANCH }} --after="24 hours" $latest)
           echo $sha
           echo Do the check now
@@ -51,7 +48,7 @@ jobs:
   check-build:
     name: Check and Test build
     # Based on https://stackoverflow.com/questions/59882715/use-environment-variable-in-github-action-if
-    if: needs.check-for-changes.outputs.should-run == 'true'
+    if: needs.check-for-changes.outputs.should-run == 'true' 
     needs: [check-for-changes]
     runs-on: ubuntu-latest
     steps:
@@ -118,18 +115,8 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Get release version
-      run: |
-         # Found at https://github.com/orgs/community/discussions/25713
-         # Additional env fix found on https://github.com/actions/runner-images/issues/5251
-         if ( '${{ GITHUB.REF_TYPE }}' -eq 'branch' ) {
-             echo "BUILD_VERSION=0.0.0" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-           }
-           else {
-             echo "BUILD_VERSION=${{ GITHUB.REF_NAME }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-           }
     - name: Pack application
-      run: dotnet pack -o ${{ env.APPLICATION_PUBLISH_FOLDER }} -p:Version=${{ env.BUILD_VERSION }}
+      run: dotnet pack -o ${{ env.APPLICATION_PUBLISH_FOLDER }} -p:Version=0.0.0
     - name: Show content for debug
       if: ${{ env.DEBUG == 'true' }}
       run: ls
@@ -163,11 +150,11 @@ jobs:
           cd ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_ARTIFACT_NAME
           zip -r $WINDOWS_ARTIFACT_NAME.zip ./*
           mv $WINDOWS_ARTIFACT_NAME.zip ../
-          rmdir -rf ./$WINDOWS_ARTIFACT_NAME
+          rm -rf ./../$WINDOWS_ARTIFACT_NAME
       - name: Move nuget tool
         run: |
-          mv ./$RELEASE_ARTIFACT_FOLDER/WINDOWS_NUGET_ARTIFACT_NAME/IL2CareerToolset*.nupkg ./$RELEASE_ARTIFACT_FOLDER
-          rmdir rmdir -rf ./$RELEASE_ARTIFACT_FOLDER/WINDOWS_NUGET_ARTIFACT_NAME/
+          mv ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_NUGET_ARTIFACT_NAME/IL2CareerToolset*.nupkg ./$RELEASE_ARTIFACT_FOLDER
+          rm -rf ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_NUGET_ARTIFACT_NAME/
       - name: display artifacts folder content
         if: ${{ env.DEBUG == 'true' }}
         run: ls -la $RELEASE_ARTIFACT_FOLDER
@@ -177,7 +164,7 @@ jobs:
           gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
             --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
             --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
-            -d ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
+            -d ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.*
       - name: Create release and upload artifacts
         if:  ${{ env.DEBUG == 'false' }}
         run: |
