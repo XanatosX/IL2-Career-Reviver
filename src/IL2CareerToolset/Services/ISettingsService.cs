@@ -4,6 +4,6 @@ namespace IL2CarrerReviverConsole.Services;
 internal interface ISettingsService
 {
     Setting? GetSettings();
-    void UpdateSettings(Action<Setting> updateAction);
-    void UpdateSettings(Setting newSettings);
+    bool UpdateSettings(Action<Setting> updateAction);
+    bool UpdateSettings(Setting newSettings);
 }

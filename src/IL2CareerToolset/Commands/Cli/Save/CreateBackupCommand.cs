@@ -32,12 +32,9 @@ internal class CreateBackupCommand : Command<CreateBackupCommandSettings>
         }
 
         string backupName = settings.BackupName ?? $"Manually generated - {DateTime.Now}";
-        if (settings.BackupName is null)
+        if (settings.BackupName is null && AnsiConsole.Confirm($"Do you want to name your backup or use the name [yellow]{backupName}[/]?"))
         {
-            if (AnsiConsole.Confirm($"Do you want to name your backup or use the name [yellow]{backupName}[/]?"))
-            {
-                backupName = AnsiConsole.Ask<string>("Enter backup name: ");
-            }
+            backupName = AnsiConsole.Ask<string>("Enter backup name: ");
         }
         var backup = databaseBackupService.CreateBackup(backupName);
         if (backup is null)

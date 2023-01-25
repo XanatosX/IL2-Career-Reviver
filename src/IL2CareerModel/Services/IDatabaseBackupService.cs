@@ -1,4 +1,4 @@
-﻿using IL2CarrerReviverModel.Models;
+﻿using IL2CareerModel.Models.Database;
 
 namespace IL2CarrerReviverConsole.Services;
 public interface IDatabaseBackupService

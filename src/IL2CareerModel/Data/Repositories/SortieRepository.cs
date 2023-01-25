@@ -11,7 +11,7 @@ internal class SortieRepository : BaseRepository<Sortie>
     public override bool DeleteById(long key)
     {
         var sortie = GetById(key);
-        return sortie is null ? false : Delete(sortie);
+        return sortie is not null && Delete(sortie);
     }
 
     public override IEnumerable<Sortie> GetAll(Func<Sortie, bool> filter)

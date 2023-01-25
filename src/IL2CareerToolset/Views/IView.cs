@@ -1,12 +1,7 @@
 ﻿using Spectre.Console.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverConsole.Views;
-internal interface IView<T>
+internal interface IView<in T>
 {
     IRenderable GetView(T entity);
 }

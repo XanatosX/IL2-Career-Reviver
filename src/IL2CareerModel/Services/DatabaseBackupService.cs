@@ -1,4 +1,4 @@
-﻿using IL2CarrerReviverModel.Models;
+﻿using IL2CareerModel.Models.Database;
 using IL2CarrerReviverModel.Services;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -7,9 +7,8 @@ namespace IL2CarrerReviverConsole.Services;
 internal class DatabaseBackupService : IDatabaseBackupService
 {
     private readonly IFileChecksumService fileChecksumService;
-    private readonly ILogger<DatabaseBackupService> logger;
 
-    private readonly string baseFolder;
+    private readonly ILogger<DatabaseBackupService> logger;
 
     private readonly string backupTargetFolder;
 
@@ -19,19 +18,19 @@ internal class DatabaseBackupService : IDatabaseBackupService
 
     public DatabaseBackupService(ISettingsFolderBridge pathService,
                                  IFileChecksumService fileChecksumService,
-                                 IDatabaseConnectionStringService databaseConnectionString,
+                                 DatabaseSettings databaseSettings,
                                  ILogger<DatabaseBackupService> logger)
     {
         this.fileChecksumService = fileChecksumService;
         this.logger = logger;
-        baseFolder = pathService.GetSettingsFolder();
+        string baseFolder = pathService.GetSettingsFolder();
         backupTargetFolder = Path.Combine(baseFolder, "backups");
         backupOverviewFile = Path.Combine(backupTargetFolder, "backups.json");
         if (!Directory.Exists(backupTargetFolder))
         {
             Directory.CreateDirectory(backupTargetFolder);
         }
-        sourceDatabaseFile = databaseConnectionString.GetDatabasePath() ?? string.Empty;
+        sourceDatabaseFile = databaseSettings.DatabasePath ?? string.Empty;
     }
 
     public string GetBackupFolder()

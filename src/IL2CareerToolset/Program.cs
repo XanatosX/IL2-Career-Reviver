@@ -16,7 +16,11 @@ namespace src.SqlLiteReaderConsole
         public static int Main(params string[] args)
         {
             var collection = new ServiceCollection().AddBaseServices()
-                                                    .AddModelDependencies()
+                                                    .AddModelDependencies((settings, provider) =>
+                                                    {
+                                                        var databasePath = provider.GetService<ISettingsService>()?.GetSettings()?.DatabasePath;
+                                                        settings.DatabasePath = databasePath;
+                                                    })
                                                     .AddDbGateways()
                                                     .AddViews()
                                                     .AddAdditionalServices();

@@ -19,7 +19,7 @@ internal class DepedencyResolver
         return serviceProvider.GetService<T>();
     }
 
-    public object? GetService<T>(Type type)
+    public object? GetService(Type type)
     {
         logger.LogInformation($"Get Service for {type}");
         return serviceProvider.GetService(type);

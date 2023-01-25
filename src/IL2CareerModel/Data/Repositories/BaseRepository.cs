@@ -1,20 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverModel.Data.Repositories;
+
+/// <summary>
+/// Base repository class with long as id type
+/// </summary>
+/// <typeparam name="T">The return type of the repository</typeparam>
 internal abstract class BaseRepository<T> : IBaseRepository<T, long>
 {
+    /// <summary>
+    /// The database context to use
+    /// </summary>
     private readonly IDbContextFactory<IlTwoDatabaseContext> dbContextFactory;
 
-    public BaseRepository(IDbContextFactory<IlTwoDatabaseContext> dbContextFactory)
+    /// <summary>
+    /// Create a new instance of this class
+    /// </summary>
+    /// <param name="dbContextFactory">The context factory to use</param>
+    protected BaseRepository(IDbContextFactory<IlTwoDatabaseContext> dbContextFactory)
     {
         this.dbContextFactory = dbContextFactory;
     }
 
+    /// <summary>
+    /// Get the database context
+    /// </summary>
+    /// <returns>A disposable database context</returns>
     protected IlTwoDatabaseContext GetDatabaseContext()
     {
         return dbContextFactory.CreateDbContext();
@@ -24,7 +35,7 @@ internal abstract class BaseRepository<T> : IBaseRepository<T, long>
     {
         if (entity is null)
         {
-            return default(T);
+            return default;
         }
         using (var dbContext = GetDatabaseContext())
         {
@@ -60,6 +71,7 @@ internal abstract class BaseRepository<T> : IBaseRepository<T, long>
     }
 
     public abstract bool DeleteById(long key);
+
     public abstract IEnumerable<T> GetAll(Func<T, bool> filter);
 
     public virtual IEnumerable<T> GetAll() => GetAll(_ => true);

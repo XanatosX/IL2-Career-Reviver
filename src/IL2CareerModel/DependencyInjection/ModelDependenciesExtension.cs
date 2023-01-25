@@ -1,4 +1,6 @@
-﻿using IL2CarrerReviverConsole.Services;
+﻿using IL2CareerModel.Data.Gateways.Implementations;
+using IL2CareerModel.Models.Database;
+using IL2CarrerReviverConsole.Services;
 using IL2CarrerReviverModel.Data;
 using IL2CarrerReviverModel.Data.Gateways;
 using IL2CarrerReviverModel.Data.Repositories;
@@ -9,20 +11,33 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IL2CarrerReviverModel.DependencyInjection;
+
+/// <summary>
+/// Extension class to provide methods for dependency injection
+/// </summary>
 public static class ModelDependenciesExtension
 {
-    public static IServiceCollection AddModelDependencies(this IServiceCollection collection)
+    /// <summary>
+    /// Add all the dependencies for the model
+    /// </summary>
+    /// <param name="collection">The collection with all the already registered services</param>
+    /// <param name="createDatabaseSettings">THe method used to create the database settings</param>
+    /// <returns>The new collection with additional services</returns>
+    public static IServiceCollection AddModelDependencies(this IServiceCollection collection, Action<DatabaseSettings, IServiceProvider> createDatabaseSettings)
     {
+        DatabaseSettings settings = new DatabaseSettings();
+        createDatabaseSettings(settings, collection.BuildServiceProvider());
         return collection.AddDbContextFactory<IlTwoDatabaseContext>(options =>
         {
-            var instance = collection.BuildServiceProvider().GetService<IDatabaseConnectionStringService>();
-            if (instance is not null)
-            {
-                options.UseSqlite(instance.GetConnectionString() ?? string.Empty);
-            }
-        });
+            options.UseSqlite(settings.ConnectionString);
+        }).AddSingleton(_ => settings);
     }
 
+    /// <summary>
+    /// Add all the dependencies for the gateways
+    /// </summary>
+    /// <param name="collection">The collection to update</param>
+    /// <returns>The updated collection</returns>
     public static IServiceCollection AddDbGateways(this IServiceCollection collection)
     {
         return collection.AddRepositories()
@@ -32,6 +47,11 @@ public static class ModelDependenciesExtension
                          .AddSingleton<ISortieGateway, SortieGateway>();
     }
 
+    /// <summary>
+    /// Add all the repositories for the gateways
+    /// </summary>
+    /// <param name="collection">The collection to update</param>
+    /// <returns>The updated collection</returns>
     private static IServiceCollection AddRepositories(this IServiceCollection collection)
     {
         return collection.AddSingleton<IBaseRepository<Career, long>, CareerRepository>()
@@ -41,6 +61,11 @@ public static class ModelDependenciesExtension
 
     }
 
+    /// <summary>
+    /// Add additional services to the dependency manager
+    /// </summary>
+    /// <param name="collection">The collection to update</param>
+    /// <returns>The updated collection</returns>
     public static IServiceCollection AddAdditionalServices(this IServiceCollection collection)
     {
         return collection.AddSingleton<IByteArrayToDateTimeService, DefaultByteArrayToDateTimeService>()

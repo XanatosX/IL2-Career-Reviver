@@ -1,16 +1,11 @@
-﻿using IL2CarrerReviverModel.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IL2CareerModel.Data.Gateways;
+using IL2CarrerReviverModel.Models;
 
 namespace IL2CarrerReviverModel.Data.Gateways;
-public interface ICareerGateway
+
+/// <summary>
+/// The gateway to change the career table on the database
+/// </summary>
+public interface ICareerGateway : IReadGateway<Career>, IWriteGateway<Career>
 {
-    IEnumerable<Career> GetAll();
-
-    Career? GetById(long id);
-
-    Career? Update(Career career);
 }

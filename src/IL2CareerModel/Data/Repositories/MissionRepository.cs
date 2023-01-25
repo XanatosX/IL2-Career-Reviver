@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace IL2CarrerReviverModel.Data.Repositories;
+
 internal class MissionRepository : BaseRepository<Mission>
 {
     public MissionRepository(IDbContextFactory<IlTwoDatabaseContext> dbContextFactory) : base(dbContextFactory)
@@ -11,12 +12,12 @@ internal class MissionRepository : BaseRepository<Mission>
     public override bool DeleteById(long key)
     {
         var mission = GetById(key);
-        return mission is null ? false : Delete(mission);
+        return mission is not null && Delete(mission);
     }
 
     public override IEnumerable<Mission> GetAll(Func<Mission, bool> filter)
     {
-        IEnumerable<Mission> returnMissions = new List<Mission>();
+        IEnumerable<Mission> returnMissions = Enumerable.Empty<Mission>();
         using (var context = GetDatabaseContext())
         {
             returnMissions = context.Missions.Where(filter).ToList();

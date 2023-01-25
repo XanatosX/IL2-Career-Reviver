@@ -7,9 +7,12 @@ using IL2CarrerReviverModel.Models;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace IL2CarrerReviverConsole.Commands.Cli.Entity;
+
+[Description("Get all pilots listed in a table")]
 internal class GetPilotsCommand : Command<GetPilotSettings>
 {
     private readonly IPilotGateway pilotGateway;
@@ -28,9 +31,11 @@ internal class GetPilotsCommand : Command<GetPilotSettings>
     public override int Execute([NotNull] CommandContext context, [NotNull] GetPilotSettings settings)
     {
         logger.LogInformation("Get pilots");
-        var pilots = settings.PlayerOnly ? careerGateway.GetAll().Select(career => career.Player) : pilotGateway.GetAll(pilot => PilotFilter(pilot, settings.Name));
+        var pilots = settings.PlayerOnly ? careerGateway.GetAll()
+                                                        .Select(career => career.Player)
+                                                        .OfType<Pilot>() : pilotGateway.GetAll(pilot => PilotFilter(pilot, settings.Name));
 
-        List<Pilot> pilotsToRender = pilots?.ToList() ?? new List<Pilot>();
+        List<Pilot> pilotsToRender = pilots?.ToList() ?? new();
         if (pilotsToRender.Count == 1)
         {
             logger.LogDebug($"Found a single pilot to render");
@@ -46,6 +51,6 @@ internal class GetPilotsCommand : Command<GetPilotSettings>
 
     private bool PilotFilter(Pilot pilot, string? name)
     {
-        return name is null ? true : pilot.Name == name || pilot.LastName == name;
+        return name is null || pilot.Name == name || pilot.LastName == name;
     }
 }
