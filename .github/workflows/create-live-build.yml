@@ -166,7 +166,7 @@ jobs:
       run: ls -la ${{ env.RELEASE_ARTIFACT_FOLDER }}
     - name: Publish NuGet package
       if: ${{ env.DEBUG == 'false' }}
-      env:
+      env: # See https://www.techielass.com/github-actions-secrets/
         nuget_apikey: ${{ secrets.NUGET_API_KEY }}
       run: |
         cd ${{ env.RELEASE_ARTIFACT_FOLDER }}
