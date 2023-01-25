@@ -4,9 +4,12 @@ using IL2CarrerReviverConsole.Services;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace IL2CarrerReviverConsole.Commands.Cli.Save;
+
+[Description("Restore a previously created backup")]
 internal class RestoreBackupCommand : Command<RestoreBackupCommandSettings>
 {
     private readonly IDatabaseBackupService databaseBackupService;

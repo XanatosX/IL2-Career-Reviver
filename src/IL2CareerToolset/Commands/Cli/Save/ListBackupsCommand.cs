@@ -4,8 +4,11 @@ using IL2CarrerReviverConsole.Views;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
+using System.ComponentModel;
 
 namespace IL2CarrerReviverConsole.Commands.Cli.Save;
+
+[Description("List all the available backups")]
 internal class ListBackupsCommand : Command
 {
     private readonly ViewFactory viewFactory;

@@ -7,9 +7,12 @@ using IL2CarrerReviverModel.Models;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace IL2CarrerReviverConsole.Commands.Cli.Entity;
+
+[Description("Get all pilots listed in a table")]
 internal class GetPilotsCommand : Command<GetPilotSettings>
 {
     private readonly IPilotGateway pilotGateway;
