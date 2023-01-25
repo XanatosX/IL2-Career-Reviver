@@ -4,10 +4,9 @@ name: Live build
 on:
   release:
     types: [released]
-  push:
 
 env:
-  DEBUG: true
+  DEBUG: false
   REF_CHECKOUT_BRANCH: master
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
@@ -166,7 +165,7 @@ jobs:
       if: ${{ env.DEBUG == 'true' }}
       run: ls -la ${{ env.RELEASE_ARTIFACT_FOLDER }}
     - name: Publish NuGet package
-      #if: ${{ env.DEBUG == 'false' }}
+      if: ${{ env.DEBUG == 'false' }}
       env:
         nuget_apikey: ${{ secrets.NUGET_API_KEY }}
       run: |
