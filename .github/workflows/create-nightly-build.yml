@@ -24,9 +24,6 @@ jobs:
       should-run: ${{ steps.should-run.outputs.should-run }}
     steps:
       - uses: actions/checkout@v3
-        if: ${{ env.DEBUG == 'true' }}
-      - uses: actions/checkout@v3
-        if: ${{ env.DEBUG == 'false' }}
         with:
           ref: ${{ env.REF_CHECKOUT_BRANCH }}
       - name: get latest commit and check it
@@ -166,7 +163,7 @@ jobs:
           rm -rf ./$WINDOWS_ARTIFACT_NAME
       - name: Move nuget tool
         run: |
-          mv ./$RELEASE_ARTIFACT_FOLDER/WINDOWS_NUGET_ARTIFACT_NAME/IL2CareerToolset*.nupkg ./$RELEASE_ARTIFACT_FOLDER
+          mv ./$RELEASE_ARTIFACT_FOLDER/$WINDOWS_NUGET_ARTIFACT_NAME/IL2CareerToolset*.nupkg ./$RELEASE_ARTIFACT_FOLDER
           rm -rf ./$RELEASE_ARTIFACT_FOLDER/WINDOWS_NUGET_ARTIFACT_NAME/
       - name: display artifacts folder content
         if: ${{ env.DEBUG == 'true' }}
