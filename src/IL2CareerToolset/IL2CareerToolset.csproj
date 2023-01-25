@@ -35,10 +35,16 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-	<PublishSingleFile>true</PublishSingleFile>
-    <SelfContained>true</SelfContained>
     <Nullable>enable</Nullable>
     <AssemblyName>IL2CareerToolset</AssemblyName>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>XanatosX.IL2CareerToolset</Title>
+    <Authors>XanatosX</Authors>
+    <Description>A toolset to revive a pilot from a IL2 career. The tool will change your save database</Description>
+    <PackageProjectUrl>https://github.com/XanatosX/IL2CarrerReviver</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/XanatosX/IL2CarrerReviver</RepositoryUrl>
+    <PackageTags>dotnet, c#, IL2-Sturmovik</PackageTags>
+    <PackAsTool>True</PackAsTool>
   </PropertyGroup>
 
 </Project>
