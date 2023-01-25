@@ -166,7 +166,7 @@ jobs:
       if: ${{ env.DEBUG == 'true' }}
       run: ls -la ${{ env.RELEASE_ARTIFACT_FOLDER }}
     - name: Publish NuGet package
-      if: ${{ env.DEBUG == 'false' }}
+      #if: ${{ env.DEBUG == 'false' }}
       env: # Or as an environment variable
         nuget_apikey: ${{ secrets.NUGET_API_KEY }}
       run: |
