@@ -164,7 +164,7 @@ jobs:
           gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
             --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
             --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
-            -d ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.zip
+            -d ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.*
       - name: Create release and upload artifacts
         if:  ${{ env.DEBUG == 'false' }}
         run: |
