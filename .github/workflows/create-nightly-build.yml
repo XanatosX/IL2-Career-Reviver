@@ -37,7 +37,7 @@ jobs:
         # @Note: Check the comments on the solution!
         run: |
           latest=$(git log -n 1 --pretty=format:"%H")
-          sha=$(git rev-list ${{ env.REF_CHECKOUT_BRANCH }} --after="24 hours" $latest)
+          sha=$(git rev-list --after="24 hours" $latest)
           echo $sha
           echo Do the check now
           if test -z $sha
