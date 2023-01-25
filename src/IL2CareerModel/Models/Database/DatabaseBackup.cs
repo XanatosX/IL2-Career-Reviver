@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IL2CarrerReviverModel.Models;
+namespace IL2CareerModel.Models.Database;
 public class DatabaseBackup
 {
     public required Guid Guid { get; set; }

@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,9 +12,7 @@ public partial class Squadron
     [ForeignKey("Career")]
     [Column("id")]
     public long Id { get; set; }
-
-    //[Column("careerId", TypeName = "INTEGER(11)")]
-    public Career Career { get; set; }
+    public Career? Career { get; set; }
 
     [Column("configId", TypeName = "INTEGER(11)")]
     public long ConfigId { get; set; }

@@ -5,15 +5,12 @@ using IL2CarrerReviverModel.Models;
 using IL2CarrerReviverModel.Services;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IL2CarrerReviverConsole.Commands.Cli.Entity;
+
+[Description("Revive a pilot from a career")]
 internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
 {
     private readonly IPilotGateway pilotGateway;
@@ -44,8 +41,10 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
     public override int Execute([NotNull] CommandContext context, [NotNull] RevivePilotCommandSettings settings)
     {
         var possibleReviceCandidates = careerGateway.GetAll()
-                                            .Where(career => career.Player.State != 0)
+                                            .Where(career => settings.IncludeIronMan || career.IronMan == 0)
+                                            .Where(career => career?.Player?.State != 0)
                                             .Select(career => career.Player)
+                                            .OfType<Pilot>()
                                             .ToList();
 
         if (!possibleReviceCandidates.Any())

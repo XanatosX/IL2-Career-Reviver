@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,7 +18,7 @@ public partial class Career
     public string PersonageId { get; set; } = null!;
 
     [Column("playerId", TypeName = "INTEGER(11)")]
-    public Pilot Player { get; set; }
+    public Pilot? Player { get; set; }
 
     [Column("tvd", TypeName = "INTEGER(11)")]
     public long Tvd { get; set; }
@@ -28,8 +26,7 @@ public partial class Career
     [Column("currentDate", TypeName = "datetime")]
     public byte[]? CurrentDate { get; set; }
 
-    //[Column("squadronId", TypeName = "INTEGER(11)")]
-    public Squadron Squadron { get; set; }
+    public Squadron? Squadron { get; set; }
 
     [Column("state", TypeName = "INTEGER(11)")]
     public long State { get; set; }

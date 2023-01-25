@@ -24,7 +24,6 @@ internal static class ConsoleDependencyInjectionExension
                          .AddMemoryCache()
                          .AddSingleton<ISettingsService, SettingsService>()
                          .AddSingleton<PathService>()
-                         .AddSingleton<IDatabaseConnectionStringService, DatabaseConnectionStringBridgeService>()
                          .AddSingleton<DefaultLogLevelMapper>()
                          .AddLogging(config =>
                          {

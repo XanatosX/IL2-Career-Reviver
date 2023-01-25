@@ -1,26 +1,48 @@
 # IL 2 Career Toolset
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2f639adcc2c64220acea31837f5e5d80)](https://www.codacy.com/gh/XanatosX/IL2CarrerReviver/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=XanatosX/IL2CarrerReviver&amp;utm_campaign=Badge_Grade)
+[![Nightly Develop Build](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-nightly-build.yml/badge.svg?branch=master)](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-nightly-build.yml)
+[![Live build](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-live-build.yml/badge.svg)](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-live-build.yml)
 
-**This readme is still WIP I did want to get nighly build's up ASAP**
+
+> :warning: This tool can only be used with the Game `L-2 Sturmovik Great Battles`.
+> To get the game please go to the [game website][game_website] or steam.
+
+
+**This readme is still WIP I did want to get nighly build's up ASAP.**
 
 This tool will provide you different commands to performe on your save file.
 One of the major features is to revive a dead pilot by resetting the carreer to the day before
 death.
 
-## Warning
+## :warning: Warning :warning:
 
 This tool will change, delete and move data in your save file around, which can corrupt it.
-This can lead to unwanted behaviors of the game or make the save useless.
-Those errors could appear later and may be invisible directly after usage.
-Command's which change your save file will present you a warning you need to comfirm before the
+This can lead to unwanted behaviors of the game or break the save completly,
+which will affec all other careers as well.
+Those errors could appear later on and may be invisible directly after usage.
+
+> :warning: Since I do not play in multiplayer I have no clue if editing the database will cause any errors with the
+servers you play on. I would guess that this is not the case but I'm not able to confirm it just yet.
+
+> :information_source: Command's which change your save file will present you a warning you need to comfirm before the
 command will run.
+
+## Installation
+
+To install the tool head over to the [releases] or use the [latest release][latest_release].
+Download the asset containing the tool, which is a zip file. As soon as the tool is downloaded unzip it 
+to a folder on your computer.
+
+Continue with the Command list section
 
 ## Command list
 
-You need to open a cmd or powershell to run the commands, to do so press windows key and search for
+You need to open a `command line` or `powershell` to run the commands, to do so press windows key and search for
 powershell or cmd. Navigate to the folder contaning the exe of the toolset by `cd {Folder name you extracted the zip to}`. 
 Use the commands listed below to use the tool
+
+If you need any additional information or need help with the usage please create a [issue][issues].
 
 ### Settings
 
@@ -72,7 +94,7 @@ This command will list all the pilots of all your save games. there are some pos
 
 |     Flag     |       Description       |
 | ------------ | ----------------------- |
-| -p|--player  | Only show player pilots |
+| -p\|--player  | Only show player pilots |
 
 #### Revive Pilots
 
@@ -86,7 +108,7 @@ if it was successful.
 
 |      Flag     |         Description         |
 | ------------- | --------------------------- |
-| -i|--ironman  | Include iron man characters |
+| -i\|--ironman  | Include iron man characters |
 
 ### Backup
 
@@ -127,7 +149,7 @@ Delete a single backup or all of them, if no arguments provided the program will
 
 |    Flag  |             Description             |
 | -------- | ----------------------------------- |
-| -a|--all | Delete all the backups for the game |
+| -a\|--all | Delete all the backups for the game |
 
 #### Rename Backup's
 
@@ -166,5 +188,8 @@ Go to [issues] to report any bugs you encounter.
 
 Read the [license] file for more information
 
+[releases]: https://github.com/XanatosX/IL2CarrerReviver/releases
+[latest_release]: https://github.com/XanatosX/IL2CarrerReviver/releases/latest
 [license]: LICENSE
 [issues]: https://github.com/XanatosX/IL2CarrerReviver/issues
+[game_website]: https://il2sturmovik.com/
