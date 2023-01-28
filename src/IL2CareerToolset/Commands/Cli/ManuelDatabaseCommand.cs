@@ -1,4 +1,5 @@
-﻿using IL2CareerToolset.Commands.Cli.Settings;
+﻿using IL2CareerModel.Services;
+using IL2CareerToolset.Commands.Cli.Settings;
 using IL2CareerToolset.Services;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
