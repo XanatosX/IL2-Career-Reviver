@@ -14,7 +14,8 @@ internal abstract class BaseOpenRepositoryLinkCommand : Command
         this.configuration = configuration.GetRequiredSection("Repository").Get<RepositoryConfiguration>() ?? new RepositoryConfiguration
         {
             Issue = string.Empty,
-            Link = string.Empty
+            Link = string.Empty,
+            Help = string.Empty
         };
         this.oSInteractionService = oSInteractionService;
     }

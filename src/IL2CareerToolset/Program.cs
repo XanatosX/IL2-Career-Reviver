@@ -58,10 +58,11 @@ namespace src.SqlLiteReaderConsole
                     });
 
                 });
-                config.AddBranch("repository", repo =>
+                config.AddBranch("app", repo =>
                 {
                     repo.AddCommand<OpenRepositoryCommand>("open");
                     repo.AddCommand<OpenIssueCommand>("issue");
+                    repo.AddCommand<OpenHelpCommand>("help");
                 });
             });
             int returnCode = app.Run(args);
