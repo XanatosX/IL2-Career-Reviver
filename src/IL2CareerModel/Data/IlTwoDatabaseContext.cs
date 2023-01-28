@@ -5,8 +5,6 @@ namespace IL2CareerModel.Data;
 
 public partial class IlTwoDatabaseContext : DbContext
 {
-    private readonly string? databaseConnectionString;
-
     public IlTwoDatabaseContext(DbContextOptions<IlTwoDatabaseContext> options)
         : base(options)
     {
