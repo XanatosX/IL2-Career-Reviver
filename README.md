@@ -4,6 +4,13 @@
 [![Nightly Develop Build](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-nightly-build.yml/badge.svg?branch=master)](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-nightly-build.yml)
 [![Live build](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-live-build.yml/badge.svg)](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-live-build.yml)
 
+| Type | Package |
+| ---- | ------- |
+| Toolset | [![Toolset Badge](https://buildstats.info/nuget/IL2CareerToolset)](https://www.nuget.org/packages/IL2CareerToolset/) |
+| Model   | [![Model Badge](https://buildstats.info/nuget/IL2CareerModel)](https://www.nuget.org/packages/IL2CareerModel/) |
+
+
+
 
 > :warning: This tool can only be used with the Game `L-2 Sturmovik Great Battles`.
 > To get the game please go to the [game website][game_website] or steam.
