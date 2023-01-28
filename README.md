@@ -37,11 +37,21 @@ command will run.
 
 ## Installation
 
+### Via zip
+
 To install the tool head over to the [releases] or use the [latest release][latest_release].
 Download the asset containing the tool, which is a zip file. As soon as the tool is downloaded unzip it 
 to a folder on your computer.
 
 Continue with the Command list section
+
+### Using `dotnet` cli
+
+> :information_source: This is only interessting for other developers who want to install this via
+> dotnet cli as a global tool.
+
+You will need the [dotnet cli](https://learn.microsoft.com/de-de/dotnet/core/tools/) installed.
+Run the following command to get the tool `dotnet tool install --global IL2CareerToolset`.
 
 ## Command list
 
