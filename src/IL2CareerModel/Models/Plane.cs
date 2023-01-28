@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IL2CarrerReviverModel.Models;
+namespace IL2CareerModel.Models;
 
 [Table("plane")]
 [Index("Id", "IsDeleted", Name = "idx_plane_id_isdeleted")]

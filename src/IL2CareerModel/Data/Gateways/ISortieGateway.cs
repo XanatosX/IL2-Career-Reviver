@@ -1,7 +1,7 @@
 ﻿using IL2CareerModel.Data.Gateways;
-using IL2CarrerReviverModel.Models;
+using IL2CareerModel.Models;
 
-namespace IL2CarrerReviverModel.Data.Gateways;
+namespace IL2CareerModel.Data.Gateways;
 
 /// <summary>
 /// The gateway to change the sortie table on the database

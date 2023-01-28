@@ -4,7 +4,7 @@ using IL2CareerToolset.Commands.Cli.Save;
 using IL2CareerToolset.Commands.Cli.Web;
 using IL2CareerToolset.DepedencyInjection;
 using IL2CareerToolset.Services;
-using IL2CarrerReviverModel.DependencyInjection;
+using IL2CareerModel.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;

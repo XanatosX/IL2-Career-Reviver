@@ -2,8 +2,8 @@
 using IL2CareerToolset.Model;
 using IL2CareerToolset.Services;
 using IL2CareerToolset.Views;
-using IL2CarrerReviverModel.Data.Gateways;
-using IL2CarrerReviverModel.Models;
+using IL2CareerModel.Data.Gateways;
+using IL2CareerModel.Models;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;

@@ -1,7 +1,7 @@
-﻿using IL2CarrerReviverModel.Models;
+﻿using IL2CareerModel.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace IL2CarrerReviverModel.Data.Repositories;
+namespace IL2CareerModel.Data.Repositories;
 internal class CareerRepository : BaseRepository<Career>
 {
     public CareerRepository(IDbContextFactory<IlTwoDatabaseContext> dbContextFactory) : base(dbContextFactory) { }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IL2CarrerReviverModel.Services;
+namespace IL2CareerModel.Services;
 public interface IFileChecksumService
 {
     string GetChecksum(string path);

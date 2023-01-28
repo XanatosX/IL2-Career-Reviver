@@ -1,6 +1,6 @@
 ﻿using IL2CareerModel.Models.Database;
 
-namespace IL2CareerToolset.Services;
+namespace IL2CareerModel.Services;
 public interface IDatabaseBackupService
 {
     string GetBackupFolder();

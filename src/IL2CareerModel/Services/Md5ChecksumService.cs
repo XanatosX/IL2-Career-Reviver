@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IL2CarrerReviverModel.Services;
+namespace IL2CareerModel.Services;
 internal class Md5ChecksumService : IFileChecksumService
 {
     public string GetChecksum(string path)

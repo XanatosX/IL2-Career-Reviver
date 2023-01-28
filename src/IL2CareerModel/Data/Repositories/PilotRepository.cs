@@ -1,4 +1,4 @@
-﻿using IL2CarrerReviverModel.Models;
+﻿using IL2CareerModel.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IL2CarrerReviverModel.Data.Repositories;
+namespace IL2CareerModel.Data.Repositories;
 internal class PilotRepository : BaseRepository<Pilot>
 {
     public PilotRepository(IDbContextFactory<IlTwoDatabaseContext> dbContextFactory) : base(dbContextFactory) { }

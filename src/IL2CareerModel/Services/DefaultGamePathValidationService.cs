@@ -1,6 +1,4 @@
-﻿using IL2CareerToolset.Services;
-
-namespace IL2CarrerReviverModel.Services;
+﻿namespace IL2CareerModel.Services;
 internal class DefaultGamePathValidationService : IGamePathValidationService
 {
     private const string ROOT_FOLDER_SUB_PATH = @"data\Career\cp.db";
