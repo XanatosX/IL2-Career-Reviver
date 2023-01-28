@@ -1,12 +1,13 @@
-﻿using IL2CarrerReviverConsole.Enums;
-using IL2CarrerReviverConsole.Services;
-using IL2CarrerReviverConsole.Views;
+﻿using IL2CareerToolset.Enums;
+using IL2CareerToolset.Services;
+using IL2CareerToolset.Views;
 using IL2CarrerReviverModel.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 
-namespace IL2CarrerReviverConsole.DepedencyInjection;
+namespace IL2CareerToolset.DepedencyInjection;
 internal static class ConsoleDependencyInjectionExension
 {
     public static IServiceCollection AddViews(this IServiceCollection collection)
@@ -29,7 +30,14 @@ internal static class ConsoleDependencyInjectionExension
                          {
                              config.AddSerilog(CreateLoggerConfig(collection));
                          })
-                         .AddSingleton<ISettingsFolderBridge, SettingsFolderBridge>();
+                         .AddSingleton<ISettingsFolderBridge, SettingsFolderBridge>()
+                         .AddSingleton<OSInteractionService>()
+                         .AddSingleton<IConfiguration>(provider =>
+                         {
+                             var reader = provider.GetRequiredService<ResourceFileReader>();
+                             return new ConfigurationBuilder().AddJsonStream(reader.GetResourceStream("AppSettings.json"))
+                                                              .Build();
+                         });
     }
 
     private static Serilog.ILogger CreateLoggerConfig(IServiceCollection collection)

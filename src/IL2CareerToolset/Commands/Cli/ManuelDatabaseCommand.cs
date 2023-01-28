@@ -1,11 +1,11 @@
-﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
-using IL2CarrerReviverConsole.Services;
+﻿using IL2CareerToolset.Commands.Cli.Settings;
+using IL2CareerToolset.Services;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-namespace IL2CarrerReviverConsole.Commands.Cli;
+namespace IL2CareerToolset.Commands.Cli;
 
 [Description("Command to set the game path by yourself")]
 internal class ManuellDatabaseCommand : Command<ManuellDatabaseCommandSettings>

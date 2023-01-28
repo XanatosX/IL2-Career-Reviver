@@ -1,5 +1,5 @@
-﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
-using IL2CarrerReviverConsole.Services;
+﻿using IL2CareerToolset.Commands.Cli.Settings;
+using IL2CareerToolset.Services;
 using IL2CarrerReviverModel.Data.Gateways;
 using IL2CarrerReviverModel.Models;
 using IL2CarrerReviverModel.Services;
@@ -8,7 +8,7 @@ using Spectre.Console.Cli;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
-namespace IL2CarrerReviverConsole.Commands.Cli.Entity;
+namespace IL2CareerToolset.Commands.Cli.Entity;
 
 [Description("Revive a pilot from a career")]
 internal class RevivePilotCommand : Command<RevivePilotCommandSettings>

@@ -1,7 +1,7 @@
-﻿using IL2CarrerReviverConsole.Enums;
+﻿using IL2CareerToolset.Enums;
 using System.Text.Json.Serialization;
 
-namespace IL2CarrerReviverConsole.Model;
+namespace IL2CareerToolset.Model;
 internal class Setting
 {
     public string? DatabasePath { get; set; }

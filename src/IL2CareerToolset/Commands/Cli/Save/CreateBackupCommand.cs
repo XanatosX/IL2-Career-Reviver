@@ -1,12 +1,12 @@
-﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
-using IL2CarrerReviverConsole.Services;
+﻿using IL2CareerToolset.Commands.Cli.Settings;
+using IL2CareerToolset.Services;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
-namespace IL2CarrerReviverConsole.Commands.Cli.Save;
+namespace IL2CareerToolset.Commands.Cli.Save;
 
 [Description("Create a backup from your savegames")]
 internal class CreateBackupCommand : Command<CreateBackupCommandSettings>
