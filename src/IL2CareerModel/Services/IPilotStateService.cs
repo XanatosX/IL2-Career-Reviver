@@ -1,6 +1,6 @@
-﻿using IL2CarrerReviverModel.Models;
+﻿using IL2CareerModel.Models;
 
-namespace IL2CarrerReviverModel.Services;
+namespace IL2CareerModel.Services;
 public interface IPilotStateService
 {
     bool PilotIsAlive(Pilot pilot) => PilotIsAlive(pilot.State);

@@ -1,16 +1,15 @@
-﻿using IL2CareerModel.Data.Gateways.Implementations;
+﻿using IL2CareerModel.Data;
+using IL2CareerModel.Data.Gateways;
+using IL2CareerModel.Data.Gateways.Implementations;
+using IL2CareerModel.Data.Repositories;
+using IL2CareerModel.Models;
 using IL2CareerModel.Models.Database;
-using IL2CareerToolset.Services;
-using IL2CarrerReviverModel.Data;
-using IL2CarrerReviverModel.Data.Gateways;
-using IL2CarrerReviverModel.Data.Repositories;
-using IL2CarrerReviverModel.Models;
-using IL2CarrerReviverModel.Services;
-using IL2CarrerReviverModel.Services.SaveGame;
+using IL2CareerModel.Services;
+using IL2CareerModel.Services.SaveGame;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IL2CarrerReviverModel.DependencyInjection;
+namespace IL2CareerModel.DependencyInjection;
 
 /// <summary>
 /// Extension class to provide methods for dependency injection

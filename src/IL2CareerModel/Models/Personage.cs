@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IL2CarrerReviverModel.Models;
+namespace IL2CareerModel.Models;
 
 [Table("personage")]
 [Index("PersonageId", Name = "idx_personageId")]

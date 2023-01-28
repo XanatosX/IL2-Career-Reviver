@@ -1,13 +1,11 @@
 ﻿using IL2CareerModel.Models.Database;
+using IL2CareerModel.Services;
 using IL2CareerToolset.Commands.Cli.Settings;
-using IL2CareerToolset.Services;
 using Microsoft.Extensions.Logging;
-using Serilog.Core;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Intrinsics.X86;
 
 namespace IL2CareerToolset.Commands.Cli.Save;
 
@@ -15,12 +13,10 @@ namespace IL2CareerToolset.Commands.Cli.Save;
 internal class DeleteBackupsCommand : Command<DeleteBackupsCommandSettings>
 {
     private readonly IDatabaseBackupService databaseBackupService;
-    private readonly ILogger<DeleteBackupsCommand> logger;
 
-    public DeleteBackupsCommand(IDatabaseBackupService databaseBackupService, ILogger<DeleteBackupsCommand> logger)
+    public DeleteBackupsCommand(IDatabaseBackupService databaseBackupService)
     {
         this.databaseBackupService = databaseBackupService;
-        this.logger = logger;
     }
 
     public override int Execute([NotNull] CommandContext context, [NotNull] DeleteBackupsCommandSettings settings)
@@ -46,7 +42,7 @@ internal class DeleteBackupsCommand : Command<DeleteBackupsCommandSettings>
 
         if (settings.BackupGuid is not null)
         {
-            Guid guid = new Guid(settings.BackupGuid);
+            Guid guid = new(settings.BackupGuid);
             var backupToDelete = backups.Find(b => b.Guid == guid);
             if (backupToDelete is null)
             {
@@ -57,7 +53,7 @@ internal class DeleteBackupsCommand : Command<DeleteBackupsCommandSettings>
             return DeleteBackup(backupToDelete);
         }
 
-        var selection = AnsiConsole.Prompt(new SelectionPrompt<DatabaseBackup>().UseConverter(s => $"{s.DisplayName} - {s.CreationDate.ToString()}")
+        var selection = AnsiConsole.Prompt(new SelectionPrompt<DatabaseBackup>().UseConverter(s => $"{s.DisplayName} - {s.CreationDate}")
                                                                                 .Title("Select backup to delete")
                                                                                 .AddChoices(backups));
 
@@ -75,6 +71,10 @@ internal class DeleteBackupsCommand : Command<DeleteBackupsCommandSettings>
 
     private int DeleteBackup(DatabaseBackup? selection)
     {
+        if (selection is null)
+        {
+            return 1;
+        }
         bool success = databaseBackupService.DeleteBackup(selection);
         string response = success ? "[green]Backup was deleted[/]" : "[red]Could not delete backup, please check the log[/]";
         AnsiConsole.MarkupLine(response);

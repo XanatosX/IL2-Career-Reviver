@@ -1,11 +1,10 @@
-﻿using IL2CareerToolset.Enums;
+﻿using IL2CareerModel.Services;
+using IL2CareerToolset.Enums;
 using IL2CareerToolset.Services;
 using IL2CareerToolset.Views;
-using IL2CarrerReviverModel.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Serilog.Events;
 
 namespace IL2CareerToolset.DepedencyInjection;
 internal static class ConsoleDependencyInjectionExension

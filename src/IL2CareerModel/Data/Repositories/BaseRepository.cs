@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace IL2CarrerReviverModel.Data.Repositories;
+namespace IL2CareerModel.Data.Repositories;
 
 /// <summary>
 /// Base repository class with long as id type

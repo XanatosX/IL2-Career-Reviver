@@ -1,5 +1,4 @@
 ﻿using IL2CareerToolset.Enums;
-using Serilog.Events;
 using Spectre.Console.Cli;
 using System.ComponentModel;
 

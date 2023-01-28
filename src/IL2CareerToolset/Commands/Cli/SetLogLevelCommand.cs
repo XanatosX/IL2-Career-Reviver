@@ -1,18 +1,13 @@
 ﻿using IL2CareerToolset.Commands.Cli.Settings;
-using IL2CareerToolset.Enums;
 using IL2CareerToolset.Services;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IL2CareerToolset.Commands.Cli;
+
 [Description("Set the log level for the application. If you set it on Information every log for information and above will be shown")]
 internal class SetLogLevelCommand : Command<SetLogLevelCommandSettings>
 {

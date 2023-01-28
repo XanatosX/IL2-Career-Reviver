@@ -1,8 +1,8 @@
-﻿using IL2CareerToolset.Commands.Cli.Settings;
+﻿using IL2CareerModel.Data.Gateways;
+using IL2CareerModel.Models;
+using IL2CareerModel.Services;
+using IL2CareerToolset.Commands.Cli.Settings;
 using IL2CareerToolset.Services;
-using IL2CarrerReviverModel.Data.Gateways;
-using IL2CarrerReviverModel.Models;
-using IL2CarrerReviverModel.Services;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
@@ -18,7 +18,6 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
     private readonly IMissionGateway missionGateway;
     private readonly ISortieGateway sortieGateway;
     private readonly ResourceFileReader resourceFileReader;
-    private readonly IDatabaseBackupService databaseBackupService;
     private readonly IByteArrayToDateTimeService byteArrayToDateTime;
 
     public RevivePilotCommand(IPilotGateway pilotGateway,
@@ -26,7 +25,6 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
                               IMissionGateway missionGateway,
                               ISortieGateway sortieGateway,
                               ResourceFileReader resourceFileReader,
-                              IDatabaseBackupService databaseBackupService,
                               IByteArrayToDateTimeService byteArrayToDateTime)
     {
         this.pilotGateway = pilotGateway;
@@ -34,7 +32,6 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         this.missionGateway = missionGateway;
         this.sortieGateway = sortieGateway;
         this.resourceFileReader = resourceFileReader;
-        this.databaseBackupService = databaseBackupService;
         this.byteArrayToDateTime = byteArrayToDateTime;
     }
 
@@ -61,7 +58,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         }
 
         var selectedPilot = AnsiConsole.Prompt(new SelectionPrompt<Pilot>().Title("Select pilot for reviving (Name Lastname - Airfield (Creation Date))")
-                                                                           .UseConverter(pilot => $"{pilot.Name} {pilot.LastName} - {pilot.Squadron.Airfield} ({byteArrayToDateTime.GetDateTime(pilot.InsDate ?? Array.Empty<byte>())})")
+                                                                           .UseConverter(pilot => $"{pilot.Name} {pilot.LastName} - {pilot.Squadron?.Airfield ?? string.Empty} ({byteArrayToDateTime.GetDateTime(pilot.InsDate ?? Array.Empty<byte>())})")
                                                                            .AddChoices(possibleReviceCandidates));
         if (selectedPilot is null)
         {
@@ -74,8 +71,8 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
             return 1;
         }
 
-        var career = careerGateway.GetAll().Where(career => career.Player.Id == selectedPilot.Id).FirstOrDefault();
-        if (career is null)
+        var career = careerGateway.GetAll().Where(career => career.Player?.Id == selectedPilot.Id).FirstOrDefault();
+        if (career is null || career.Squadron is null || career.Player is null)
         {
             AnsiConsole.MarkupLine("Could not get career for pilot");
             return 1;
@@ -106,7 +103,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         int successfulMissionDelete = 0;
         int totalMissionDelete = 0;
 
-        List<TableColumn> columns = new List<TableColumn>();
+        List<TableColumn> columns = new();
 
         AnsiConsole.Status().Start("All data collected, starting to revive", ctx =>
         {
@@ -141,7 +138,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
                             pilotUpdateSuccessful));
 
             ctx.Status("Resetting Sorties");
-            List<bool> sortieDeleteStatus = new List<bool>();
+            List<bool> sortieDeleteStatus = new();
             foreach (var sortie in sortieDataToDelete)
             {
                 sortieDeleteStatus.Add(sortieGateway.DeleteById(sortie.Id));
@@ -163,7 +160,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
             sortieDeleteOverallStatus = successfulSortieDelete == totalSortieDelete;
 
             ctx.Status("Resetting Missions");
-            List<bool> missionDeleteStatus = new List<bool>();
+            List<bool> missionDeleteStatus = new();
             foreach (var mission in missionsToDelete)
             {
                 missionDeleteStatus.Add(missionGateway.Delete(mission));
@@ -193,11 +190,11 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         AnsiConsole.MarkupLine($"Deleted: {successfulMissionDelete} / {totalMissionDelete} missions");
         AnsiConsole.MarkupLine($"OverallStatus: {GetColorForStatus(overall)}{overall}[/]");
 
-        Table overviewTable = new Table();
+        Table overviewTable = new();
         overviewTable.AddColumns("Id", "Name", "Type", "Action", "Successful");
         foreach (var column in columns)
         {
-            overviewTable.AddRow(column.id, column.name, column.type, column.action, $"{GetColorForStatus(column.status)}{column.status}[/]");
+            overviewTable.AddRow(column.Id, column.Name, column.Type, column.Action, $"{GetColorForStatus(column.Status)}{column.Status}[/]");
         }
         AnsiConsole.MarkupLine("[yellow]Summary of changes[/]");
         AnsiConsole.Write(overviewTable);
@@ -210,5 +207,5 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         return status ? "[green on grey27]" : "[red on grey27]";
     }
 
-    record TableColumn(string id, string name, string type, string action, bool status);
+    record TableColumn(string Id, string Name, string Type, string Action, bool Status);
 }
