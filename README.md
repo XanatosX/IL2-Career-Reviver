@@ -4,6 +4,13 @@
 [![Nightly Develop Build](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-nightly-build.yml/badge.svg?branch=master)](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-nightly-build.yml)
 [![Live build](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-live-build.yml/badge.svg)](https://github.com/XanatosX/IL2CarrerReviver/actions/workflows/create-live-build.yml)
 
+| Type | Package |
+| ---- | ------- |
+| Toolset | [![Toolset Badge](https://buildstats.info/nuget/IL2CareerToolset)](https://www.nuget.org/packages/IL2CareerToolset/) |
+| Model   | [![Model Badge](https://buildstats.info/nuget/IL2CareerModel)](https://www.nuget.org/packages/IL2CareerModel/) |
+
+
+
 
 > :warning: This tool can only be used with the Game `L-2 Sturmovik Great Battles`.
 > To get the game please go to the [game website][game_website] or steam.
@@ -30,11 +37,21 @@ command will run.
 
 ## Installation
 
+### Via zip
+
 To install the tool head over to the [releases] or use the [latest release][latest_release].
 Download the asset containing the tool, which is a zip file. As soon as the tool is downloaded unzip it 
 to a folder on your computer.
 
 Continue with the Command list section
+
+### Using `dotnet` cli
+
+> :information_source: This is only interessting for other developers who want to install this via
+> dotnet cli as a global tool.
+
+You will need the [dotnet cli](https://learn.microsoft.com/de-de/dotnet/core/tools/) installed.
+Run the following command to get the tool `dotnet tool install --global IL2CareerToolset`.
 
 ## Command list
 
@@ -200,11 +217,16 @@ Open the issue page for the application in your default browser.
 
 Open this readme in your default browser.
 
-# Report Bugs
+## Using the model library
+
+You are a developer who want to use the library used as a backend for this tool?
+Go to the [Readme for the model][model_readme] to get more information and how to get started.
+
+## Report Bugs
 
 Go to [issues] to report any bugs you encounter.
 
-# License
+## License
 
 Read the [license] file for more information
 
@@ -213,3 +235,4 @@ Read the [license] file for more information
 [license]: LICENSE
 [issues]: https://github.com/XanatosX/IL2CarrerReviver/issues
 [game_website]: https://il2sturmovik.com/
+[model_readme]: README_Model.md
