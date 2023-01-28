@@ -217,11 +217,16 @@ Open the issue page for the application in your default browser.
 
 Open this readme in your default browser.
 
-# Report Bugs
+## Using the model library
+
+You are a developer who want to use the library used as a backend for this tool?
+Go to the [Readme for the model][model_readme] to get more information and how to get started.
+
+## Report Bugs
 
 Go to [issues] to report any bugs you encounter.
 
-# License
+## License
 
 Read the [license] file for more information
 
@@ -230,3 +235,4 @@ Read the [license] file for more information
 [license]: LICENSE
 [issues]: https://github.com/XanatosX/IL2CarrerReviver/issues
 [game_website]: https://il2sturmovik.com/
+[model_readme]: README_Model.md
