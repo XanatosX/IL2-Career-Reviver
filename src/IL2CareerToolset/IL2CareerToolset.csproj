@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <None Remove="Resources\AppName.txt" />
@@ -58,6 +58,7 @@
     <PackageTags>dotnet, c#, IL2-Sturmovik, tool</PackageTags>
     <PackAsTool>True</PackAsTool>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>

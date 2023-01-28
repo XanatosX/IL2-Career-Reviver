@@ -11,6 +11,7 @@
     <RepositoryUrl>https://github.com/XanatosX/IL2CarrerReviver</RepositoryUrl>
     <PackageTags>dotnet, c#, IL2-Sturmovik</PackageTags>
     <PackageReadmeFile>README_Model.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
