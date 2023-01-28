@@ -1,6 +1,6 @@
-﻿using IL2CarrerReviverConsole.Model;
+﻿using IL2CareerToolset.Model;
 
-namespace IL2CarrerReviverConsole.Services;
+namespace IL2CareerToolset.Services;
 internal interface ISettingsService
 {
     Setting? GetSettings();

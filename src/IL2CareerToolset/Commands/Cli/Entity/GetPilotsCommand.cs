@@ -1,16 +1,15 @@
-﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
-using IL2CarrerReviverConsole.Model;
-using IL2CarrerReviverConsole.Services;
-using IL2CarrerReviverConsole.Views;
-using IL2CarrerReviverModel.Data.Gateways;
-using IL2CarrerReviverModel.Models;
+﻿using IL2CareerModel.Data.Gateways;
+using IL2CareerModel.Models;
+using IL2CareerToolset.Commands.Cli.Settings;
+using IL2CareerToolset.Services;
+using IL2CareerToolset.Views;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
-namespace IL2CarrerReviverConsole.Commands.Cli.Entity;
+namespace IL2CareerToolset.Commands.Cli.Entity;
 
 [Description("Get all pilots listed in a table")]
 internal class GetPilotsCommand : Command<GetPilotSettings>

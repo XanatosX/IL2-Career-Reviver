@@ -1,4 +1,4 @@
-﻿namespace IL2CarrerReviverConsole.Services;
+﻿namespace IL2CareerModel.Services;
 public interface IGamePathValidationService
 {
     string? GetPathToDatabase(string gameFolderPath);

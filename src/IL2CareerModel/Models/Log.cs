@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IL2CarrerReviverModel.Models;
+namespace IL2CareerModel.Models;
 
 [Table("log")]
 public partial class Log

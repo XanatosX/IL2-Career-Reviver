@@ -1,9 +1,8 @@
-﻿using IL2CarrerReviverConsole.Enums;
-using Serilog.Events;
+﻿using IL2CareerToolset.Enums;
 using Spectre.Console.Cli;
 using System.ComponentModel;
 
-namespace IL2CarrerReviverConsole.Commands.Cli.Settings;
+namespace IL2CareerToolset.Commands.Cli.Settings;
 
 internal class SetLogLevelCommandSettings : CommandSettings
 {

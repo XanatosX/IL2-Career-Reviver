@@ -1,6 +1,6 @@
-﻿using IL2CarrerReviverConsole.Enums;
+﻿using IL2CareerToolset.Enums;
 
-namespace IL2CarrerReviverConsole.Services;
+namespace IL2CareerToolset.Services;
 
 internal interface ILogLevelMapper<T>
 {

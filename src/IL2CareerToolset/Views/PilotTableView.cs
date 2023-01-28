@@ -1,9 +1,9 @@
-﻿using IL2CarrerReviverModel.Models;
-using IL2CarrerReviverModel.Services;
+﻿using IL2CareerModel.Models;
+using IL2CareerModel.Services;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
-namespace IL2CarrerReviverConsole.Views;
+namespace IL2CareerToolset.Views;
 internal class PilotTableView : IView<IEnumerable<Pilot>>
 {
     private readonly IPilotStateService pilotStateService;

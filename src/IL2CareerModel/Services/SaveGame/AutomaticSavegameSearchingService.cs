@@ -1,7 +1,6 @@
-﻿using IL2CarrerReviverConsole.Services;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
-namespace IL2CarrerReviverModel.Services.SaveGame;
+namespace IL2CareerModel.Services.SaveGame;
 
 internal class AutomaticSteamSavegameSearchingService : ISavegameLocatorService
 {

@@ -1,9 +1,10 @@
-using IL2CarrerReviverConsole.Commands.Cli;
-using IL2CarrerReviverConsole.Commands.Cli.Entity;
-using IL2CarrerReviverConsole.Commands.Cli.Save;
-using IL2CarrerReviverConsole.DepedencyInjection;
-using IL2CarrerReviverConsole.Services;
-using IL2CarrerReviverModel.DependencyInjection;
+using IL2CareerModel.DependencyInjection;
+using IL2CareerToolset.Commands.Cli;
+using IL2CareerToolset.Commands.Cli.Entity;
+using IL2CareerToolset.Commands.Cli.Save;
+using IL2CareerToolset.Commands.Cli.Web;
+using IL2CareerToolset.DepedencyInjection;
+using IL2CareerToolset.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -55,6 +56,12 @@ namespace src.SqlLiteReaderConsole
                         listConfig.AddCommand<RevivePilotCommand>("revive");
                     });
 
+                });
+                config.AddBranch("app", repo =>
+                {
+                    repo.AddCommand<OpenRepositoryCommand>("open");
+                    repo.AddCommand<OpenIssueCommand>("issue");
+                    repo.AddCommand<OpenHelpCommand>("help");
                 });
             });
             int returnCode = app.Run(args);

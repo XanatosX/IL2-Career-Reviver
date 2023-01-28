@@ -1,8 +1,8 @@
-﻿using IL2CarrerReviverConsole.Enums;
+﻿using IL2CareerToolset.Enums;
 using Microsoft.Extensions.Logging;
 using Serilog.Events;
 
-namespace IL2CarrerReviverConsole.Services;
+namespace IL2CareerToolset.Services;
 internal class DefaultLogLevelMapper : ILogLevelMapper<LogEventLevel>
 {
     private readonly ILogger<DefaultLogLevelMapper> logger;

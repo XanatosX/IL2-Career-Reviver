@@ -1,4 +1,4 @@
-﻿namespace IL2CarrerReviverModel.Data.Repositories;
+﻿namespace IL2CareerModel.Data.Repositories;
 
 /// <summary>
 /// Repository interface

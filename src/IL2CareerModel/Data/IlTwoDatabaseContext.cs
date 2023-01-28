@@ -1,15 +1,10 @@
-﻿using IL2CarrerReviverModel.Models;
-using IL2CarrerReviverModel.Services;
+﻿using IL2CareerModel.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 
-namespace IL2CarrerReviverModel.Data;
+namespace IL2CareerModel.Data;
 
 public partial class IlTwoDatabaseContext : DbContext
 {
-    private readonly string? databaseConnectionString;
-
     public IlTwoDatabaseContext(DbContextOptions<IlTwoDatabaseContext> options)
         : base(options)
     {

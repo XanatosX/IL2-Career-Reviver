@@ -1,5 +1,5 @@
 ﻿
-namespace IL2CarrerReviverConsole.Enums;
+namespace IL2CareerToolset.Enums;
 internal enum LogSeverity
 {
     Unknown,

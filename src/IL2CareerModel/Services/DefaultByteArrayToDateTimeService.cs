@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace IL2CarrerReviverModel.Services;
+namespace IL2CareerModel.Services;
 internal sealed class DefaultByteArrayToDateTimeService : IByteArrayToDateTimeService
 {
     private readonly ILogger<DefaultByteArrayToDateTimeService> logger;

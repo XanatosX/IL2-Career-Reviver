@@ -1,9 +1,8 @@
 ﻿using IL2CareerModel.Models.Database;
-using IL2CarrerReviverModel.Services;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace IL2CarrerReviverConsole.Services;
+namespace IL2CareerModel.Services;
 internal class DatabaseBackupService : IDatabaseBackupService
 {
     private readonly IFileChecksumService fileChecksumService;

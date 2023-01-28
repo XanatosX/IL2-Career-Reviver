@@ -1,12 +1,13 @@
 ﻿using IL2CareerModel.Models.Database;
-using IL2CarrerReviverConsole.Services;
-using IL2CarrerReviverConsole.Views;
+using IL2CareerModel.Services;
+using IL2CareerToolset.Services;
+using IL2CareerToolset.Views;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
 
-namespace IL2CarrerReviverConsole.Commands.Cli.Save;
+namespace IL2CareerToolset.Commands.Cli.Save;
 
 [Description("List all the available backups")]
 internal class ListBackupsCommand : Command

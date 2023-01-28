@@ -180,6 +180,26 @@ Restore a backup. If no argument provided the program will show a list with all 
 
 > :information_source: To get the guid for a backup use the `list` command first
 
+## App
+
+### Open Repository in Browser
+
+`IL2CareerToolset.exe app open`
+
+Open the code repository in your default browser.
+
+### Open Issues in Browser
+
+`IL2CareerToolset.exe app issue`
+
+Open the issue page for the application in your default browser.
+
+### Open Help in Browser
+
+`IL2CareerToolset.exe app help`
+
+Open this readme in your default browser.
+
 # Report Bugs
 
 Go to [issues] to report any bugs you encounter.
