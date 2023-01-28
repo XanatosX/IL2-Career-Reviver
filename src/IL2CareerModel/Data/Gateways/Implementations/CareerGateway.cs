@@ -1,5 +1,4 @@
-﻿using IL2CareerModel.Data.Gateways;
-using IL2CareerModel.Data.Repositories;
+﻿using IL2CareerModel.Data.Repositories;
 using IL2CareerModel.Models;
 
 namespace IL2CareerModel.Data.Gateways.Implementations;

@@ -1,8 +1,5 @@
 ﻿using IL2CareerModel.Models;
-using IL2CareerModel.Services;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 
 namespace IL2CareerModel.Data;
 

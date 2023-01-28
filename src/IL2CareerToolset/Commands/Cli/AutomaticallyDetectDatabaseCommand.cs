@@ -1,5 +1,5 @@
-﻿using IL2CareerToolset.Services;
-using IL2CareerModel.Services.SaveGame;
+﻿using IL2CareerModel.Services.SaveGame;
+using IL2CareerToolset.Services;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;

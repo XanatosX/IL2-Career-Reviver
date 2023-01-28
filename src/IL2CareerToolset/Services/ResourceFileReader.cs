@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Spectre.Console;
 using System.Reflection;
 
 namespace IL2CareerToolset.Services;
