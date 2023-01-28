@@ -1,8 +1,8 @@
-﻿using IL2CarrerReviverConsole.DepedencyInjection;
+﻿using IL2CareerToolset.DepedencyInjection;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
-namespace IL2CarrerReviverConsole.Services;
+namespace IL2CareerToolset.Services;
 internal class ViewFactory
 {
     private readonly DepedencyResolver depedencyResolver;

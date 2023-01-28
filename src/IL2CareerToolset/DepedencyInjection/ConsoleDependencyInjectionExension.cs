@@ -1,12 +1,12 @@
-﻿using IL2CarrerReviverConsole.Enums;
-using IL2CarrerReviverConsole.Services;
-using IL2CarrerReviverConsole.Views;
+﻿using IL2CareerToolset.Enums;
+using IL2CareerToolset.Services;
+using IL2CareerToolset.Views;
 using IL2CarrerReviverModel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 
-namespace IL2CarrerReviverConsole.DepedencyInjection;
+namespace IL2CareerToolset.DepedencyInjection;
 internal static class ConsoleDependencyInjectionExension
 {
     public static IServiceCollection AddViews(this IServiceCollection collection)

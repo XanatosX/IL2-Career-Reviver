@@ -3,7 +3,7 @@ using IL2CarrerReviverModel.Services;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace IL2CarrerReviverConsole.Services;
+namespace IL2CareerToolset.Services;
 internal class DatabaseBackupService : IDatabaseBackupService
 {
     private readonly IFileChecksumService fileChecksumService;

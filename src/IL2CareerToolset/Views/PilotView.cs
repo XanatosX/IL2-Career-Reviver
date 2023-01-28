@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IL2CarrerReviverConsole.Views;
+namespace IL2CareerToolset.Views;
 internal class PilotView : IView<Pilot>
 {
     private readonly IPilotStateService pilotStateService;

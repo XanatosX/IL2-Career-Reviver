@@ -1,6 +1,6 @@
-﻿using IL2CarrerReviverConsole.Commands.Cli.Settings;
-using IL2CarrerReviverConsole.Enums;
-using IL2CarrerReviverConsole.Services;
+﻿using IL2CareerToolset.Commands.Cli.Settings;
+using IL2CareerToolset.Enums;
+using IL2CareerToolset.Services;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IL2CarrerReviverConsole.Commands.Cli;
+namespace IL2CareerToolset.Commands.Cli;
 [Description("Set the log level for the application. If you set it on Information every log for information and above will be shown")]
 internal class SetLogLevelCommand : Command<SetLogLevelCommandSettings>
 {

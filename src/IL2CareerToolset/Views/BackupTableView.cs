@@ -1,9 +1,9 @@
 ﻿using IL2CareerModel.Models.Database;
-using IL2CarrerReviverConsole.Services;
+using IL2CareerToolset.Services;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
-namespace IL2CarrerReviverConsole.Views;
+namespace IL2CareerToolset.Views;
 internal class BackupTableView : IView<IEnumerable<DatabaseBackup>>
 {
     private readonly IDatabaseBackupService backupService;

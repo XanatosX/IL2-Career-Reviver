@@ -3,10 +3,10 @@ using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using System.Reflection;
 
-namespace IL2CarrerReviverConsole.Services;
+namespace IL2CareerToolset.Services;
 internal class ResourceFileReader
 {
-    private const string PREFIX = "IL2CarrerReviverConsole.Resources.";
+    private const string PREFIX = "IL2CareerToolset.Resources.";
     private readonly IMemoryCache cache;
     private readonly ILogger<ResourceFileReader> logger;
 

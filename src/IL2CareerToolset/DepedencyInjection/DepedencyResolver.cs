@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace IL2CarrerReviverConsole.DepedencyInjection;
+namespace IL2CareerToolset.DepedencyInjection;
 internal class DepedencyResolver
 {
     private readonly IServiceProvider serviceProvider;

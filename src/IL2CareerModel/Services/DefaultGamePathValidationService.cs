@@ -1,4 +1,4 @@
-﻿using IL2CarrerReviverConsole.Services;
+﻿using IL2CareerToolset.Services;
 
 namespace IL2CarrerReviverModel.Services;
 internal class DefaultGamePathValidationService : IGamePathValidationService

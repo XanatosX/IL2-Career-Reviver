@@ -1,10 +1,10 @@
-﻿using IL2CarrerReviverConsole.Services;
+﻿using IL2CareerToolset.Services;
 using IL2CarrerReviverModel.Services.SaveGame;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System.ComponentModel;
 
-namespace IL2CarrerReviverConsole.Commands.Cli;
+namespace IL2CareerToolset.Commands.Cli;
 
 [Description("Automaticly detect the game folder")]
 internal class AutomaticallyDetectDatabaseCommand : Command

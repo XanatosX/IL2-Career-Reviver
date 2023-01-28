@@ -1,8 +1,8 @@
-﻿using IL2CarrerReviverConsole.Model;
+﻿using IL2CareerToolset.Model;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace IL2CarrerReviverConsole.Services;
+namespace IL2CareerToolset.Services;
 internal class SettingsService : ISettingsService
 {
     private readonly PathService pathService;

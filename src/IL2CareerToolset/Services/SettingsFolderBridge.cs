@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IL2CarrerReviverConsole.Services;
+namespace IL2CareerToolset.Services;
 internal class SettingsFolderBridge : ISettingsFolderBridge
 {
     private readonly PathService pathService;

@@ -1,6 +1,6 @@
 ﻿using IL2CareerModel.Models.Database;
-using IL2CarrerReviverConsole.Commands.Cli.Settings;
-using IL2CarrerReviverConsole.Services;
+using IL2CareerToolset.Commands.Cli.Settings;
+using IL2CareerToolset.Services;
 using Microsoft.Extensions.Logging;
 using Serilog.Core;
 using Spectre.Console;
@@ -9,7 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Intrinsics.X86;
 
-namespace IL2CarrerReviverConsole.Commands.Cli.Save;
+namespace IL2CareerToolset.Commands.Cli.Save;
 
 [Description("Delete a single or multiple backups")]
 internal class DeleteBackupsCommand : Command<DeleteBackupsCommandSettings>

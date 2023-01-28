@@ -1,7 +1,7 @@
 ﻿using Spectre.Console.Cli;
 using System.ComponentModel;
 
-namespace IL2CarrerReviverConsole.Commands.Cli.Settings;
+namespace IL2CareerToolset.Commands.Cli.Settings;
 
 internal class CreateBackupCommandSettings : CommandSettings
 {

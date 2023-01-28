@@ -1,8 +1,8 @@
-using IL2CarrerReviverConsole.Commands.Cli;
-using IL2CarrerReviverConsole.Commands.Cli.Entity;
-using IL2CarrerReviverConsole.Commands.Cli.Save;
-using IL2CarrerReviverConsole.DepedencyInjection;
-using IL2CarrerReviverConsole.Services;
+using IL2CareerToolset.Commands.Cli;
+using IL2CareerToolset.Commands.Cli.Entity;
+using IL2CareerToolset.Commands.Cli.Save;
+using IL2CareerToolset.DepedencyInjection;
+using IL2CareerToolset.Services;
 using IL2CarrerReviverModel.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
