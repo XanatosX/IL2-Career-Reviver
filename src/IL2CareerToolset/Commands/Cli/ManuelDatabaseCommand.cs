@@ -9,20 +9,20 @@ using System.Diagnostics.CodeAnalysis;
 namespace IL2CareerToolset.Commands.Cli;
 
 [Description("Command to set the game path by yourself")]
-internal class ManuellDatabaseCommand : Command<ManuellDatabaseCommandSettings>
+internal class ManuelDatabaseCommand : Command<ManuelDatabaseCommandSettings>
 {
     private readonly IGamePathValidationService pathValidationService;
     private readonly ISettingsService settingsService;
-    private readonly ILogger<ManuellDatabaseCommand> logger;
+    private readonly ILogger<ManuelDatabaseCommand> logger;
 
-    public ManuellDatabaseCommand(IGamePathValidationService pathValidationService, ISettingsService settingsService, ILogger<ManuellDatabaseCommand> logger)
+    public ManuelDatabaseCommand(IGamePathValidationService pathValidationService, ISettingsService settingsService, ILogger<ManuelDatabaseCommand> logger)
     {
         this.pathValidationService = pathValidationService;
         this.settingsService = settingsService;
         this.logger = logger;
     }
 
-    public override int Execute([NotNull] CommandContext context, [NotNull] ManuellDatabaseCommandSettings settings)
+    public override int Execute([NotNull] CommandContext context, [NotNull] ManuelDatabaseCommandSettings settings)
     {
         return settings.IsInteractiv ? GetPathInteractive() : UseSettingPath(settings.GameRootFolder!);
     }
