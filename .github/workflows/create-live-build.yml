@@ -103,7 +103,11 @@ jobs:
              echo "BUILD_VERSION=${{ GITHUB.REF_NAME }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
            }
     - name: Pack application
-      run: dotnet pack -p:PackageOutputPath=${{ env.APPLICATION_PUBLISH_FOLDER }} -p:Version=${{ env.BUILD_VERSION }}
+      run: dotnet pack -p:PackageOutputPath=publish -p:Version=${{ env.BUILD_VERSION }}
+    - name: Move nuget to output
+      run: |
+        mv .\src\IL2CareerToolset\publish/*.nupkg
+        mv .\src\IL2CareerModel\publish/*.nupkg
     - name: Show content for debug
       if: ${{ env.DEBUG == 'true' }}
       run: ls
