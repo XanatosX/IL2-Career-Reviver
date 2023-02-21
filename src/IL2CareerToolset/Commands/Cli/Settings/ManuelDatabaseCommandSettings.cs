@@ -2,7 +2,7 @@
 using System.ComponentModel;
 
 namespace IL2CareerToolset.Commands.Cli.Settings;
-internal class ManuellDatabaseCommandSettings : CommandSettings
+internal class ManuelDatabaseCommandSettings : CommandSettings
 {
     [CommandArgument(0, "[GameRootFolder]")]
     [Description("Path to the root folder of the game")]
