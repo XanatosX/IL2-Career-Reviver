@@ -116,7 +116,12 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Pack application
-      run: dotnet pack -o ${{ env.APPLICATION_PUBLISH_FOLDER }} -p:Version=0.0.0
+      run: dotnet pack -p:PackageOutputPath=publish -p:Version=0.0.0
+    - name: Move nuget to output
+      run: |
+        mkdir ${{ env.APPLICATION_PUBLISH_FOLDER }}
+        mv .\src\IL2CareerToolset\publish\*.nupkg ${{ env.APPLICATION_PUBLISH_FOLDER }}
+        mv .\src\IL2CareerModel\publish\*.nupkg ${{ env.APPLICATION_PUBLISH_FOLDER }}
     - name: Show content for debug
       if: ${{ env.DEBUG == 'true' }}
       run: ls
