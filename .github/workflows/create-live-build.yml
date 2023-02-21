@@ -106,8 +106,8 @@ jobs:
       run: dotnet pack -p:PackageOutputPath=publish -p:Version=${{ env.BUILD_VERSION }}
     - name: Move nuget to output
       run: |
-        mv .\src\IL2CareerToolset\publish/*.nupkg
-        mv .\src\IL2CareerModel\publish/*.nupkg
+        mv .\src\IL2CareerToolset\publish/*.nupkg ${{ env.APPLICATION_PUBLISH_FOLDER }}
+        mv .\src\IL2CareerModel\publish/*.nupkg ${{ env.APPLICATION_PUBLISH_FOLDER }}
     - name: Show content for debug
       if: ${{ env.DEBUG == 'true' }}
       run: ls
