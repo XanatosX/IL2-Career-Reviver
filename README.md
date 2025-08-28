@@ -16,23 +16,23 @@
 > To get the game please go to the [game website][game_website] or steam.
 
 
-**This readme is still WIP I did want to get nighly build's up ASAP.**
+**This readme is still WIP I did want to get nightly build's up ASAP.**
 
-This tool will provide you different commands to performe on your save file.
-One of the major features is to revive a dead pilot by resetting the carreer to the day before
+This tool will provide you different commands to perform on your save file.
+One of the major features is to revive a dead pilot by resetting the career to the day before
 death.
 
 ## :warning: Warning :warning:
 
 This tool will change, delete and move data in your save file around, which can corrupt it.
-This can lead to unwanted behaviors of the game or break the save completly,
-which will affec all other careers as well.
+This can lead to unwanted behaviors of the game or break the save completely,
+which will affect all other careers as well.
 Those errors could appear later on and may be invisible directly after usage.
 
 > :warning: Since I do not play in multiplayer I have no clue if editing the database will cause any errors with the
 servers you play on. I would guess that this is not the case but I'm not able to confirm it just yet.
 
-> :information_source: Command's which change your save file will present you a warning you need to comfirm before the
+> :information_source: Command's which change your save file will present you a warning you need to confirm before the
 command will run.
 
 ## Installation
@@ -47,7 +47,7 @@ Continue with the Command list section
 
 ### Using `dotnet` cli
 
-> :information_source: This is only interessting for other developers who want to install this via
+> :information_source: This is only interesting for other developers who want to install this via
 > dotnet cli as a global tool.
 
 You will need the [dotnet cli](https://learn.microsoft.com/de-de/dotnet/core/tools/) installed.
@@ -56,7 +56,7 @@ Run the following command to get the tool `dotnet tool install --global IL2Caree
 ## Command list
 
 You need to open a `command line` or `powershell` to run the commands, to do so press windows key and search for
-powershell or cmd. Navigate to the folder contaning the exe of the toolset by `cd {Folder name you extracted the zip to}`. 
+powershell or cmd. Navigate to the folder containing the exe of the toolset by `cd {Folder name you extracted the zip to}`. 
 Use the commands listed below to use the tool
 
 If you need any additional information or need help with the usage please create a [issue][issues].
@@ -79,7 +79,7 @@ The following log levels are allowed:
 On default the app will use `warning`. The logfile is getting saved in `%appdata%\IL2CareerToolset`.
 Just enter the string into the navigation bar in your explorer to get there.
 
-#### Automatic search for steam savegame
+#### Automatic search for steam save game
 
 `IL2CareerToolset.exe settings auto`
 
@@ -87,7 +87,7 @@ This command will try to automatically detect your database file, this will only
 
 **Keep in mind that this command will scan all your discs and folders to find the game, no data will be uploaded.**
 
-#### Enter Savegame manually
+#### Enter Save game manually
 
 `IL2CareerToolset.exe settings manuell`
 
@@ -158,9 +158,9 @@ Delete a single backup or all of them, if no arguments provided the program will
 
 | Position | Required |             Description          |
 | -------- | -------- | -------------------------------- |
-|    1     | OPTIONAL | The guid of the backup to delete |
+|    1     | OPTIONAL | The GUID of the backup to delete |
 
-> :information_source: To get the guid for a backup use the `list` command first
+> :information_source: To get the GUID for a backup use the `list` command first
 
 ##### Flags
 
@@ -178,10 +178,10 @@ Rename a backup. If no arguments provided the program will ask you for a backup 
 
 | Position | Required |              Description           |
 | -------- | -------- | ---------------------------------- |
-|    1     | OPTIONAL | The guid of the backup to rename   |
+|    1     | OPTIONAL | The GUID of the backup to rename   |
 |    2     | OPTIONAL | The new name to use for the backup |
 
-> :information_source: To get the guid for a backup use the `list` command first
+> :information_source: To get the GUID for a backup use the `list` command first
 
 #### Restore Backup
 
@@ -193,9 +193,9 @@ Restore a backup. If no argument provided the program will show a list with all 
 
 | Position | Required |               Description           |
 | -------- | -------- | ----------------------------------- |
-|    1     | OPTIONAL | The guid of the backup to restore   |
+|    1     | OPTIONAL | The GUID of the backup to restore   |
 
-> :information_source: To get the guid for a backup use the `list` command first
+> :information_source: To get the GUID for a backup use the `list` command first
 
 ## App
 
