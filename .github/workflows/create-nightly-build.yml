@@ -7,7 +7,7 @@ on:
 
 env:
   DEBUG: false
-  REF_CHECKOUT_BRANCH: develop
+  REF_CHECKOUT_BRANCH: main
   RELEASE_NAME: Recent nightly build
   APPLICATION_PUBLISH_FOLDER: ./publish
   WINDOWS_ARTIFACT_NAME: IL_2_Career_Toolset_windows_x64
@@ -59,7 +59,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 9.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -79,7 +79,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 9.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Publish Application
@@ -112,7 +112,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 9.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Pack application
@@ -168,12 +168,12 @@ jobs:
         run: |
           gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
             --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
-            --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
+            --generate-notes --prerelease ${parameters}  --notes "Nightly build version of the main branch, ready for testing" \
             -d ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.*
       - name: Create release and upload artifacts
         if:  ${{ env.DEBUG == 'false' }}
         run: |
           gh release create Develop-${{ GITHUB.RUN_NUMBER }} \
             --title "${{ env.RELEASE_NAME }} [${{ GITHUB.RUN_NUMBER }}]" --target ${{ env.REF_CHECKOUT_BRANCH }} \
-            --generate-notes --prerelease ${parameters}  --notes "Recent version of the develop branch, ready for testing" \
+            --generate-notes --prerelease ${parameters}  --notes "Nightly build version of the main branch, ready for testing" \
             ${{ env.RELEASE_ARTIFACT_FOLDER }}/*.* --discussion-category "Releases"
