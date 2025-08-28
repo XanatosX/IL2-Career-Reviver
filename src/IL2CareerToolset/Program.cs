@@ -4,6 +4,7 @@ using IL2CareerToolset.Commands.Cli.Entity;
 using IL2CareerToolset.Commands.Cli.Save;
 using IL2CareerToolset.Commands.Cli.Web;
 using IL2CareerToolset.DepedencyInjection;
+using IL2CareerToolset.Model;
 using IL2CareerToolset.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
@@ -19,7 +20,7 @@ namespace src.SqlLiteReaderConsole
             var collection = new ServiceCollection().AddBaseServices()
                                                     .AddModelDependencies((settings, provider) =>
                                                     {
-                                                        var databasePath = provider.GetService<ISettingsService>()?.GetSettings()?.DatabasePath;
+                                                        var databasePath = provider.GetRequiredService<ISettingsService>().GetSettings()?.DatabasePath;
                                                         settings.DatabasePath = databasePath;
                                                     })
                                                     .AddDbGateways()

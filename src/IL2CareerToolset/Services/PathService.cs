@@ -7,7 +7,8 @@ internal class PathService
 
     public PathService()
     {
-        settingPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AppDomain.CurrentDomain.FriendlyName);
+        var settingFolderName = AppDomain.CurrentDomain.FriendlyName + Path.DirectorySeparatorChar;
+        settingPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), settingFolderName);
     }
 
     public string GetAndCreateSettingFolder()
