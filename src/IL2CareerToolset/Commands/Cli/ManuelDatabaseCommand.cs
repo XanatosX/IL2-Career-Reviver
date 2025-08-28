@@ -64,6 +64,19 @@ internal class ManuelDatabaseCommand : Command<ManuelDatabaseCommandSettings>
         string fullPath = pathValidationService.GetPathToDatabase(rootFolder) ?? string.Empty;
         AnsiConsole.MarkupLine("[green]The path is valid[/]");
         AnsiConsole.Write(new TextPath(fullPath));
-        AnsiConsole.Confirm("Do you want to save the path now?");
+        if (AnsiConsole.Confirm("Do you want to save the path now?"))
+        {
+        settingsService.UpdateSettings(setting =>
+        {
+            setting.DatabasePath = fullPath;
+        });
+                if (settingsService?.GetSettings()?.DatabasePath == fullPath)
+                {
+                    AnsiConsole.MarkupLine("[green]Path was saved successfully[/]");
+                    return;
+                }
+                AnsiConsole.MarkupLine("[red]Path was not saved![/]");
+        }
+        
     }
 }

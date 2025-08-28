@@ -17,19 +17,31 @@ internal class GetPilotsCommand : Command<GetPilotSettings>
     private readonly IPilotGateway pilotGateway;
     private readonly ICareerGateway careerGateway;
     private readonly ViewFactory viewFactory;
+    private readonly ISettingsService settingsService;
     private readonly ILogger<GetPilotsCommand> logger;
 
-    public GetPilotsCommand(IPilotGateway pilotGateway, ICareerGateway careerGateway, ViewFactory viewFactory, ILogger<GetPilotsCommand> logger)
+    public GetPilotsCommand(IPilotGateway pilotGateway,
+                            ICareerGateway careerGateway,
+                            ViewFactory viewFactory,
+                            ISettingsService settingsService,
+                            ILogger<GetPilotsCommand> logger)
     {
         this.pilotGateway = pilotGateway;
         this.careerGateway = careerGateway;
         this.viewFactory = viewFactory;
+        this.settingsService = settingsService;
         this.logger = logger;
     }
 
     public override int Execute([NotNull] CommandContext context, [NotNull] GetPilotSettings settings)
     {
         logger.LogInformation("Get pilots");
+        var setting = settingsService.GetSettings();
+        if (setting is null || setting.DatabasePath is null || !File.Exists(setting.DatabasePath))
+        {
+            AnsiConsole.MarkupLine("[red]Either database is not set, was moved or deleted! Please set again with the 'settings' command[/]");
+            return 1;
+        }
         var pilots = settings.PlayerOnly ? careerGateway.GetAll()
                                                         .Select(career => career.Player)
                                                         .OfType<Pilot>() : pilotGateway.GetAll(pilot => PilotFilter(pilot, settings.Name));

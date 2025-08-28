@@ -17,6 +17,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
     private readonly ICareerGateway careerGateway;
     private readonly IMissionGateway missionGateway;
     private readonly ISortieGateway sortieGateway;
+    private readonly ISettingsService settingsService;
     private readonly ResourceFileReader resourceFileReader;
     private readonly IByteArrayToDateTimeService byteArrayToDateTime;
 
@@ -24,6 +25,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
                               ICareerGateway careerGateway,
                               IMissionGateway missionGateway,
                               ISortieGateway sortieGateway,
+                              ISettingsService settingsService,
                               ResourceFileReader resourceFileReader,
                               IByteArrayToDateTimeService byteArrayToDateTime)
     {
@@ -31,12 +33,19 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         this.careerGateway = careerGateway;
         this.missionGateway = missionGateway;
         this.sortieGateway = sortieGateway;
+        this.settingsService = settingsService;
         this.resourceFileReader = resourceFileReader;
         this.byteArrayToDateTime = byteArrayToDateTime;
     }
 
     public override int Execute([NotNull] CommandContext context, [NotNull] RevivePilotCommandSettings settings)
     {
+        var setting = settingsService.GetSettings();
+        if (setting is null || setting.DatabasePath is null || !File.Exists(setting.DatabasePath))
+        {
+            AnsiConsole.MarkupLine("[red]Either database is not set, was moved or deleted! Please set again with the 'settings' command[/]");
+            return 1;
+        }
         var possibleReviceCandidates = careerGateway.GetAll()
                                             .Where(career => settings.IncludeIronMan || career.IronMan == 0)
                                             .Where(career => career?.Player?.State != 0)
