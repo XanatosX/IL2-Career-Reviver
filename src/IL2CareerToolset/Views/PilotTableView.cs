@@ -26,10 +26,11 @@ internal class PilotTableView : IView<IEnumerable<Pilot>>
         table.AddColumn("Airfield");
 
 
-        foreach (Pilot pilot in entity.OrderBy(p => p.Id))
+        foreach (Pilot pilot in entity.OfType<Pilot>().OrderBy(p => p.Id))
         {
             string birthday = byteArrayToDateTime.GetDateTime(pilot.BirthDay ?? Array.Empty<byte>())?.ToString("dd.MM.yyyy") ?? "Unknown";
-            table.AddRow(pilot.Id.ToString(), pilot.Name, pilot.LastName, birthday, pilotStateService.PilotIsAlive(pilot.State).ToString(), pilot.Squadron.Airfield);
+            var squadron = pilot.Squadron?.Airfield ?? "Unknown";
+            table.AddRow(pilot.Id.ToString(), pilot.Name, pilot.LastName, birthday, pilotStateService.PilotIsAlive(pilot.State).ToString(), squadron);
         }
         return table;
     }
