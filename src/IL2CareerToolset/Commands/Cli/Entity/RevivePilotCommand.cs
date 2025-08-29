@@ -18,6 +18,8 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
     private readonly IMissionGateway missionGateway;
     private readonly ISortieGateway sortieGateway;
     private readonly ISettingsService settingsService;
+    private readonly IPilotStateService pilotStateService;
+    private readonly IDatabaseBackupService backupService;
     private readonly ResourceFileReader resourceFileReader;
     private readonly IByteArrayToDateTimeService byteArrayToDateTime;
 
@@ -26,6 +28,8 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
                               IMissionGateway missionGateway,
                               ISortieGateway sortieGateway,
                               ISettingsService settingsService,
+                              IPilotStateService pilotStateService,
+                              IDatabaseBackupService backupService,
                               ResourceFileReader resourceFileReader,
                               IByteArrayToDateTimeService byteArrayToDateTime)
     {
@@ -34,6 +38,8 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         this.missionGateway = missionGateway;
         this.sortieGateway = sortieGateway;
         this.settingsService = settingsService;
+        this.pilotStateService = pilotStateService;
+        this.backupService = backupService;
         this.resourceFileReader = resourceFileReader;
         this.byteArrayToDateTime = byteArrayToDateTime;
     }
@@ -46,14 +52,16 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
             AnsiConsole.MarkupLine("[red]Either database is not set, was moved or deleted! Please set again with the 'settings' command[/]");
             return 1;
         }
-        var possibleReviceCandidates = careerGateway.GetAll()
-                                            .Where(career => settings.IncludeIronMan || career.IronMan == 0)
-                                            .Where(career => career?.Player?.State != 0)
-                                            .Select(career => career.Player)
-                                            .OfType<Pilot>()
-                                            .ToList();
+        var possibleReviveCandidates = careerGateway.GetAll()
+                                                    .OfType<Career>()
+                                                    .Where(career => settings.IncludeIronMan || career.IronMan == 0)
+                                                    .Where(career => career?.Player is not null)
+                                                    .Where(career => !pilotStateService.PilotIsAlive(career!.Player!))
+                                                    .Select(career => career.Player)
+                                                    .OfType<Pilot>()
+                                                    .ToList();
 
-        if (!possibleReviceCandidates.Any())
+        if (!possibleReviveCandidates.Any())
         {
             AnsiConsole.MarkupLine("[green]Could not find any pilot which can be revived[/]");
             return 0;
@@ -68,7 +76,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
 
         var selectedPilot = AnsiConsole.Prompt(new SelectionPrompt<Pilot>().Title("Select pilot for reviving (Name Lastname - Airfield (Creation Date))")
                                                                            .UseConverter(pilot => $"{pilot.Name} {pilot.LastName} - {pilot.Squadron?.Airfield ?? string.Empty} ({byteArrayToDateTime.GetDateTime(pilot.InsDate ?? Array.Empty<byte>())})")
-                                                                           .AddChoices(possibleReviceCandidates));
+                                                                           .AddChoices(possibleReviveCandidates));
         if (selectedPilot is null)
         {
             AnsiConsole.MarkupLine("No pilot selected");
@@ -87,19 +95,21 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
             return 1;
         }
 
+        AnsiConsole.MarkupLine("Create Database backup");
+        backupService.CreateBackup($"Automatically created before revive of id {selectedPilot.Id} named {selectedPilot.LastName}, {selectedPilot.Name} - {DateTime.Now}");
 
         var sortiesDiedIn = sortieGateway.GetAll(sortie => sortie.PilotId == selectedPilot.Id)
                                          .Where(sortie => sortie.Status == 2).ToList();
-        var sortieDataToDelete = sortieGateway.GetAll(sortie => sortiesDiedIn.Select(sortie => sortie.MissionId).Contains(sortie.MissionId))
+        var sortieDataToDelete = sortieGateway.GetAll(sortie => sortiesDiedIn.Select(deadSortie => deadSortie.MissionId).Contains(sortie.MissionId) && sortie.PilotId == selectedPilot.Id)
                                               .ToList();
 
-        long highestNumer = long.MaxValue;
+        long highestNumber = long.MaxValue;
         if (sortieDataToDelete.Count > 0)
         {
-            highestNumer = sortieDataToDelete.Select(sortie => sortie.MissionId).Max();
+            highestNumber = sortieDataToDelete.Select(sortie => sortie.MissionId).Max();
         }
 
-        var missionsToDelete = missionGateway.GetAll(mission => mission.Id >= highestNumer && mission.SquadronId == career.Squadron.Id)
+        var missionsToDelete = missionGateway.GetAll(mission => mission.Id >= highestNumber && MissionContainsPilot(selectedPilot, mission))
                                              .ToList();
 
         bool careerUpdateSuccessful = false;
@@ -132,7 +142,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
             career.State = 0;
             careerUpdateSuccessful = careerGateway.Update(career)?.State == 0;
             columns.Add(new TableColumn(career.Id.ToString(),
-                                        $"Reseting status and date for career with id [yellow]{career.Id}[/]",
+                                        $"Resetting status and date for career with id [yellow]{career.Id}[/]",
                                         "Career",
                                         "Changed",
                                         careerUpdateSuccessful));
@@ -141,7 +151,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
             career.Player.State = 0;
             pilotUpdateSuccessful = pilotGateway.Update(career.Player)?.State == 0;
             columns.Add(new TableColumn(career.Id.ToString(),
-                            $"Reseting status for player with id [yellow]{career.Player.Id}[/]",
+                            $"Resetting status for player with id [yellow]{career.Player.Id}[/]",
                             "Player",
                             "Changed",
                             pilotUpdateSuccessful));
@@ -217,4 +227,27 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
     }
 
     record TableColumn(string Id, string Name, string Type, string Action, bool Status);
+
+    private bool MissionContainsPilot(Pilot pilot, Mission mission)
+    {
+        if (pilot is null || mission is null)
+        {
+            return false;
+        }
+        var id = pilot.Id;
+        if (id < 0)
+        {
+            return false;
+        }
+
+        return mission.Pilot0 == id
+                || mission.Pilot1 == id
+                || mission.Pilot2 == id
+                || mission.Pilot3 == id
+                || mission.Pilot4 == id
+                || mission.Pilot5 == id
+                || mission.Pilot6 == id
+                || mission.Pilot7 == id
+                || mission.Pilot8 == id;
+    }
 }
