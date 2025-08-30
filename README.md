@@ -89,7 +89,7 @@ This command will try to automatically detect your database file, this will only
 
 #### Enter Save game manually
 
-`IL2CareerToolset.exe settings manuell`
+`IL2CareerToolset.exe settings manuel`
 
 This command will allow you to set the game folder yourself.
 
@@ -115,7 +115,7 @@ This command will list all the pilots of all your save games. there are some pos
 
 #### Revive Pilots
 
-`IL2CareerToolset.exe save game pilot [Flags]`
+`IL2CareerToolset.exe save game revive [Flags]`
 
 Revive a pilot from your save game, please create a backup first. Keep in mind that this action could destroy your save.
 The command will ask you which pilot to revive as you run it. It will ask you to confirm the revive and give you an overview 
