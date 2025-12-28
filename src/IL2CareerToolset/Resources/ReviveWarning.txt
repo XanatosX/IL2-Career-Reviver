@@ -1,9 +1,12 @@
-﻿[red]﻿=== WARNING FOR PILOT REVIVE ===[/]
+﻿[yellow]=== Backup === [/]
+This tool did create a backup before showing this message, as this backup could be faulty make sure to create one on your own as well.
+
+To do so navigate to the game folder, go to `data -> Career` and copy the `cp.db` file to a save folder.
+
+[red]=== WARNING FOR PILOT REVIVE ===[/]
 
 Please keep in mind that the following operation will edit your save game!
-This change could lead to a large number of problems with all of your carrer saves.
-
-Please create a backup of your save first so that you can restore it if something goes wrong. To do so call [yellow]'save backup create'[/]
+This change could lead to a large number of problems with all of your carer saves.
 
 [red]Please close the game to unlock the database before you continue![/]
 
@@ -12,3 +15,8 @@ Please create a backup of your save first so that you can restore it if somethin
 This application will revive the pilot and reset the date back to the last date he was alive.
 It will clear the sortie and mission where the pilot died. The Game will create a new mission for your pilot,
 this new mission is most likely different to the one you did die in.
+
+[yellow] === I do want to revive my pilot by my own === [/]
+
+Please checkout the thread https://forum.il2sturmovik.com/topic/35771-how-to-save-a-broken-career-automission-start-failed-mission-save-error-statsubmitstatfailed/ 
+on the official forum. There is some information how to revive a pilot. This whole tool is based on information found on the forum, like for example the thread shown here.
