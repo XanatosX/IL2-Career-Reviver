@@ -1,6 +1,5 @@
 ﻿using IL2CareerModel.Models.Database;
 using IL2CareerModel.Services;
-using IL2CareerToolset.Commands.Cli.Settings;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -8,6 +7,17 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace IL2CareerToolset.Commands.Cli.Save;
+
+internal class ChangeBackupNameSettings : CommandSettings
+{
+    [CommandArgument(0, "[BACKUP_GUID]")]
+    [Description("The guid of the backup to rename")]
+    public Guid? Guid { get; set; }
+
+    [CommandArgument(1, "[NEW_NAME]")]
+    [Description("The new name to use for the backup")]
+    public string? Name { get; set; }
+}
 
 [Description("Change the name for a backup")]
 internal class ChangeBackupNameCommand : Command<ChangeBackupNameSettings>

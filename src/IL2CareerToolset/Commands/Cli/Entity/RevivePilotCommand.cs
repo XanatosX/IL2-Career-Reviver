@@ -1,7 +1,6 @@
 ﻿using IL2CareerModel.Data.Gateways;
 using IL2CareerModel.Models;
 using IL2CareerModel.Services;
-using IL2CareerToolset.Commands.Cli.Settings;
 using IL2CareerToolset.Services;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -9,6 +8,14 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace IL2CareerToolset.Commands.Cli.Entity;
+
+[Description("Command to revive a pilot of the campaign")]
+internal class RevivePilotCommandSettings : CommandSettings
+{
+    [CommandOption("-i|--ironman")]
+    [Description("Include iron man characters")]
+    public bool IncludeIronMan { get; set; }
+}
 
 [Description("Revive a pilot from a career")]
 internal class RevivePilotCommand : Command<RevivePilotCommandSettings>

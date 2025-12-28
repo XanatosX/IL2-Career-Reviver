@@ -1,5 +1,4 @@
 ﻿using IL2CareerModel.Services;
-using IL2CareerToolset.Commands.Cli.Settings;
 using IL2CareerToolset.Services;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
@@ -8,6 +7,13 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace IL2CareerToolset.Commands.Cli.Save;
+
+internal class CreateBackupCommandSettings : CommandSettings
+{
+    [CommandArgument(0, "[BACKUP_NAME]")]
+    [Description("The name of the backup to create")]
+    public string? BackupName { get; init; }
+}
 
 [Description("Create a backup from your savegames")]
 internal class CreateBackupCommand : Command<CreateBackupCommandSettings>

@@ -1,6 +1,5 @@
 ﻿using IL2CareerModel.Models.Database;
 using IL2CareerModel.Services;
-using IL2CareerToolset.Commands.Cli.Settings;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Spectre.Console.Cli;
@@ -8,6 +7,13 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace IL2CareerToolset.Commands.Cli.Save;
+
+internal class RestoreBackupCommandSettings : CommandSettings
+{
+    [CommandArgument(0, "[GUID]")]
+    [Description("The guid of the backup to restore")]
+    public Guid? Guid { get; set; }
+}
 
 [Description("Restore a previously created backup")]
 internal class RestoreBackupCommand : Command<RestoreBackupCommandSettings>

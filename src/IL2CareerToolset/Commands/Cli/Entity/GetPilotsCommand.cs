@@ -1,6 +1,5 @@
 ﻿using IL2CareerModel.Data.Gateways;
 using IL2CareerModel.Models;
-using IL2CareerToolset.Commands.Cli.Settings;
 using IL2CareerToolset.Services;
 using IL2CareerToolset.Views;
 using Microsoft.Extensions.Logging;
@@ -10,6 +9,17 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace IL2CareerToolset.Commands.Cli.Entity;
+
+internal class GetPilotSettings : CommandSettings
+{
+    [CommandArgument(0, "[Pilot Name]")]
+    [Description("The name of the pilot to search")]
+    public string? Name { get; set; }
+
+    [CommandOption("-p|--player")]
+    [Description("Show player only pilots")]
+    public bool PlayerOnly { get; set; }
+}
 
 [Description("Get all pilots listed in a table")]
 internal class GetPilotsCommand : Command<GetPilotSettings>
