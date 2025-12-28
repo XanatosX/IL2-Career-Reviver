@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace IL2CareerToolset.DepedencyInjection;
-internal class DepedencyResolver
+namespace IL2CareerToolset.DependencyInjection;
+internal class DependencyResolver
 {
     private readonly IServiceProvider serviceProvider;
-    private readonly ILogger<DepedencyResolver> logger;
+    private readonly ILogger<DependencyResolver> logger;
 
-    public DepedencyResolver(IServiceProvider serviceProvider, ILogger<DepedencyResolver> logger)
+    public DependencyResolver(IServiceProvider serviceProvider, ILogger<DependencyResolver> logger)
     {
         this.serviceProvider = serviceProvider;
         this.logger = logger;

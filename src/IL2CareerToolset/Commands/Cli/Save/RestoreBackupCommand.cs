@@ -72,7 +72,7 @@ internal class RestoreBackupCommand : Command<RestoreBackupCommandSettings>
         var safetyBackup = databaseBackupService.CreateBackup($"Automatically created before restore - {DateTime.Now}");
         if (safetyBackup is null)
         {
-            AnsiConsole.MarkupLine($"[red]Could not create safty backup, please check the log[/]");
+            AnsiConsole.MarkupLine($"[red]Could not create safety backup, please check the log[/]");
             return 1;
         }
 

@@ -13,7 +13,7 @@ internal class ManuelDatabaseCommandSettings : CommandSettings
     [Description("Path to the root folder of the game")]
     public string? GameRootFolder { get; set; }
 
-    public bool IsInteractiv => GameRootFolder is null;
+    public bool IsInteractive => GameRootFolder is null;
 }
 
 [Description("Command to set the game path by yourself")]
@@ -32,7 +32,7 @@ internal class ManuelDatabaseCommand : Command<ManuelDatabaseCommandSettings>
 
     public override int Execute([NotNull] CommandContext context, [NotNull] ManuelDatabaseCommandSettings settings)
     {
-        return settings.IsInteractiv ? GetPathInteractive() : UseSettingPath(settings.GameRootFolder!);
+        return settings.IsInteractive ? GetPathInteractive() : UseSettingPath(settings.GameRootFolder!);
     }
 
     private int UseSettingPath(string gameRootFolder)

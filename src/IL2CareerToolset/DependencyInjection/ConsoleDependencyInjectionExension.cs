@@ -6,12 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
-namespace IL2CareerToolset.DepedencyInjection;
-internal static class ConsoleDependencyInjectionExension
+namespace IL2CareerToolset.DependencyInjection;
+internal static class ConsoleDependencyInjectionExtension
 {
     public static IServiceCollection AddViews(this IServiceCollection collection)
     {
-        return collection.AddSingleton<DepedencyResolver>()
+        return collection.AddSingleton<DependencyResolver>()
                          .AddSingleton<ViewFactory>()
                          .AddTransient<PilotView>()
                          .AddTransient<PilotTableView>()

@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace IL2CareerToolset.Commands.Cli;
 
-[Description("Automaticly detect the game folder")]
+[Description("Automatically detect the game folder")]
 internal class AutomaticallyDetectDatabaseCommand : Command
 {
     private readonly ISettingsService settingsService;
@@ -20,7 +20,7 @@ internal class AutomaticallyDetectDatabaseCommand : Command
 
     public override int Execute(CommandContext context)
     {
-        if (!AnsiConsole.Confirm("Do you really want to allow the program to scan your computer for the databse?"))
+        if (!AnsiConsole.Confirm("Do you really want to allow the program to scan your computer for the database?"))
         {
             AnsiConsole.MarkupLine("[Green]Scan was aborted by user[/]");
             return 1;
@@ -35,7 +35,7 @@ internal class AutomaticallyDetectDatabaseCommand : Command
 
             if (!string.IsNullOrWhiteSpace(path))
             {
-                if (AnsiConsole.Confirm($"Found path [bold green]{path}[/] do you want to use this as your gamepath?"))
+                if (AnsiConsole.Confirm($"Found path [bold green]{path}[/] do you want to use this as your game path?"))
                 {
                     settingsService.UpdateSettings(setting =>
                     {
@@ -51,7 +51,7 @@ internal class AutomaticallyDetectDatabaseCommand : Command
                 }
             }
         }
-        AnsiConsole.MarkupLine("[red]Could not find path with available automatic detection services, please use the manuell approach[/]");
+        AnsiConsole.MarkupLine("[red]Could not find path with available automatic detection services, please use the manual approach[/]");
         return 1;
     }
 }

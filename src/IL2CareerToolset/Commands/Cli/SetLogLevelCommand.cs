@@ -42,7 +42,7 @@ internal class SetLogLevelCommand : Command<SetLogLevelCommandSettings>
         var loadedSettings = settingsService.GetSettings();
         if (loadedSettings?.RealLogLevel == settings.LogLevel)
         {
-            AnsiConsole.MarkupLine($"[green]Set loglevel to {settings.LogLevel} succesfully[/]");
+            AnsiConsole.MarkupLine($"[green]Set loglevel to {settings.LogLevel} successfully[/]");
             return 0;
         }
         AnsiConsole.MarkupLine($"[green]Failed to set loglevel to {settings.LogLevel}[/]");

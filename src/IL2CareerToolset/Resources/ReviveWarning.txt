@@ -1,7 +1,7 @@
-﻿[red]﻿=== WARNING FOR PILOT REVIVE ===[/]
+﻿[red]=== WARNING FOR PILOT REVIVE ===[/]
 
 Please keep in mind that the following operation will edit your save game!
-This change could lead to a large number of problems with all of your carrer saves.
+This change could lead to a large number of problems with all of your carer saves.
 
 Please create a backup of your save first so that you can restore it if something goes wrong. To do so call [yellow]'save backup create'[/]
 

@@ -41,7 +41,7 @@ internal class ChangeBackupNameCommand : Command<ChangeBackupNameSettings>
         if (backup is null && !string.IsNullOrEmpty(settings.Name))
         {
             logger.LogWarning($"Could not find any backup with guid {settings.Guid}");
-            AnsiConsole.MarkupLine($"[red]Could not find any backup with guid {settings.Guid}, use the list command to get valids guid's[/]");
+            AnsiConsole.MarkupLine($"[red]Could not find any backup with guid {settings.Guid}, use the list command to get valid guid's[/]");
             return 1;
         }
         var selection = AnsiConsole.Prompt(new SelectionPrompt<DatabaseBackup>().Title("Select backup to rename")

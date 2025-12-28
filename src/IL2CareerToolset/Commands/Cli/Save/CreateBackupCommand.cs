@@ -15,7 +15,7 @@ internal class CreateBackupCommandSettings : CommandSettings
     public string? BackupName { get; init; }
 }
 
-[Description("Create a backup from your savegames")]
+[Description("Create a backup from your savegame's")]
 internal class CreateBackupCommand : Command<CreateBackupCommandSettings>
 {
     private readonly ISettingsService settingsService;
@@ -34,7 +34,7 @@ internal class CreateBackupCommand : Command<CreateBackupCommandSettings>
         var database = settingsService.GetSettings()?.DatabasePath;
         if (database is null)
         {
-            AnsiConsole.MarkupLine("[red]There is no database path provided please call 'settings auto' or 'settings manuell' first[/]");
+            AnsiConsole.MarkupLine("[red]There is no database path provided please call 'settings auto' or 'settings manual' first[/]");
             return 1;
         }
 
