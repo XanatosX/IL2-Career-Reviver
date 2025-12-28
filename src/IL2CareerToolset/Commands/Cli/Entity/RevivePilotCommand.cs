@@ -1,5 +1,6 @@
 ﻿using IL2CareerModel.Data.Gateways;
 using IL2CareerModel.Models;
+using IL2CareerModel.Models.Database;
 using IL2CareerModel.Services;
 using IL2CareerToolset.Services;
 using Spectre.Console;
@@ -59,6 +60,12 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
             AnsiConsole.MarkupLine("[red]Either database is not set, was moved or deleted! Please set again with the 'settings' command[/]");
             return 1;
         }
+        AnsiConsole.MarkupLine("[yellow]Create Database backup[/]");
+        var createdBackup = backupService.CreateBackup($"Automatically created before revive attempt at {DateTime.Now}");
+        if (createdBackup is not null)
+        {
+            AnsiConsole.MarkupLine($"[green]Backup \"{createdBackup.DisplayName}\" with guid \"{createdBackup.Guid}\" was created[/]");
+        }
         var possibleReviveCandidates = careerGateway.GetAll()
                                                     .OfType<Career>()
                                                     .Where(career => settings.IncludeIronMan || career.IronMan == 0)
@@ -71,6 +78,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         if (!possibleReviveCandidates.Any())
         {
             AnsiConsole.MarkupLine("[green]Could not find any pilot which can be revived[/]");
+            DeleteBackup(createdBackup);
             return 0;
         }
 
@@ -78,6 +86,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         AnsiConsole.Markup($"{warning}{Environment.NewLine}");
         if (!AnsiConsole.Confirm("Do you accept this warning?"))
         {
+            DeleteBackup(createdBackup);
             return 0;
         }
 
@@ -87,11 +96,13 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         if (selectedPilot is null)
         {
             AnsiConsole.MarkupLine("No pilot selected");
+            DeleteBackup(createdBackup);
             return 1;
         }
 
         if (!AnsiConsole.Confirm($"Do you really want to revive {selectedPilot.Name} {selectedPilot.LastName}"))
         {
+            DeleteBackup(createdBackup);
             return 1;
         }
 
@@ -102,8 +113,8 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
             return 1;
         }
 
-        AnsiConsole.MarkupLine("Create Database backup");
-        backupService.CreateBackup($"Automatically created before revive of id {selectedPilot.Id} named {selectedPilot.LastName}, {selectedPilot.Name} - {DateTime.Now}");
+        
+        
 
         var sortiesDiedIn = sortieGateway.GetAll(sortie => sortie.PilotId == selectedPilot.Id)
                                          .Where(sortie => sortie.Status == 2).ToList();
@@ -135,7 +146,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         {
             Thread.Sleep(200);
             ctx.Status("Resetting career");
-            var missionIdToGet = missionsToDelete.Count > 0 ? missionsToDelete.Select(mission => mission.Id).Min() : -1;
+            var missionIdToGet = missionsToDelete.Count > 0 ? missionsToDelete.Min(mission => mission.Id) : -1;
             var latestMission = missionGateway.GetAll(mission => mission.Id < missionIdToGet && mission.SquadronId == career.Squadron.Id)
                                               .OrderBy(mission => mission.Id)
                                               .LastOrDefault();
@@ -202,7 +213,7 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
                     "Deleted",
                     status));
             }
-            successfulMissionDelete = missionDeleteStatus.Where(deleteStatus => deleteStatus).Count();
+            successfulMissionDelete = missionDeleteStatus.Count(deleteStatus => deleteStatus);
             totalMissionDelete = missionsToDelete.Count;
             missionDeleteOverallStatus = successfulMissionDelete == totalMissionDelete;
             overall = missionDeleteOverallStatus && sortieDeleteOverallStatus && careerUpdateSuccessful && pilotUpdateSuccessful;
@@ -224,6 +235,11 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
         }
         AnsiConsole.MarkupLine("[yellow]Summary of changes[/]");
         AnsiConsole.Write(overviewTable);
+
+        if (!overall)
+        {
+            AnsiConsole.MarkupLine($"[red]Something went wrong during the revive process, please check the log and restore from the created backup \"{createdBackup?.Guid}\"![/]");
+        }
 
         return 0;
     }
@@ -256,5 +272,21 @@ internal class RevivePilotCommand : Command<RevivePilotCommandSettings>
                 || mission.Pilot6 == id
                 || mission.Pilot7 == id
                 || mission.Pilot8 == id;
+    }
+
+    /**
+    * Deletes the provided backup from the system
+    * @param backup The backup to delete
+    */
+    private void DeleteBackup(DatabaseBackup? backup)
+    {
+        if (backup == null)
+        {
+            return;
+        }
+        if (backupService.DeleteBackup(backup))
+        {
+            AnsiConsole.MarkupLine("[yellow]Deleted the automatically created backup as no changes were made[/]");
+        }
     }
 }
